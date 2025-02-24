@@ -1,0 +1,19 @@
+{
+  "name": "shit-pdf-scraper",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "pdf-lib": "^1.17.1",
+    "pdf-text-reader": "^5.1.0",
+    "pdfjs-dist": "^4.10.38",
+    "pdfreader": "^3.0.7"
+  }
+}
