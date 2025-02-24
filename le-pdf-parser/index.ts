@@ -25,6 +25,7 @@ async function convertChaptersToArray(pdfPath: string) {
 
     let match;
     const chapters = [];
+
     let chapterCount = 0;
     let end = false;
 
@@ -38,19 +39,12 @@ async function convertChaptersToArray(pdfPath: string) {
 
         const titleMatch = chapterText.match(/(.+?)(?:\n|$)/);
         let chapterTitle = titleMatch ? titleMatch[1] : "Unknown Title";
-        // chapterTitle = chapterTitle.replace(/\s-\s\d+/, '');
 
-        // Extract subchapters using the subChapterPattern
         const subChapters = [];
         let subMatch;
-
         while ((subMatch = subChapterPattern.exec(chapterText)) !== null) {
             let [subFullMatch, subChar, subText] = subMatch;
-
-            // Get the subchapter title and the text
             let subTitle = subText.split('\n')[0].trim();
-            // subTitle = subTitle.replace(/\s-\s\d+/, '');
-
             let text = subText.replace(/^(.+?)\n/, '').replace(/\s+/g, ' ').trim();
 
             if (text.includes("Daftar Pustaka Amir")) {
