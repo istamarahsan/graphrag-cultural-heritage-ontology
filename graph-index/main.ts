@@ -1,7 +1,7 @@
 import { ChatOllama } from "@langchain/ollama";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 
-const promptFilePath = "system.txt";
+const promptFilePath = "data/system.txt";
 const dataFilePath = "data/chapters.json"
 
 if (import.meta.main) {
@@ -15,7 +15,7 @@ if (import.meta.main) {
   ]);
   const model = new ChatOllama({
     baseUrl: "http://localhost:11434",
-    model: "openthinker:latest",
+    model: "qwen2.5",
     temperature: 0.7,
   });
   const prompt = await promptTemplate.invoke({
