@@ -5,6 +5,8 @@
   "imports": {
     "@langchain/core": "npm:@langchain/core@^0.3.40",
     "@langchain/ollama": "npm:@langchain/ollama@^0.2.0",
-    "langchain": "npm:langchain@^0.3.19"
+    "@types/lodash": "npm:@types/lodash@^4.17.15",
+    "langchain": "npm:langchain@^0.3.19",
+    "lodash": "npm:lodash@^4.17.21"
   }
 }

@@ -3,7 +3,9 @@
   "specifiers": {
     "npm:@langchain/core@~0.3.40": "0.3.40_zod@3.24.2",
     "npm:@langchain/ollama@0.2": "0.2.0_@langchain+core@0.3.40__zod@3.24.2_zod@3.24.2",
-    "npm:langchain@~0.3.19": "0.3.19_@langchain+core@0.3.40__zod@3.24.2_@langchain+ollama@0.2.0__@langchain+core@0.3.40___zod@3.24.2__zod@3.24.2_zod@3.24.2"
+    "npm:@types/lodash@^4.17.15": "4.17.15",
+    "npm:langchain@~0.3.19": "0.3.19_@langchain+core@0.3.40__zod@3.24.2_@langchain+ollama@0.2.0__@langchain+core@0.3.40___zod@3.24.2__zod@3.24.2_zod@3.24.2",
+    "npm:lodash@^4.17.21": "4.17.21"
   },
   "npm": {
     "@cfworker/json-schema@4.1.1": {
@@ -69,6 +71,9 @@
         "@langchain/core@0.3.40_zod@3.24.2",
         "js-tiktoken"
       ]
+    },
+    "@types/lodash@4.17.15": {
+      "integrity": "sha512-w/P33JFeySuhN6JLkysYUK2gEmy9kHHFN7E8ro0tkfmlDOgxBDzWEZ/J8cWA+fHqFevpswDTFZnDx+R9lbL6xw=="
     },
     "@types/node-fetch@2.6.12": {
       "integrity": "sha512-8nneRWKCg3rMtF69nLQJnOYUcbafYeFSjqkw3jCRLsqkWFlHaoQrr5mXmofFGOx3DKn7UfmBMyov8ySvLRVldA==",
@@ -322,6 +327,9 @@
         "uuid"
       ]
     },
+    "lodash@4.17.21": {
+      "integrity": "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="
+    },
     "math-intrinsics@1.1.0": {
       "integrity": "sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g=="
     },
@@ -454,7 +462,9 @@
     "dependencies": [
       "npm:@langchain/core@~0.3.40",
       "npm:@langchain/ollama@0.2",
-      "npm:langchain@~0.3.19"
+      "npm:@types/lodash@^4.17.15",
+      "npm:langchain@~0.3.19",
+      "npm:lodash@^4.17.21"
     ]
   }
 }
