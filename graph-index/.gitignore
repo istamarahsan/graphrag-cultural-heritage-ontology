@@ -1,2 +1,4 @@
 data/chapters.json
+data/db
 out/*
+config.json

@@ -1,4 +1,0 @@
-Dari teks berikut dalam Bahasa Indonesia, ekstraklah informasi komprehensif dalam bentuk triplet dengan format berikut: (entitas;relasi;entitas). 
-Perhatikan bahwa triplet hanya berdiri dari tiga element, dan relasi dirupakan satu atau dua kata saja, biasanya kata kerja.
-Ekstrak sebanyak mungkin triplet yang Anda rasa perlu.
-Mohon jawab hanya dalam bentuk triplet tanpa hal lain dalam jawaban anda. 
