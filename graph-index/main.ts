@@ -9,6 +9,8 @@ const outFilePath = "out/graph.csv";
 const configFilePath = "config.json";
 
 const configSchema = z.object({
+  endpoint: z.string().url(),
+  apiKey: z.string().optional(),
   model: z.string(),
   temperature: z.number(),
 });
@@ -33,8 +35,8 @@ if (import.meta.main) {
     (chapter) => chapter["subChapters"]
   )) {
     const openaiClient = new OpenAI({
-      baseURL: "http://192.168.110.141:20000/v1",
-      apiKey: "",
+      baseURL: config.endpoint,
+      apiKey: config.apiKey,
     });
     const sentences = (chapter["subText"] as string).split(". ");
     const chunkMaxChars = 1000;
