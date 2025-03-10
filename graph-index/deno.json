@@ -6,6 +6,7 @@
     "@openai/openai": "jsr:@openai/openai@^4.86.1",
     "@types/lodash": "npm:@types/lodash@^4.17.15",
     "lodash": "npm:lodash@^4.17.21",
+    "neo4j-driver": "npm:neo4j-driver@^5.28.1",
     "zod": "npm:zod@^3.24.2"
   }
 }
