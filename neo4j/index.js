@@ -71,7 +71,7 @@ async function insertDataToNeo4j(data) {
     }
 }
 
-fs.readFile('triplets.json', 'utf8', (err, data) => {
+fs.readFile('triplets_data.json', 'utf8', (err, data) => {
     if (err) {
         console.error("Error reading file:", err);
         return;

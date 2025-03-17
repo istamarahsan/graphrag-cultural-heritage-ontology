@@ -1,0 +1,408 @@
+[
+    {
+        "major": "I",
+        "minor": "A",
+        "index": 0,
+        "triplets": [
+            {
+                "subject": "E39 Ibrahim Dt. Sanggoeno Dirajo",
+                "relation": "menurut",
+                "object": "E28 'Menurut Ibrahim Dt. Sanggoeno Dirajo (2009), Minangkabau adalah kelompok etnis di Indonesia yang berbahasa dan menjunjung adat Minangkabau'"
+            },
+            {
+                "subject": "E53 Minang",
+                "relation": "adalah asal-usul dari",
+                "object": "E28 'Minangkabau adalah kelompok etnis di Indonesia yang berbahasa dan menjunjung adat Minangkabau'"
+            }
+        ],
+        "note": "Success!"
+    },
+    {
+        "major": "I",
+        "minor": "A",
+        "index": 1,
+        "triplets": [
+            {
+                "subject": "E18 Minangkabau",
+                "relation": "berbahasa dan menjunjung adat",
+                "object": "E39 Sanggoeno Dirajo"
+            },
+            {
+                "subject": "E53 Minang",
+                "relation": "adalah",
+                "object": "E18 Minangkabau"
+            },
+            {
+                "subject": "E53 Gunung Marapi",
+                "relation": "termasuk dalam batas-batas wilayah",
+                "object": "E53 Minangkabau"
+            },
+            {
+                "subject": "E53 Gunung Pasaman",
+                "relation": "termasuk dalam batas-batas wilayah",
+                "object": "E53 Minangkabau"
+            },
+            {
+                "subject": "E53 Singgalang",
+                "relation": "termasuk dalam batas-batas wilayah",
+                "object": "E53 Minangkabau"
+            },
+            {
+                "subject": "E53 Talang",
+                "relation": "termasuk dalam batas-batas wilayah",
+                "object": "E53 Minangkabau"
+            },
+            {
+                "subject": "E53 Kurinci",
+                "relation": "termasuk dalam batas-batas wilayah",
+                "object": "E53 Minangkabau"
+            },
+            {
+                "subject": "E53 Gunung Merapi",
+                "relation": "berada di sekitar batas-batas wilayah",
+                "object": "E53 Minangkabau"
+            },
+            {
+                "subject": "E53 Batang Sikilang",
+                "relation": "termasuk dalam batas-batas wilayah",
+                "object": "E53 Minangkabau"
+            },
+            {
+                "subject": "E53 Pintu Rajo Ilia",
+                "relation": "berada di akhir batas-batas wilayah",
+                "object": "E53 Minangkabau"
+            },
+            {
+                "subject": "E53 Durian Ditakuak Rajo Sipisau Pisau Hanyut Sialang Balantak Basi Ombak Berdebur",
+                "relation": "berada di akhir batas-batas wilayah",
+                "object": "E53 Minangkabau"
+            },
+            {
+                "subject": "E53 Batang Sikilang",
+                "relation": "termasuk dalam batas-batas wilayah",
+                "object": "E53 Minangkabau"
+            },
+            {
+                "subject": "E53 Pucuak Jambi Sembilan Lurah",
+                "relation": "berada di bagian timur arah",
+                "object": "E53 Minangkabau"
+            }
+        ],
+        "note": "Success!"
+    },
+    {
+        "major": "I",
+        "minor": "A",
+        "index": 2,
+        "triplets": [
+            {
+                "subject": "E53 Sanggalang",
+                "relation": "terletak di antara",
+                "object": "E53 Talang"
+            },
+            {
+                "subject": "E53 Talang",
+                "relation": "terletak di antara",
+                "object": "E53 Kurinci"
+            },
+            {
+                "subject": "E53 Minangkabau",
+                "relation": "dilukiskan oleh",
+                "object": "E53 Gunung Marapi"
+            },
+            {
+                "subject": "E53 Minangkabau",
+                "relation": "dilukiskan oleh",
+                "object": "E53 Gunung Pasaman"
+            },
+            {
+                "subject": "E53 Minangkabau",
+                "relation": "dilukiskan oleh",
+                "object": "E53 Singgalang"
+            },
+            {
+                "subject": "E53 Kurinci",
+                "relation": "terletak di sekitar",
+                "object": "E53 Gunung Merapi"
+            },
+            {
+                "subject": "E53 Minangkabau",
+                "relation": "dilukiskan oleh",
+                "object": "E53 Muko-Muko"
+            },
+            {
+                "subject": "E53 Minangkabau",
+                "relation": "dilukiskan oleh",
+                "object": "E53 Gunung Mahalintang"
+            },
+            {
+                "subject": "E53 Tanjung Simalidu",
+                "relation": "terletak di sebelah timur",
+                "object": "E53 Minangkabau"
+            },
+            {
+                "subject": "E53 Sanggoeno Dirajo",
+                "relation": "merujuk pada",
+                "object": "E53 Minangkabu"
+            }
+        ],
+        "note": "Success!"
+    },
+    {
+        "major": "I",
+        "minor": "A",
+        "index": 3,
+        "triplets": [
+            {
+                "subject": "E53 Batas daerah Minangkabau",
+                "relation": "sebelah utara",
+                "object": "E53 Rao Mapat Tunggul"
+            },
+            {
+                "subject": "E53 Batas daerah Minangkabau",
+                "relation": "sebelah timur",
+                "object": "E53 Tanjung Simalidu"
+            },
+            {
+                "subject": "E53 Batas daerah Minangkabau",
+                "relation": "sebelah tenggara",
+                "object": "E53 Muko-Muko"
+            },
+            {
+                "subject": "E53 Batas daerah Minangkabau",
+                "relation": "sebelah barat laut",
+                "object": "E53 Gunung Mahalintang"
+            },
+            {
+                "subject": "E53 Batas daerah Minangkabau",
+                "relation": "sebelah barat",
+                "object": "E53 Samudera Hindia"
+            },
+            {
+                "subject": "E53 Batas daerah Minangkabau",
+                "relation": "sebelah daya",
+                "object": "E53 Samudera Hindia"
+            },
+            {
+                "subject": "E53 Batas daerah Minangkabau",
+                "relation": "sebelah utara",
+                "object": "E53 Selat Malaka"
+            },
+            {
+                "subject": "E53 Batas daerah Minangkabau",
+                "relation": "sebelah timur",
+                "object": "E53 Selat Malaka"
+            },
+            {
+                "subject": "E53 Batas daerah Minangkabau",
+                "relation": "sebelah timur laut",
+                "object": "E53 Selat Malaka"
+            }
+        ],
+        "note": "Success!"
+    },
+    {
+        "major": "I",
+        "minor": "A",
+        "index": 4,
+        "triplets": [
+            {
+                "subject": "E39 Minangkabau",
+                "relation": "tinggal di",
+                "object": "E53 Minang"
+            },
+            {
+                "subject": "E28 Agama Islam",
+                "relation": "dipeluk oleh",
+                "object": "E39 Minangkabau"
+            },
+            {
+                "subject": "E41 Pepatah",
+                "relation": "adalah ungkapan dari",
+                "object": "E41 Mamangan"
+            },
+            {
+                "subject": "E41 Petitih",
+                "relation": "adalah ungkapan dari",
+                "object": "E41 Mamangan"
+            },
+            {
+                "subject": "E41 Pituah",
+                "relation": "adalah ungkapan dari",
+                "object": "E41 Mamangan"
+            },
+            {
+                "subject": "E41 Mamangan",
+                "relation": "adalah ungkapan dari",
+                "object": "bentuk, sifat, dan kehidupan alam"
+            },
+            {
+                "subject": "E41 Adat Basandi Syarak",
+                "relation": "merupakan falsafah baru bagi",
+                "object": "adat Minangkabau"
+            },
+            {
+                "subject": "E41 Syarak Basandi Kitabullah",
+                "relation": "merupakan falsafah baru bagi",
+                "object": "adat Minangkabau"
+            },
+            {
+                "subject": "Adat Basandi Syarak Syarak Basandi Kitabullah",
+                "relation": "merupakan cerminan adat Minangkabau yang berlandaskan Islam",
+                "object": "test"
+            }
+        ],
+        "note": "Success!"
+    },
+    {
+        "major": "I",
+        "minor": "A",
+        "index": 5,
+        "triplets": [
+            {
+                "subject": "E39 Minangkabau",
+                "relation": "memeluk agama",
+                "object": "E55 Islam"
+            },
+            {
+                "subject": "E39 Minangkabau",
+                "relation": "menyusun falsafah baru bagi adat",
+                "object": "Adat Basandi Syarak, Syarak Basandi Kitabullah"
+            },
+            {
+                "subject": "Adat Basandi Syarak, Syarak Basandi Kitabullah",
+                "relation": "mengatur hubungan antara perempuan dengan laki-laki",
+                "object": "E52 Peraturan"
+            },
+            {
+                "subject": "Adat Basandi Syarak, Syarak Basandi Kitabullah",
+                "relation": "mengatur aturan mengenai harta kekayaan yang menjadi tumpuan kehidupan manusia",
+                "object": "E52 Peraturan"
+            },
+            {
+                "subject": "Adat Basandi Syarak, Syarat Basandi Kitabullah",
+                "relation": "menetapkan norma-norma tentang tata krama pergaulan dan sistem kekerabatan",
+                "object": "E52 Peraturan"
+            }
+        ],
+        "note": "Success!"
+    },
+    {
+        "major": "I",
+        "minor": "A",
+        "index": 6,
+        "triplets": [
+            {
+                "subject": "E39 Minangkabau",
+                "relation": "mempunyai peraturan tentang",
+                "object": "kesucian dan kemormatan"
+            },
+            {
+                "subject": "E39 Minangkabau",
+                "relation": "memiliki peraturan untuk menjadikan",
+                "object": "perempuan Minangkabu yang berakhlak mulia dan berbudi"
+            }
+        ],
+        "note": "Success!"
+    },
+    {
+        "major": "I",
+        "minor": "B",
+        "index": 7,
+        "triplets": [
+            {
+                "subject": "E39 Adat Basandi Syarak",
+                "relation": "merujuk pada falsafah hidup",
+                "object": "adat basandi syarak, syarak basandi kitabullah"
+            }
+        ],
+        "note": "Success!"
+    },
+    {
+        "major": "I",
+        "minor": "C",
+        "index": 8,
+        "triplets": [
+            {
+                "subject": "E39 Prinsip adat Minangkabau",
+                "relation": "tertuang dalam",
+                "object": "E41 Pernyataan (teks)"
+            },
+            {
+                "subject": "E28 'Adat basandi syarak, syarat basandi Kitabullah'",
+                "relation": "berarti",
+                "object": "'Adat bersendikan hukum, hukum bersendikan Al-Qur'an'"
+            },
+            {
+                "subject": "E39 Prinsip adat Minangkabau",
+                "relation": "berlandaskan ajaran Islam",
+                "object": "E28 'Adat basandi syarak, syarat basandi Kitabullah'"
+            },
+            {
+                "subject": "E41 Pernyataan (teks)",
+                "relation": "memberikan makna",
+                "object": "'Prinsip adat Minangkabau tidaklah valid jika seseorang tersebut tidak beragama Islam'"
+            }
+        ],
+        "note": "Success!"
+    },
+    {
+        "major": "I",
+        "minor": "D",
+        "index": 9,
+        "triplets": [
+            {
+                "subject": "E39 Minangkabau",
+                "relation": "menggunakan",
+                "object": "E18 Bahasa Minangkabau"
+            }
+        ],
+        "note": "Success!"
+    },
+    {
+        "major": "I",
+        "minor": "E",
+        "index": 10,
+        "triplets": [
+            {
+                "subject": "E39 Oktavianus",
+                "relation": "mengatakan tentang konsep",
+                "object": "E53 Minangkabau"
+            },
+            {
+                "subject": "E53 Minangkabau",
+                "relation": "memiliki kato nan ampek sebagai acuan norma kesopanan berbahasa sehari-hari",
+                "object": "E28 Kato nan ampek"
+            }
+        ],
+        "note": "Success!"
+    },
+    {
+        "major": "I",
+        "minor": "F",
+        "index": 11,
+        "triplets": [
+            {
+                "subject": "E41 Oktavianus dan Revita",
+                "relation": "menyebutkan bahwa",
+                "object": "Revita (2013:7)"
+            },
+            {
+                "subject": "Revita (2013)",
+                "relation": "menyebutkan bahwa",
+                "object": "dalam kehidupan sehari-hari masyarakat Minangkabau dalam bertutur cenderung tidak berterus terang"
+            },
+            {
+                "subject": "Bahasa Minangkabau",
+                "relation": "digunakan dalam",
+                "object": "pertuturan sehari-hari"
+            },
+            {
+                "subject": "pertuturan sehari-hari",
+                "relation": "menggunakan",
+                "object": "ujaran tidak langsung, kiasan, sindiran dan perumpamaan"
+            }
+        ],
+        "note": "Success!"
+    }
+]
