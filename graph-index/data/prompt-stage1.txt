@@ -3,6 +3,6 @@ The CIDOC CRM is event based. At the core of this event model are Temporal Entit
 -- 
 The user will provide a text excerpt in Bahasa Indonesia. Perform entity extraction according to the CIDOC CRM. Before answering, ensure that you did not miss any valid entities. Answer purely in the form of a JSON array of extracted entities with prefixing the name of each entity with its code as in the following example:
 [
-    "E39 Minangkabau",
-    "E53 Minang"
+    { "classId": "Exx", "name": "" },
+    { "classId": "Exx", "name": "" }
 ]
