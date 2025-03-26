@@ -1,7 +1,9 @@
 {
   "version": "4",
   "specifiers": {
+    "jsr:@libs/xml@^6.0.4": "6.0.4",
     "jsr:@openai/openai@^4.86.1": "4.86.1",
+    "jsr:@std/cli@^1.0.15": "1.0.15",
     "npm:@types/lodash@^4.17.15": "4.17.15",
     "npm:lodash@^4.17.21": "4.17.21",
     "npm:neo4j-driver-core@^5.28.1": "5.28.1",
@@ -10,11 +12,17 @@
     "npm:zod@^3.24.2": "3.24.2"
   },
   "jsr": {
+    "@libs/xml@6.0.4": {
+      "integrity": "c896f17016dbf5f2d62496e0bd6cd7db145c05987d0e45d4dd2c87785a60f528"
+    },
     "@openai/openai@4.86.1": {
       "integrity": "6ad50b44c13ae3fde91b861dc6466348bae0ca2d07d8a19e5c4e4b0512f3022a",
       "dependencies": [
         "npm:zod@3"
       ]
+    },
+    "@std/cli@1.0.15": {
+      "integrity": "e79ba3272ec710ca44d8342a7688e6288b0b88802703f3264184b52893d5e93f"
     }
   },
   "npm": {
@@ -80,7 +88,9 @@
   },
   "workspace": {
     "dependencies": [
+      "jsr:@libs/xml@^6.0.4",
       "jsr:@openai/openai@^4.86.1",
+      "jsr:@std/cli@^1.0.15",
       "npm:@types/lodash@^4.17.15",
       "npm:lodash@^4.17.21",
       "npm:neo4j-driver-core@^5.28.1",

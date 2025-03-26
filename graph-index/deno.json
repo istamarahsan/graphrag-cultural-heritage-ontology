@@ -3,7 +3,9 @@
     "dev": "deno run --watch main.ts"
   },
   "imports": {
+    "@libs/xml": "jsr:@libs/xml@^6.0.4",
     "@openai/openai": "jsr:@openai/openai@^4.86.1",
+    "@std/cli": "jsr:@std/cli@^1.0.15",
     "@types/lodash": "npm:@types/lodash@^4.17.15",
     "lodash": "npm:lodash@^4.17.21",
     "neo4j-driver": "npm:neo4j-driver@^5.28.1",
