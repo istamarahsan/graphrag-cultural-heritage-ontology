@@ -1,10 +1,12 @@
 import OpenAI from "@openai/openai";
 import _ from "lodash";
 import * as extract from "./extract.ts";
+import * as preprocess from "./preprocess.ts";
 import Config from "./config.ts";
 
 const stage1SystemPromptFilePath = "data/prompt-stage1.txt";
 const stage2SystemPromptFilePath = "data/prompt-stage2.txt";
+const singleStageSystemPromptFilePath = "data/prompt-singlestage.txt";
 const dataFilePath = "data/chapters.json";
 const configFilePath = "config.json";
 
@@ -19,70 +21,49 @@ if (import.meta.main) {
   const stage2SystemPrompt = await Deno.readTextFile(
     stage2SystemPromptFilePath
   );
-  const client = extract.createClient({
+  const singleStageSystemPrompt = await Deno.readTextFile(
+    singleStageSystemPromptFilePath
+  );
+  const client = {
     openai: new OpenAI({
       baseURL: config.endpoint,
       apiKey: config.apiKey ?? "",
     }),
     temperature: config.temperature,
     model: config.model,
-    stage1SystemPrompt,
-    stage2SystemPrompt,
-  });
+  };
 
   const chapters = JSON.parse(await Deno.readTextFile(dataFilePath));
-  const outFilePath = `out/${new Date()
-    .toISOString()
-    .replaceAll(":", ".")}.jsonl`;
+  const outFilePrefix = `out/${new Date().toISOString().replaceAll(":", ".")}`;
+  const outFilePathLines = `${outFilePrefix}.jsonl`;
+  const outFilePathMerged = `${outFilePrefix}.json`;
   // deno-lint-ignore no-explicit-any
   for (const chapter of (chapters as any[]).flatMap(
     (chapter) => chapter["subChapters"]
   )) {
-    const sentences = (chapter["subText"] as string).split(". ");
-    const chunkMaxChars = 1000;
+    const chunkMaxChars = 500;
     const chunkSentenceMin = 2;
-    const chunkSentenceMax = 10;
+    const chunkSentenceMax = 5;
     const chunkSentenceOverlap = 1;
-    const textChunks = sentences
-      .reduce(
-        (chunks, sentence) => {
-          const latestChunk = chunks.at(-1)!;
-          if (latestChunk.length < chunkSentenceMin) {
-            latestChunk.push(sentence);
-            return chunks;
-          }
-          const latestChunkCharacterLength =
-            latestChunk.reduce((lengthSum, s) => lengthSum + s.length, 0) +
-            sentence.length;
-          const createNewChunk =
-            latestChunkCharacterLength >= chunkMaxChars ||
-            latestChunk.length >= chunkSentenceMax;
-          if (createNewChunk) {
-            return [
-              ...chunks,
-              [...latestChunk.slice(-chunkSentenceOverlap), sentence],
-            ];
-          }
-          latestChunk.push(sentence);
-          return chunks;
-        },
-
-        [[]] as string[][]
-      )
-      .map((sentences) => sentences.join(". "));
+    const textChunks = preprocess
+      .chunkBySentence(chapter["subText"] as string, {
+        maxCharLength: chunkMaxChars,
+        minSentences: chunkSentenceMin,
+        maxSentences: chunkSentenceMax,
+        sentenceOverlap: chunkSentenceOverlap,
+      })
+      .map((sentence) => sentence.join(". "));
 
     console.log(
       `Extracting chapter: ${chapter["subChar"]}. ${chapter["subTitle"]} (${textChunks.length} chunks)`
     );
     for (let i = 0; i < textChunks.length; i++) {
       const chunk = textChunks[i];
-      const tripletsResult = await extract.extractTripletsFromTextWithLLM(
-        client,
-        chunk,
-        {
-          promptAttempts: 3,
-        }
-      );
+      const tripletsResult =
+        await extract.extractTripletsFromTextWithLLMSingleStage(client, chunk, {
+          promptAttempts: 1,
+          systemPrompt: singleStageSystemPrompt,
+        });
       if (!tripletsResult.ok) {
         console.error(`(${i + 1} / ${textChunks.length}): FAILED`);
         continue;
@@ -90,10 +71,20 @@ if (import.meta.main) {
 
       console.log(`(${i + 1} / ${textChunks.length}): SUCCESS`);
       await Deno.writeTextFile(
-        outFilePath,
+        outFilePathLines,
         JSON.stringify(tripletsResult.value) + "\n",
         { append: true }
       );
     }
   }
+  const outLines = await Deno.readTextFile(outFilePathLines).then((it) =>
+    it.split("\n").filter((it) => it != "")
+  );
+  const merged = outLines
+    .map((it) => JSON.parse(it))
+    .reduce<object[]>((merged, arr) => [...merged, ...arr], []);
+  await Deno.writeTextFile(
+    outFilePathMerged,
+    JSON.stringify(merged, undefined, 2)
+  );
 }
