@@ -1,0 +1,34 @@
+Berdasarkan deskripsi item koleksi museum berikut yang berjudul "<%= it.title %>", mohon buatkan sejumlah <%= it.nQuestions %> pertanyaan pilihan ganda.
+
+Format jawaban Anda sebagai file JSON berisi daftar soal pilihan ganda dengan atribut "question" (pertanyaan), "choices" (pilihan jawaban), dan "answerIdx" (indeks jawaban benar). Buatlah pertanyaan yang bersifat umum sesuai isi teks tanpa secara langsung mereferensi teksnya. Jangan sertakan teks pengantar, penjelasan, atau format markdown apa pun di luar struktur JSON.
+
+Contoh format:
+[
+  {
+    "question": "Pertanyaan 1?",
+    "choices": [
+        "A. Pilihan 0",
+        "B. Pilihan 1",
+        "C. Pilihan 2",
+        "D. Pilihan 3"
+    ],
+    "answerIdx": 0
+  },
+  {
+    "question": "Pertanyaan 2?",
+    "choices": [
+        "A. Pilihan 0",
+        "B. Pilihan 1",
+        "C. Pilihan 2",
+        "D. Pilihan 3"
+    ],
+    "answerIdx": 3
+  }
+]
+
+Deskripsi Item Koleksi: <%= it.title %>
+---
+<%= it.content %>
+---
+
+Hasilkan <%= it.nQuestions %> pertanyaan pilihan ganda dalam format JSON yang ditentukan:

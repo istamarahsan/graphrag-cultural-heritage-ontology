@@ -1,0 +1,13 @@
+{
+  "tasks": {
+    "dev": "deno run --watch main.ts"
+  },
+  "imports": {
+    "@openai/openai": "jsr:@openai/openai@^4.90.0",
+    "@std/cli": "jsr:@std/cli@^1.0.15",
+    "@types/lodash": "npm:@types/lodash@^4.17.16",
+    "eta": "npm:eta@^3.5.0",
+    "lodash": "npm:lodash@^4.17.21",
+    "zod": "npm:zod@^3.24.2"
+  }
+}

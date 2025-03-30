@@ -1,0 +1,47 @@
+{
+  "version": "4",
+  "specifiers": {
+    "jsr:@openai/openai@^4.90.0": "4.90.0",
+    "jsr:@std/cli@^1.0.15": "1.0.15",
+    "npm:@types/lodash@^4.17.16": "4.17.16",
+    "npm:eta@^3.5.0": "3.5.0",
+    "npm:lodash@^4.17.21": "4.17.21",
+    "npm:zod@3": "3.24.2",
+    "npm:zod@^3.24.2": "3.24.2"
+  },
+  "jsr": {
+    "@openai/openai@4.90.0": {
+      "integrity": "1f9ed14ca08c5627831d371d56cf44ef69fe0c08c27c9d4f2f27a34aa873f715",
+      "dependencies": [
+        "npm:zod@3"
+      ]
+    },
+    "@std/cli@1.0.15": {
+      "integrity": "e79ba3272ec710ca44d8342a7688e6288b0b88802703f3264184b52893d5e93f"
+    }
+  },
+  "npm": {
+    "@types/lodash@4.17.16": {
+      "integrity": "sha512-HX7Em5NYQAXKW+1T+FiuG27NGwzJfCX3s1GjOa7ujxZa52kjJLOr4FUxT+giF6Tgxv1e+/czV/iTtBw27WTU9g=="
+    },
+    "eta@3.5.0": {
+      "integrity": "sha512-e3x3FBvGzeCIHhF+zhK8FZA2vC5uFn6b4HJjegUbIWrDb4mJ7JjTGMJY9VGIbRVpmSwHopNiaJibhjIr+HfLug=="
+    },
+    "lodash@4.17.21": {
+      "integrity": "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="
+    },
+    "zod@3.24.2": {
+      "integrity": "sha512-lY7CDW43ECgW9u1TcT3IoXHflywfVqDYze4waEz812jR/bZ8FHDsl7pFQoSZTz5N+2NqRXs8GBwnAwo3ZNxqhQ=="
+    }
+  },
+  "workspace": {
+    "dependencies": [
+      "jsr:@openai/openai@^4.90.0",
+      "jsr:@std/cli@^1.0.15",
+      "npm:@types/lodash@^4.17.16",
+      "npm:eta@^3.5.0",
+      "npm:lodash@^4.17.21",
+      "npm:zod@^3.24.2"
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+Berdasarkan deskripsi item koleksi museum berikut yang berjudul "Ani-ani", mohon buatkan sejumlah 2 pertanyaan pilihan ganda.
+
+Format jawaban Anda sebagai file JSON berisi daftar soal pilihan ganda dengan atribut "question" (pertanyaan), "choices" (pilihan jawaban), dan "answer" (indeks jawaban benar). Jangan sertakan teks pengantar, penjelasan, atau format markdown apa pun di luar struktur JSON.
+
+Contoh format:
+[
+  {
+    "question": "Pertanyaan 1?",
+    "choices": [
+        "A. Pilihan 0",
+        "B. Pilihan 1",
+        "C. Pilihan 2",
+        "D. Pilihan 3"
+    ],
+    "answer": 0
+  },
+  {
+    "question": "Pertanyaan 2?",
+    "choices": [
+        "A. Pilihan 0",
+        "B. Pilihan 1",
+        "C. Pilihan 2",
+        "D. Pilihan 3"
+    ],
+    "answer": 3
+  }
+]
+
+Deskripsi Item Koleksi:
+---
+Dalam berbagai kebudayaan daerah, karena dianggap penting, padi dipersonifikasikan sebagai manusia atau dewa. Mitos mengenai padi ditemukan di banyak kebudayaan di Jawa, Sumatra, Sulawesi, Kalimantan, dan pulau-pulau di kawasan Nusa Tenggara. Dewi Sri, Sanghyang Pohaci, adalah contoh dewi padi di Pulau Jawa. Umumnya petani menghormati dan tidak ingin menyakitinya dengan menggunakan ani-ani atau ketam ketika panen.---
+
+Hasilkan 2 pertanyaan pilihan ganda dalam format JSON yang ditentukan:
