@@ -4,8 +4,6 @@ import * as extract from "./lib/extract.ts";
 import * as preprocess from "./lib/preprocess.ts";
 import Config from "./lib/config.ts";
 
-const stage1SystemPromptFilePath = "data/prompt-stage1.txt";
-const stage2SystemPromptFilePath = "data/prompt-stage2.txt";
 const singleStageSystemPromptFilePath = "data/prompt-singlestage.txt";
 const dataFilePath = "data/chapters.json";
 const configFilePath = "config.json";
@@ -15,12 +13,6 @@ if (import.meta.main) {
     .then(JSON.parse)
     .then(Config.parse);
 
-  const stage1SystemPrompt = await Deno.readTextFile(
-    stage1SystemPromptFilePath
-  );
-  const stage2SystemPrompt = await Deno.readTextFile(
-    stage2SystemPromptFilePath
-  );
   const singleStageSystemPrompt = await Deno.readTextFile(
     singleStageSystemPromptFilePath
   );

@@ -1,6 +1,10 @@
 import _ from "lodash";
 
-type ChunkingOptions = {
+export type TextChunk = {
+  content: string;
+};
+
+export type ChunkingOptions = {
   maxCharLength: number;
   minSentences: number;
   maxSentences: number;
