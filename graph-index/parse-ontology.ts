@@ -6,7 +6,7 @@ import { parseArgs } from "@std/cli/parse-args"
 if (import.meta.main) {
     const { f, o } = parseArgs(Deno.args, {
         string: ["f", "o"],
-        default: {"o": "data/prompt-ontology.txt"}
+        default: {"o": "prompt/prompt-ontology.txt"}
     })
     if (!f) {
         console.error("Specify an RDF file with --f")
@@ -24,7 +24,7 @@ ${content["rdf:RDF"]["rdf:Property"].map(fragmentProperty).join("\n\n")}
 }
 
 function fragmentClass(obj: any): string {
-    return `### ${obj["@rdf:about"]}\n${(obj["rdfs:comment"] ?? "").replaceAll("\n", "").replaceAll("\r", "")}`
+    return `### ${obj["@rdf:about"]}\nSubclass of: [${!("rdfs:subClassOf" in obj) ? "" : ( _.isArray(obj["rdfs:subClassOf"]) ? obj["rdfs:subClassOf"] : [obj["rdfs:subClassOf"]]).map(it => it["@rdf:resource"]).join(", ")}]\n${(obj["rdfs:comment"] ?? "").replaceAll("\n", "").replaceAll("\r", "")}`
 }
 
 function fragmentProperty(obj: any): string {

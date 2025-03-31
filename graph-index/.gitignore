@@ -1,5 +1,4 @@
-data/chapters.json
-data/db
+data/
 out/*
 config.json
 node_modules
