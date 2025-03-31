@@ -1,8 +1,8 @@
 import OpenAI from "@openai/openai";
 import _ from "lodash";
-import * as extract from "./extract.ts";
-import * as preprocess from "./preprocess.ts";
-import Config from "./config.ts";
+import * as extract from "./lib/extract.ts";
+import * as preprocess from "./lib/preprocess.ts";
+import Config from "./lib/config.ts";
 
 const stage1SystemPromptFilePath = "data/prompt-stage1.txt";
 const stage2SystemPromptFilePath = "data/prompt-stage2.txt";
