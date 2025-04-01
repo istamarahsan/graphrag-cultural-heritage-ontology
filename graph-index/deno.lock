@@ -2,17 +2,15 @@
   "version": "4",
   "specifiers": {
     "jsr:@libs/xml@^6.0.4": "6.0.4",
-    "jsr:@openai/openai@^4.86.1": "4.86.1",
+    "jsr:@openai/openai@^4.86.1": "4.91.0",
     "jsr:@std/cli@^1.0.15": "1.0.15",
     "jsr:@std/path@^1.0.8": "1.0.8",
-    "npm:@types/lodash@^4.17.15": "4.17.15",
-    "npm:@types/luxon@^3.4.2": "3.4.2",
+    "npm:@types/lodash@^4.17.15": "4.17.16",
+    "npm:@types/luxon@^3.4.2": "3.6.0",
     "npm:@types/n3@^1.24.2": "1.24.2",
     "npm:lodash@^4.17.21": "4.17.21",
-    "npm:luxon@^3.6.0": "3.6.0",
+    "npm:luxon@^3.6.0": "3.6.1",
     "npm:n3@^1.24.2": "1.24.2",
-    "npm:neo4j-driver-core@^5.28.1": "5.28.1",
-    "npm:neo4j-driver@^5.28.1": "5.28.1",
     "npm:promise-limit@^2.7.0": "2.7.0",
     "npm:zod@3": "3.24.2",
     "npm:zod@^3.24.2": "3.24.2"
@@ -21,8 +19,8 @@
     "@libs/xml@6.0.4": {
       "integrity": "c896f17016dbf5f2d62496e0bd6cd7db145c05987d0e45d4dd2c87785a60f528"
     },
-    "@openai/openai@4.86.1": {
-      "integrity": "6ad50b44c13ae3fde91b861dc6466348bae0ca2d07d8a19e5c4e4b0512f3022a",
+    "@openai/openai@4.91.0": {
+      "integrity": "a92e4fc2e1f33f11d7508dfb1a812592652e9ea9f4724e8c2f7205928c20bd4f",
       "dependencies": [
         "npm:zod@3"
       ]
@@ -41,11 +39,11 @@
         "@types/node"
       ]
     },
-    "@types/lodash@4.17.15": {
-      "integrity": "sha512-w/P33JFeySuhN6JLkysYUK2gEmy9kHHFN7E8ro0tkfmlDOgxBDzWEZ/J8cWA+fHqFevpswDTFZnDx+R9lbL6xw=="
+    "@types/lodash@4.17.16": {
+      "integrity": "sha512-HX7Em5NYQAXKW+1T+FiuG27NGwzJfCX3s1GjOa7ujxZa52kjJLOr4FUxT+giF6Tgxv1e+/czV/iTtBw27WTU9g=="
     },
-    "@types/luxon@3.4.2": {
-      "integrity": "sha512-TifLZlFudklWlMBfhubvgqTXRzLDI5pCbGa4P8a3wPyUQSW+1xQ5eDsreP9DWHX3tjq1ke96uYG/nwundroWcA=="
+    "@types/luxon@3.6.0": {
+      "integrity": "sha512-RtEj20xRyG7cRp142MkQpV3GRF8Wo2MtDkKLz65MQs7rM1Lh8bz+HtfPXCCJEYpnDFu6VwAq/Iv2Ikyp9Jw/hw=="
     },
     "@types/n3@1.24.2": {
       "integrity": "sha512-clurEPFqgx68kQxCBCrAUppsvZyyj/uVEgbhquYaawTZuDptrRrnFsHIWd4PubwWCfFgyrHBgaB2Tt09TTYLWw==",
@@ -88,8 +86,8 @@
     "lodash@4.17.21": {
       "integrity": "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="
     },
-    "luxon@3.6.0": {
-      "integrity": "sha512-WE7p0p7W1xji9qxkLYsvcIxZyfP48GuFrWIBQZIsbjCyf65dG1rv4n83HcOyEyhvzxJCrUoObCRNFgRNIQ5KNA=="
+    "luxon@3.6.1": {
+      "integrity": "sha512-tJLxrKJhO2ukZ5z0gyjY1zPh3Rh88Ej9P7jNrZiHMUXHae1yvI2imgOZtL1TO8TW6biMMKfTtAOoEJANgtWBMQ=="
     },
     "n3@1.24.2": {
       "integrity": "sha512-j/3PKmK0MA3tAohDCl9y1JDaNxp8wCnhTtrOOgZ1O17JVtWLkzHsp2jZ8YhY2uS4FWQAm6mExcXvl7C8lwXyaw==",
@@ -97,25 +95,6 @@
         "buffer",
         "queue-microtask",
         "readable-stream"
-      ]
-    },
-    "neo4j-driver-bolt-connection@5.28.1": {
-      "integrity": "sha512-nY8GBhjOW7J0rDtpiyJn6kFdk2OiNVZZhZrO8//mwNXnf5VQJ6HqZQTDthH/9pEaX0Jvbastz1xU7ZL8xzqY0w==",
-      "dependencies": [
-        "buffer",
-        "neo4j-driver-core",
-        "string_decoder"
-      ]
-    },
-    "neo4j-driver-core@5.28.1": {
-      "integrity": "sha512-14vN8TlxC0JvJYfjWic5PwjsZ38loQLOKFTXwk4fWLTbCk6VhrhubB2Jsy9Rz+gM6PtTor4+6ClBEFDp1q/c8g=="
-    },
-    "neo4j-driver@5.28.1": {
-      "integrity": "sha512-jbyBwyM0a3RLGcP43q3hIxPUPxA+1bE04RovOKdNAS42EtBMVCKcPSeOvWiHxgXp1ZFd0a8XqK+7LtguInOLUg==",
-      "dependencies": [
-        "neo4j-driver-bolt-connection",
-        "neo4j-driver-core",
-        "rxjs"
       ]
     },
     "process@0.11.10": {
@@ -137,12 +116,6 @@
         "string_decoder"
       ]
     },
-    "rxjs@7.8.2": {
-      "integrity": "sha512-dhKf903U/PQZY6boNNtAGdWbG85WAbjT/1xYoZIC7FAY0yWapOBQVsVrDl58W86//e1VpMNBtRV4MaXfdMySFA==",
-      "dependencies": [
-        "tslib"
-      ]
-    },
     "safe-buffer@5.2.1": {
       "integrity": "sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ=="
     },
@@ -151,9 +124,6 @@
       "dependencies": [
         "safe-buffer"
       ]
-    },
-    "tslib@2.8.1": {
-      "integrity": "sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w=="
     },
     "undici-types@6.20.0": {
       "integrity": "sha512-Ny6QZ2Nju20vw1SRHe3d9jVu6gJ+4e3+MMpqu7pqE5HT6WsTSlce++GQmK5UXS8mzV8DSYHrQH+Xrf2jVcuKNg=="
@@ -174,8 +144,6 @@
       "npm:lodash@^4.17.21",
       "npm:luxon@^3.6.0",
       "npm:n3@^1.24.2",
-      "npm:neo4j-driver-core@^5.28.1",
-      "npm:neo4j-driver@^5.28.1",
       "npm:promise-limit@^2.7.0",
       "npm:zod@^3.24.2"
     ]

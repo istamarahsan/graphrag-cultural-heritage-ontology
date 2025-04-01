@@ -1,4 +1,5 @@
 data/
 out/*
-config.json
+experiment/
+default.json
 node_modules

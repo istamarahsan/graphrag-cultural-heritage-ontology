@@ -9,11 +9,11 @@ type LLMCLient = {
   temperature: number;
 };
 
-const entitySchema = z.object({
+export const entitySchema = z.object({
   class: z.string(),
   name: z.string(),
 });
-const tripletSchema = z.object({
+export const tripletSchema = z.object({
   domain: entitySchema,
   property: z.string(),
   range: entitySchema,
@@ -36,7 +36,7 @@ export async function extractTripletsFromTextWithLLMMultiStage(
     promptAttempts,
     stage1SystemPrompt,
     stage2SystemPrompt,
-  }: ExtractTripletsWithLLMOptionsMultiStage
+  }: ExtractTripletsWithLLMOptionsMultiStage,
 ): Promise<Result<Triplet[]>> {
   const stage1Messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [
     {
@@ -50,6 +50,7 @@ export async function extractTripletsFromTextWithLLMMultiStage(
   ];
 
   let entities: Entity[] | undefined;
+  let lastError: Error | undefined;
   for (let i = 0; i < promptAttempts; i++) {
     try {
       const stage1Response = await prompt(client.openai, {
@@ -59,7 +60,10 @@ export async function extractTripletsFromTextWithLLMMultiStage(
       });
       const json = JSON.parse(stage1Response);
       entities = z.array(entitySchema).parse(json);
-    } catch (_error) {
+    } catch (error) {
+      if (error instanceof Error) {
+        lastError = error;
+      }
       continue;
     }
   }
@@ -68,9 +72,11 @@ export async function extractTripletsFromTextWithLLMMultiStage(
     return error(undefined);
   }
 
-  const stage2Prompt = `Entities: ${JSON.stringify(
-    entities.map(({ name, class: classId }) => "- " + classId + " " + name)
-  )}\n--\n${text}`;
+  const stage2Prompt = `Entities: ${
+    JSON.stringify(
+      entities.map(({ name, class: classId }) => "- " + classId + " " + name),
+    )
+  }\n--\n${text}`;
   const stage2Messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [
     {
       role: "system",
@@ -106,17 +112,28 @@ export async function extractTripletsFromTextWithLLMMultiStage(
 
 type ExtractTripletsWithLLMOptionsSingleStage = {
   systemPrompt: string;
+  fewShotExamples?: { prompt: string; response: string }[];
 } & ExtractTripletsWithLLMOptions;
 export async function extractTripletsFromTextWithLLMSingleStage(
   client: LLMCLient,
   text: string,
-  { promptAttempts, systemPrompt }: ExtractTripletsWithLLMOptionsSingleStage
+  { promptAttempts, systemPrompt, fewShotExamples = [] }:
+    ExtractTripletsWithLLMOptionsSingleStage,
 ): Promise<Result<Triplet[]>> {
   const messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [
     {
       role: "system",
       content: systemPrompt,
     },
+    ...fewShotExamples.flatMap<
+      OpenAI.Chat.Completions.ChatCompletionMessageParam
+    >(({ prompt, response }) => [{
+      role: "user",
+      content: prompt,
+    }, {
+      role: "assistant",
+      content: response,
+    }]),
     {
       role: "user",
       content: text,
@@ -133,6 +150,9 @@ export async function extractTripletsFromTextWithLLMSingleStage(
       const json = JSON.parse(response);
       triplets = z.array(tripletSchema).parse(json);
     } catch (_error) {
+      if (_error instanceof Error) {
+        console.error(_error.message);
+      }
       continue;
     }
   }
@@ -152,7 +172,7 @@ async function prompt(
     messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[];
     model: string;
     temperature: number;
-  }
+  },
 ): Promise<string> {
   const response = await client.chat.completions.create({
     messages,
@@ -161,27 +181,19 @@ async function prompt(
     stream: false,
   });
   const parsed = parseLLMResponse(
-    z.string().parse(response.choices[0]!.message!.content!)
+    z.string().parse(response.choices[0]!.message!.content!),
   );
   return parsed;
 }
 
 function parseLLMResponse(responseStr: string): string {
-  // return _.trim(
-  //   (responseStr.includes("</think>")
-  //     ? responseStr.split("</think>")[1].replace("<｜end▁of▁sentence｜>", "")
-  //     : responseStr
-  //   )
-  //     .split("json")
-  //     .filter((it) => it !== "")
-  //     .join(""),
-  //   "`\n "
-  // );
   return _.trim(
-    responseStr
+    (responseStr.includes("</think>")
+      ? responseStr.split("</think>")[1]
+      : responseStr)
       .split("json")
       .filter((it) => it !== "")
       .join(""),
-    "`\n "
+    "`\n ",
   );
 }

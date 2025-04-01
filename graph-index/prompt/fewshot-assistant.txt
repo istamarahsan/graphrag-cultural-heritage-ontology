@@ -1,0 +1,156 @@
+[
+  {
+    "domain": {
+      "class": "E22_Human-Made_Object",
+      "name": "Ani-ani"
+    },
+    "property": "P1_is_identified_by",
+    "range": {
+      "class": "E41_Appellation",
+      "name": "Ani-ani"
+    }
+  },
+  {
+    "domain": {
+      "class": "E22_Human-Made_Object",
+      "name": "Ani-ani"
+    },
+    "property": "P50_has_current_keeper",
+    "range": {
+      "class": "E74_Group",
+      "name": "Museum Nasional"
+    }
+  },
+  {
+    "domain": {
+      "class": "E22_Human-Made_Object",
+      "name": "Ani-ani"
+    },
+    "property": "P45_consists_of",
+    "range": {
+      "class": "E57_Material",
+      "name": "Kayu"
+    }
+  },
+  {
+    "domain": {
+      "class": "E22_Human-Made_Object",
+      "name": "Ani-ani"
+    },
+    "property": "P45_consists_of",
+    "range": {
+      "class": "E57_Material",
+      "name": "Bambu"
+    }
+  },
+  {
+    "domain": {
+      "class": "E22_Human-Made_Object",
+      "name": "Ani-ani"
+    },
+    "property": "P108i_was_produced_by",
+    "range": {
+      "class": "E12_Production",
+      "name": "Produksi Ani-ani"
+    }
+  },
+  {
+    "domain": {
+      "class": "E12_Production",
+      "name": "Produksi Ani-ani"
+    },
+    "property": "P108_has_produced",
+    "range": {
+      "class": "E22_Human-Made_Object",
+      "name": "Ani-ani"
+    }
+  },
+  {
+    "domain": {
+      "class": "E12_Production",
+      "name": "Produksi Ani-ani"
+    },
+    "property": "P7_took_place_at",
+    "range": {
+      "class": "E53_Place",
+      "name": "Tegal"
+    }
+  },
+  {
+    "domain": {
+      "class": "E53_Place",
+      "name": "Tegal"
+    },
+    "property": "P89_falls_within",
+    "range": {
+      "class": "E53_Place",
+      "name": "Jawa Tengah"
+    }
+  },
+   {
+    "domain": {
+      "class": "E53_Place",
+      "name": "Tegal"
+    },
+    "property": "P1_is_identified_by",
+    "range": {
+      "class": "E41_Appellation",
+      "name": "Tegal"
+    }
+  },
+   {
+    "domain": {
+      "class": "E53_Place",
+      "name": "Jawa Tengah"
+    },
+    "property": "P1_is_identified_by",
+    "range": {
+      "class": "E41_Appellation",
+      "name": "Jawa Tengah"
+    }
+  },
+  {
+    "domain": {
+      "class": "E12_Production",
+      "name": "Produksi Ani-ani"
+    },
+    "property": "P4_has_time-span",
+    "range": {
+      "class": "E52_Time-Span",
+      "name": "Timespan Produksi Ani-ani"
+    }
+  },
+  {
+    "domain": {
+      "class": "E52_Time-Span",
+      "name": "Timespan Produksi Ani-ani"
+    },
+    "property": "P82_at_some_time_within",
+    "range": {
+      "class": "Literal",
+      "name": "Awal abad 20"
+    }
+  },
+  {
+    "domain": {
+      "class": "E22_Human-Made_Object",
+      "name": "Ani-ani"
+    },
+    "property": "P101_had_as_general_use",
+    "range": {
+      "class": "E55_Type",
+      "name": "Panen Padi"
+    }
+  },
+  {
+    "domain": {
+      "class": "E22_Human-Made_Object",
+      "name": "Ani-ani"
+     },
+    "property": "P103_was_intended_for",
+    "range": {
+      "class": "E55_Type",
+      "name": "Menghormati Padi/Dewi Padi saat Panen"
+    }
+  }
+]
