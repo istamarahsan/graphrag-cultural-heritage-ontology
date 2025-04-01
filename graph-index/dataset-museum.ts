@@ -16,7 +16,7 @@ export type TextChunkMuseum = TextChunk & {
 };
 
 const defaultChunkingOptions: ChunkingOptions = {
-  maxCharLength: 1000,
+  maxCharLength: 10000,
   minSentences: 2,
   maxSentences: 100,
   sentenceOverlap: 2,
@@ -26,18 +26,22 @@ export default function preprocess(
   data: any[],
   options?: ChunkingOptions
 ): TextChunkMuseum[] {
-  return data.flatMap((it) =>
-    chunkBySentence(it.content, options ?? defaultChunkingOptions).map(
-      (sentences) => ({
-        metadata: {
-          type: it.type,
-          url: it.url,
-          title: it.title,
-        } as MuseumEntryMetadata,
-        content: sentences.join(". "),
-      })
-    )
-  );
+  return data
+    .filter((it) => it.type === "collection")
+    .flatMap((it) =>
+      chunkBySentence(it.content, options ?? defaultChunkingOptions).map(
+        (sentences) => ({
+          metadata: {
+            type: it.type,
+            url: it.url,
+            title: it.title,
+          } as MuseumEntryMetadata,
+          content:
+            `Koleksi Museum Nasional - ${it.title}\n---\n` +
+            sentences.join(". "),
+        })
+      )
+    );
 }
 
 if (import.meta.main) {

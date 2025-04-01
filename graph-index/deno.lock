@@ -6,11 +6,14 @@
     "jsr:@std/cli@^1.0.15": "1.0.15",
     "jsr:@std/path@^1.0.8": "1.0.8",
     "npm:@types/lodash@^4.17.15": "4.17.15",
+    "npm:@types/luxon@^3.4.2": "3.4.2",
     "npm:@types/n3@^1.24.2": "1.24.2",
     "npm:lodash@^4.17.21": "4.17.21",
+    "npm:luxon@^3.6.0": "3.6.0",
     "npm:n3@^1.24.2": "1.24.2",
     "npm:neo4j-driver-core@^5.28.1": "5.28.1",
     "npm:neo4j-driver@^5.28.1": "5.28.1",
+    "npm:promise-limit@^2.7.0": "2.7.0",
     "npm:zod@3": "3.24.2",
     "npm:zod@^3.24.2": "3.24.2"
   },
@@ -40,6 +43,9 @@
     },
     "@types/lodash@4.17.15": {
       "integrity": "sha512-w/P33JFeySuhN6JLkysYUK2gEmy9kHHFN7E8ro0tkfmlDOgxBDzWEZ/J8cWA+fHqFevpswDTFZnDx+R9lbL6xw=="
+    },
+    "@types/luxon@3.4.2": {
+      "integrity": "sha512-TifLZlFudklWlMBfhubvgqTXRzLDI5pCbGa4P8a3wPyUQSW+1xQ5eDsreP9DWHX3tjq1ke96uYG/nwundroWcA=="
     },
     "@types/n3@1.24.2": {
       "integrity": "sha512-clurEPFqgx68kQxCBCrAUppsvZyyj/uVEgbhquYaawTZuDptrRrnFsHIWd4PubwWCfFgyrHBgaB2Tt09TTYLWw==",
@@ -82,6 +88,9 @@
     "lodash@4.17.21": {
       "integrity": "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="
     },
+    "luxon@3.6.0": {
+      "integrity": "sha512-WE7p0p7W1xji9qxkLYsvcIxZyfP48GuFrWIBQZIsbjCyf65dG1rv4n83HcOyEyhvzxJCrUoObCRNFgRNIQ5KNA=="
+    },
     "n3@1.24.2": {
       "integrity": "sha512-j/3PKmK0MA3tAohDCl9y1JDaNxp8wCnhTtrOOgZ1O17JVtWLkzHsp2jZ8YhY2uS4FWQAm6mExcXvl7C8lwXyaw==",
       "dependencies": [
@@ -111,6 +120,9 @@
     },
     "process@0.11.10": {
       "integrity": "sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A=="
+    },
+    "promise-limit@2.7.0": {
+      "integrity": "sha512-7nJ6v5lnJsXwGprnGXga4wx6d1POjvi5Qmf1ivTRxTjH4Z/9Czja/UCMLVmB9N93GeWOU93XaFaEt6jbuoagNw=="
     },
     "queue-microtask@1.2.3": {
       "integrity": "sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A=="
@@ -157,11 +169,14 @@
       "jsr:@std/cli@^1.0.15",
       "jsr:@std/path@^1.0.8",
       "npm:@types/lodash@^4.17.15",
+      "npm:@types/luxon@^3.4.2",
       "npm:@types/n3@^1.24.2",
       "npm:lodash@^4.17.21",
+      "npm:luxon@^3.6.0",
       "npm:n3@^1.24.2",
       "npm:neo4j-driver-core@^5.28.1",
       "npm:neo4j-driver@^5.28.1",
+      "npm:promise-limit@^2.7.0",
       "npm:zod@^3.24.2"
     ]
   }

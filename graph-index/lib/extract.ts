@@ -19,8 +19,8 @@ const tripletSchema = z.object({
   range: entitySchema,
 });
 
-type Entity = z.infer<typeof entitySchema>;
-type Triplet = z.infer<typeof tripletSchema>;
+export type Entity = z.infer<typeof entitySchema>;
+export type Triplet = z.infer<typeof tripletSchema>;
 
 type ExtractTripletsWithLLMOptions = {
   promptAttempts: number;

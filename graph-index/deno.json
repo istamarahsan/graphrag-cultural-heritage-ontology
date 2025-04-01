@@ -8,11 +8,14 @@
     "@std/cli": "jsr:@std/cli@^1.0.15",
     "@std/path": "jsr:@std/path@^1.0.8",
     "@types/lodash": "npm:@types/lodash@^4.17.15",
+    "@types/luxon": "npm:@types/luxon@^3.4.2",
     "@types/n3": "npm:@types/n3@^1.24.2",
     "lodash": "npm:lodash@^4.17.21",
+    "luxon": "npm:luxon@^3.6.0",
     "n3": "npm:n3@^1.24.2",
     "neo4j-driver": "npm:neo4j-driver@^5.28.1",
     "neo4j-driver-core": "npm:neo4j-driver-core@^5.28.1",
+    "promise-limit": "npm:promise-limit@^2.7.0",
     "zod": "npm:zod@^3.24.2"
   }
 }
