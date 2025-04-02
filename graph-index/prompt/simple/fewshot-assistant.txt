@@ -1,0 +1,72 @@
+[
+  {
+    "subject": "Ani-ani",
+    "predicate": "disimpan di",
+    "object": "Museum Nasional"
+  },
+  {
+    "subject": "Ani-ani",
+    "predicate": "terbuat dari",
+    "object": "Kayu"
+  },
+  {
+    "subject": "Ani-ani",
+    "predicate": "terbuat dari",
+    "object": "Bambu"
+  },
+  {
+    "subject": "Ani-ani",
+    "predicate": "dibuat di",
+    "object": "Tegal"
+  },
+  {
+    "subject": "Tegal",
+    "predicate": "berada di",
+    "object": "Jawa Tengah"
+  },
+  {
+    "subject": "Ani-ani",
+    "predicate": "dibuat sekitar",
+    "object": "Awal abad 20"
+  },
+  {
+    "subject": "Ani-ani",
+    "predicate": "digunakan untuk",
+    "object": "panen padi"
+  },
+  {
+    "subject": "Ani-ani",
+    "predicate": "digunakan oleh",
+    "object": "petani"
+  },
+  {
+    "subject": "Ani-ani",
+    "predicate": "digunakan saat",
+    "object": "panen"
+  },
+  {
+    "subject": "Ani-ani",
+    "predicate": "digunakan untuk menghormati",
+    "object": "padi"
+  },
+  {
+    "subject": "Dewi Sri",
+    "predicate": "adalah contoh",
+    "object": "dewi padi"
+  },
+  {
+    "subject": "Sanghyang Pohaci",
+    "predicate": "adalah contoh",
+    "object": "dewi padi"
+  },
+  {
+    "subject": "Dewi Sri",
+    "predicate": "berada di",
+    "object": "Pulau Jawa"
+  },
+    {
+    "subject": "Sanghyang Pohaci",
+    "predicate": "berada di",
+    "object": "Pulau Jawa"
+  }
+]

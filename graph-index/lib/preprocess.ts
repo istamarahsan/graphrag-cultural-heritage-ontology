@@ -1,6 +1,7 @@
 import _ from "lodash";
 
 export type TextChunk = {
+  id: string;
   content: string;
 };
 
@@ -17,7 +18,7 @@ export function chunkBySentence(
     minSentences,
     maxSentences,
     sentenceOverlap,
-  }: ChunkingOptions
+  }: ChunkingOptions,
 ): string[][] {
   const sentences = text.split(".").map((t) => t.trim());
   return sentences.reduce(
@@ -30,7 +31,7 @@ export function chunkBySentence(
 
       const n_chunk_length = latest_chunk.reduce(
         (length, text) => length + text.length,
-        0
+        0,
       );
 
       const over_characters = n_chunk_length + sentence.length >= maxCharLength;
@@ -43,6 +44,6 @@ export function chunkBySentence(
       latest_chunk.push(sentence);
       return chunks;
     },
-    [[]] as string[][]
+    [[]] as string[][],
   );
 }

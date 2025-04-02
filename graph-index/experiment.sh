@@ -18,7 +18,7 @@ process_subfolder() {
       # Ignore config files starting with "_"
       if [[ "$config_filename" != _* ]]; then
         if [ -f "$config_file" ]; then
-          local full_command="deno --allow-all extract-graph.ts -f \"$data_file\" -c \"$config_file\""
+          local full_command="deno --allow-all extract-tuples.ts -f \"$data_file\" -c \"$config_file\""
           echo "  Executing in $subfolder_name: $full_command"
           eval "$full_command"
         fi
