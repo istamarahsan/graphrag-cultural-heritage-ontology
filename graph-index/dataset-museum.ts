@@ -12,6 +12,7 @@ type MuseumEntryMetadata = {
   title: string;
 };
 export type TextChunkMuseum = TextChunk & {
+  id: string;
   metadata: MuseumEntryMetadata;
 };
 
@@ -24,22 +25,22 @@ const defaultChunkingOptions: ChunkingOptions = {
 
 export default function preprocess(
   data: any[],
-  options?: ChunkingOptions
+  options?: ChunkingOptions,
 ): TextChunkMuseum[] {
   return data
     .filter((it) => it.type === "collection")
-    .flatMap((it) =>
+    .flatMap((it, i) =>
       chunkBySentence(it.content, options ?? defaultChunkingOptions).map(
         (sentences) => ({
+          id: `MN-${i + 1}`,
           metadata: {
             type: it.type,
             url: it.url,
             title: it.title,
           } as MuseumEntryMetadata,
-          content:
-            `Koleksi Museum Nasional - ${it.title}\n---\n` +
+          content: `Koleksi Museum Nasional - ${it.title}\n---\n` +
             sentences.join(". "),
-        })
+        }),
       )
     );
 }
