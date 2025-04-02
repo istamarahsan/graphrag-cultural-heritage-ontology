@@ -2,7 +2,7 @@
 
 # --- Configuration ---
 root_dir="experiment"
-data_file="out/data/museum_short.json"
+data_file="out/data/museum.json"
 # ---------------------
 
 # Function to process config files in a subfolder

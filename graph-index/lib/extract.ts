@@ -7,6 +7,7 @@ type LLMCLient = {
   openai: OpenAI;
   model: string;
   temperature: number;
+  log: (obj: object) => Promise<void>;
 };
 
 export const entitySchema = z.object({
@@ -50,20 +51,16 @@ export async function extractTripletsFromTextWithLLMMultiStage(
   ];
 
   let entities: Entity[] | undefined;
-  let lastError: Error | undefined;
   for (let i = 0; i < promptAttempts; i++) {
     try {
-      const stage1Response = await prompt(client.openai, {
+      const stage1Response = await prompt(client, {
         model: client.model,
         temperature: client.temperature,
         messages: stage1Messages,
       });
       const json = JSON.parse(stage1Response);
       entities = z.array(entitySchema).parse(json);
-    } catch (error) {
-      if (error instanceof Error) {
-        lastError = error;
-      }
+    } catch (_error) {
       continue;
     }
   }
@@ -91,7 +88,7 @@ export async function extractTripletsFromTextWithLLMMultiStage(
   let triplets: Triplet[] | undefined;
   for (let i = 0; i < promptAttempts; i++) {
     try {
-      const stage2Response = await prompt(client.openai, {
+      const stage2Response = await prompt(client, {
         model: client.model,
         temperature: client.temperature,
         messages: stage2Messages,
@@ -142,7 +139,7 @@ export async function extractTripletsFromTextWithLLMSingleStage(
   let triplets: Triplet[] | undefined;
   for (let i = 0; i < promptAttempts; i++) {
     try {
-      const response = await prompt(client.openai, {
+      const response = await prompt(client, {
         model: client.model,
         temperature: client.temperature,
         messages: messages,
@@ -163,7 +160,7 @@ export async function extractTripletsFromTextWithLLMSingleStage(
 }
 
 async function prompt(
-  client: OpenAI,
+  client: LLMCLient,
   {
     messages,
     model,
@@ -174,14 +171,18 @@ async function prompt(
     temperature: number;
   },
 ): Promise<string> {
-  const response = await client.chat.completions.create({
+  const response = await client.openai.chat.completions.create({
     messages,
     model,
     temperature,
     stream: false,
   });
+  // deno-lint-ignore no-explicit-any
+  const rawResponse = response.choices[0] as any;
+  await client.log({ response: rawResponse.message });
+  const content = rawResponse.message!.content!;
   const parsed = parseLLMResponse(
-    z.string().parse(response.choices[0]!.message!.content!),
+    z.string().parse(content),
   );
   return parsed;
 }

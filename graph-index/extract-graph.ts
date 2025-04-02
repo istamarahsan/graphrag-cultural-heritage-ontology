@@ -70,7 +70,7 @@ if (import.meta.main) {
 
   const textChunks = await Deno.readTextFile(f)
     .then(JSON.parse)
-    .then(z.array(z.object({ content: z.string() })).parse);
+    .then(z.array(z.object({ id: z.string(), content: z.string() })).parse);
 
   console.log(`Processing ${textChunks.length} chunks`);
 
@@ -79,8 +79,15 @@ if (import.meta.main) {
   await Promise.all(
     textChunks.map((chunk) =>
       concurrencyLimiter(async () => {
+        let log: object = {};
         const result = await extract.extractTripletsFromTextWithLLMSingleStage(
-          client,
+          {
+            ...client,
+            log: (obj) => {
+              log = obj;
+              return Promise.resolve();
+            },
+          },
           chunk.content,
           {
             promptAttempts: config.retryMax ?? 1,
@@ -96,15 +103,30 @@ if (import.meta.main) {
         finishedCount += 1;
         const countStr = `(${finishedCount}/${textChunks.length})`;
         if (result.ok) {
-          console.log(`✅ ${countStr} chunk processed successfully`);
+          console.log(
+            `✅ ${countStr} chunk ${chunk.id} processed successfully`,
+          );
           await Deno.writeTextFile(
             dumpFilePathLines,
-            JSON.stringify(result.value) + "\n",
+            JSON.stringify({
+              chunkId: chunk.id,
+              triplets: result.value,
+              ...log,
+            }) + "\n",
             { append: true },
           );
           writeTriplets(rdfWriter, result.value);
         } else {
-          console.error(`❌ ${countStr} failed to process chunk `);
+          await Deno.writeTextFile(
+            dumpFilePathLines,
+            JSON.stringify({
+              chunkId: chunk.id,
+              triplets: null,
+              ...log,
+            }) + "\n",
+            { append: true },
+          );
+          console.error(`❌ ${countStr} chunk ${chunk.id} failed to process`);
         }
       })
     ),
@@ -118,7 +140,7 @@ if (import.meta.main) {
         .split("\n")
         .filter((it) => it != "")
         .map((it) => JSON.parse(it))
-        .reduce<object[]>((merged, arr) => [...merged, ...arr], [])
+        .reduce<object[]>((merged, next) => [...merged, next], [])
     );
   } catch (_err) {
     console.error("No triplets were processed!");
