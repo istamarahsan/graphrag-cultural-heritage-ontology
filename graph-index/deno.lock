@@ -2,7 +2,7 @@
   "version": "4",
   "specifiers": {
     "jsr:@libs/xml@^6.0.4": "6.0.4",
-    "jsr:@openai/openai@^4.86.1": "4.91.0",
+    "jsr:@openai/openai@^4.86.1": "4.90.0",
     "jsr:@std/cli@^1.0.15": "1.0.15",
     "jsr:@std/path@^1.0.8": "1.0.8",
     "npm:@types/lodash@^4.17.15": "4.17.16",
@@ -19,8 +19,8 @@
     "@libs/xml@6.0.4": {
       "integrity": "c896f17016dbf5f2d62496e0bd6cd7db145c05987d0e45d4dd2c87785a60f528"
     },
-    "@openai/openai@4.91.0": {
-      "integrity": "a92e4fc2e1f33f11d7508dfb1a812592652e9ea9f4724e8c2f7205928c20bd4f",
+    "@openai/openai@4.90.0": {
+      "integrity": "1f9ed14ca08c5627831d371d56cf44ef69fe0c08c27c9d4f2f27a34aa873f715",
       "dependencies": [
         "npm:zod@3"
       ]
