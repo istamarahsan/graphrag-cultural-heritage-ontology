@@ -50,15 +50,15 @@ if (import.meta.main) {
   );
 
   const text = `# Ontology Concepts
-${classesFiltered.map(fragmentClass).join("\n\n")}
+${classesFiltered.map((it) => fragmentClass(it, subsetClassIds)).join("\n\n")}
 
 # Ontology Relations
-${content["rdf:RDF"]["rdf:Property"].map(fragmentProperty).join("\n\n")}
+${propertiesFiltered.map(fragmentProperty).join("\n\n")}
 `;
   await Deno.writeTextFile(o, text);
 }
 
-function fragmentClass(obj) {
+function fragmentClass(obj, subsetClassIds) {
   return `## ${obj["@rdf:about"]}\nSubclass of: [${
     !("rdfs:subClassOf" in obj)
       ? ""
@@ -67,6 +67,7 @@ function fragmentClass(obj) {
           : [obj["rdfs:subClassOf"]]
         )
           .map((it) => it["@rdf:resource"])
+          .filter((it) => subsetClassIds.has(it))
           .join(", ")
   }]\n${(obj["rdfs:comment"] ?? "").replaceAll("\n", "").replaceAll("\r", "")}`;
 }
