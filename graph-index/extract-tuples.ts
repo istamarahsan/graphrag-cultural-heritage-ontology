@@ -184,7 +184,7 @@ async function processChunks(
             `✅ [${chunk.id}] chunk  processed successfully ${attemptCountStr}`,
           );
           triplets = attemptResult.value.triplets;
-          attempts.push(attemptResult);
+          attempts.push(_.omit(attemptResult, ["value.triplets"]));
           break;
         }
         await Deno.writeTextFile(
