@@ -70,6 +70,7 @@ if (import.meta.main) {
         );
         break;
       }
+      rdfWriter.addQuads(parseOntology.data.flatMap(quadsFromOntologyTriplet));
     }
   }
 
@@ -83,6 +84,8 @@ if (import.meta.main) {
  */
 function quadFromSimpleTriplet({ subject, predicate, object }) {
   const namedNode = N3.DataFactory.namedNode;
+  const quad = N3.DataFactory.quad;
+
   const subjectNode = namedNode(
     `${rdfPrefixes.tix}${subject.replace(/ /g, "_")}`
   );
@@ -92,5 +95,55 @@ function quadFromSimpleTriplet({ subject, predicate, object }) {
   const objectNode = namedNode(
     `${rdfPrefixes.tix}${object.replace(/ /g, "_")}`
   );
-  return N3.DataFactory.quad(subjectNode, predicateNode, objectNode);
+  return quad(subjectNode, predicateNode, objectNode);
+}
+
+/**
+ * @param {extract.OntologyTriplet} triplet
+ * @returns {N3.Quad[]}
+ */
+function quadsFromOntologyTriplet({ domain, property, range }) {
+  const namedNode = N3.DataFactory.namedNode;
+  const quad = N3.DataFactory.quad;
+  const literal = N3.DataFactory.literal;
+
+  // --- Define Core Nodes ---
+  // Use subject/object terminology for clarity, matching RDF roles
+  const subjectNode = namedNode(
+    `${rdfPrefixes.tix}${domain.name.replace(/ /g, "_")}`
+  );
+  const propertyNode = namedNode(
+    `${rdfPrefixes.crm}${property.replace(/ /g, "_")}` // Assuming CRM property
+  );
+  const typeNode = namedNode(`${rdfPrefixes.rdfs}type`); // Standard rdf:type
+
+  // --- Define Domain Type Assertion (always present) ---
+  const domainClassNode = namedNode(
+    `${rdfPrefixes.crm}${domain.class.replace(/ /g, "_")}` // Assuming CRM class
+  );
+  const domainTypeQuad = quad(subjectNode, typeNode, domainClassNode);
+
+  // --- Define Object Term (Literal or NamedNode) ---
+  const isRangeLiteral = range.class === "Literal";
+  const objectTerm = isRangeLiteral
+    ? literal(range.name) // Create literal if range.class is "Literal"
+    : namedNode(
+        // Otherwise, create named node
+        `${rdfPrefixes.tix}${range.name.replace(/ /g, "_")}`
+      );
+
+  // --- Define Main Relationship Quad (always present) ---
+  const mainQuad = quad(subjectNode, propertyNode, objectTerm);
+
+  // --- Define Range Type Assertion (conditionally null) ---
+  // Only create this quad if the range is NOT a literal
+  const rangeTypeQuad = isRangeLiteral
+    ? null
+    : quad(
+        objectTerm,
+        typeNode,
+        namedNode(`${rdfPrefixes.crm}${range.class.replace(/ /g, "_")}`)
+      );
+
+  return [mainQuad, domainTypeQuad, rangeTypeQuad].filter((q) => q !== null);
 }
