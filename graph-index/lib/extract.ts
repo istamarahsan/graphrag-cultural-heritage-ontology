@@ -140,7 +140,8 @@ async function _rawPrompt(
   return z.object({
     content: z.string(),
     reasoning: z.string().optional(),
-  }).parse(response.choices[0]?.message);
+    reasoning_content: z.string().optional(),
+  }).passthrough().parse(response.choices[0]?.message);
 }
 
 function _parseLLMResponse(responseStr: string): string {
