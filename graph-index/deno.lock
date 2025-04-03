@@ -3,8 +3,14 @@
   "specifiers": {
     "jsr:@libs/xml@^6.0.4": "6.0.4",
     "jsr:@openai/openai@^4.86.1": "4.90.0",
+    "jsr:@std/assert@0.223": "0.223.0",
+    "jsr:@std/bytes@0.223": "0.223.0",
     "jsr:@std/cli@^1.0.15": "1.0.15",
+    "jsr:@std/io@0.223": "0.223.0",
+    "jsr:@std/json@0.223.0": "0.223.0",
     "jsr:@std/path@^1.0.8": "1.0.8",
+    "jsr:@std/streams@0.223": "0.223.0",
+    "jsr:@std/streams@0.223.0": "0.223.0",
     "npm:@types/lodash@^4.17.15": "4.17.16",
     "npm:@types/luxon@^3.4.2": "3.6.0",
     "npm:@types/n3@^1.24.2": "1.24.2",
@@ -25,11 +31,38 @@
         "npm:zod@3"
       ]
     },
+    "@std/assert@0.223.0": {
+      "integrity": "eb8d6d879d76e1cc431205bd346ed4d88dc051c6366365b1af47034b0670be24"
+    },
+    "@std/bytes@0.223.0": {
+      "integrity": "84b75052cd8680942c397c2631318772b295019098f40aac5c36cead4cba51a8"
+    },
     "@std/cli@1.0.15": {
       "integrity": "e79ba3272ec710ca44d8342a7688e6288b0b88802703f3264184b52893d5e93f"
     },
+    "@std/io@0.223.0": {
+      "integrity": "2d8c3c2ab3a515619b90da2c6ff5ea7b75a94383259ef4d02116b228393f84f1",
+      "dependencies": [
+        "jsr:@std/assert",
+        "jsr:@std/bytes"
+      ]
+    },
+    "@std/json@0.223.0": {
+      "integrity": "9a4a255931dd0397924c6b10bb6a72fe3e28ddd876b981ada2e3b8dd0764163f",
+      "dependencies": [
+        "jsr:@std/streams@0.223"
+      ]
+    },
     "@std/path@1.0.8": {
       "integrity": "548fa456bb6a04d3c1a1e7477986b6cffbce95102d0bb447c67c4ee70e0364be"
+    },
+    "@std/streams@0.223.0": {
+      "integrity": "d6b28e498ced3960b04dc5d251f2dcfc1df244b5ec5a48dc23a8f9b490be3b99",
+      "dependencies": [
+        "jsr:@std/assert",
+        "jsr:@std/bytes",
+        "jsr:@std/io"
+      ]
     }
   },
   "npm": {
@@ -137,7 +170,9 @@
       "jsr:@libs/xml@^6.0.4",
       "jsr:@openai/openai@^4.86.1",
       "jsr:@std/cli@^1.0.15",
+      "jsr:@std/json@0.223.0",
       "jsr:@std/path@^1.0.8",
+      "jsr:@std/streams@0.223.0",
       "npm:@types/lodash@^4.17.15",
       "npm:@types/luxon@^3.4.2",
       "npm:@types/n3@^1.24.2",
