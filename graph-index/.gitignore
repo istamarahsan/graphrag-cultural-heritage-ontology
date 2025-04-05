@@ -2,4 +2,5 @@ data/
 out/*
 experiment/
 default.json
+embed.json
 node_modules
