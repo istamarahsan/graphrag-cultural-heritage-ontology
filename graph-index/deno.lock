@@ -6,6 +6,7 @@
     "jsr:@std/assert@0.223": "0.223.0",
     "jsr:@std/bytes@0.223": "0.223.0",
     "jsr:@std/cli@^1.0.15": "1.0.15",
+    "jsr:@std/fs@^1.0.15": "1.0.15",
     "jsr:@std/io@0.223": "0.223.0",
     "jsr:@std/json@0.223.0": "0.223.0",
     "jsr:@std/path@^1.0.8": "1.0.8",
@@ -39,6 +40,12 @@
     },
     "@std/cli@1.0.15": {
       "integrity": "e79ba3272ec710ca44d8342a7688e6288b0b88802703f3264184b52893d5e93f"
+    },
+    "@std/fs@1.0.15": {
+      "integrity": "c083fb479889d6440d768e498195c3fc499d426fbf9a6592f98f53884d1d3f41",
+      "dependencies": [
+        "jsr:@std/path"
+      ]
     },
     "@std/io@0.223.0": {
       "integrity": "2d8c3c2ab3a515619b90da2c6ff5ea7b75a94383259ef4d02116b228393f84f1",
@@ -170,6 +177,7 @@
       "jsr:@libs/xml@^6.0.4",
       "jsr:@openai/openai@^4.86.1",
       "jsr:@std/cli@^1.0.15",
+      "jsr:@std/fs@^1.0.15",
       "jsr:@std/json@0.223.0",
       "jsr:@std/path@^1.0.8",
       "jsr:@std/streams@0.223.0",

@@ -7,13 +7,7 @@ import z from "zod";
 import { TextLineStream } from "@std/streams";
 import { JsonParseStream } from "@std/json";
 import * as extract from "./lib/extract.ts";
-
-const rdfBaseURI = "https://tix.fyi/museum#";
-const rdfPrefixes = {
-  crm: "http://www.cidoc-crm.org/cidoc-crm/",
-  tix: rdfBaseURI,
-  rdfs: "http://www.w3.org/2000/01/rdf-schema#",
-};
+import { RDF_PREFIXES } from "./lib/rdf.ts";
 
 if (import.meta.main) {
   const { f, o, t } = parseArgs(Deno.args, {
@@ -35,7 +29,7 @@ if (import.meta.main) {
 
   const tripletsFile = await Deno.open(f, { read: true });
   const rdfStream = fs.createWriteStream(rdfFilePath);
-  const rdfWriter = new N3.Writer(rdfStream, { prefixes: rdfPrefixes });
+  const rdfWriter = new N3.Writer(rdfStream, { prefixes: RDF_PREFIXES });
 
   const chunksResults = tripletsFile.readable
     .pipeThrough(new TextDecoderStream())
@@ -87,13 +81,13 @@ function quadFromSimpleTriplet({ subject, predicate, object }) {
   const quad = N3.DataFactory.quad;
 
   const subjectNode = namedNode(
-    `${rdfPrefixes.tix}${subject.replace(/ /g, "_")}`
+    `${RDF_PREFIXES.tix}${subject.replace(/ /g, "_")}`
   );
   const predicateNode = namedNode(
-    `${rdfPrefixes.tix}${predicate.replace(/ /g, "_")}`
+    `${RDF_PREFIXES.tix}${predicate.replace(/ /g, "_")}`
   );
   const objectNode = namedNode(
-    `${rdfPrefixes.tix}${object.replace(/ /g, "_")}`
+    `${RDF_PREFIXES.tix}${object.replace(/ /g, "_")}`
   );
   return quad(subjectNode, predicateNode, objectNode);
 }
@@ -110,16 +104,16 @@ function quadsFromOntologyTriplet({ domain, property, range }) {
   // --- Define Core Nodes ---
   // Use subject/object terminology for clarity, matching RDF roles
   const subjectNode = namedNode(
-    `${rdfPrefixes.tix}${domain.name.replace(/ /g, "_")}`
+    `${RDF_PREFIXES.tix}${domain.name.replace(/ /g, "_")}`
   );
   const propertyNode = namedNode(
-    `${rdfPrefixes.crm}${property.replace(/ /g, "_")}` // Assuming CRM property
+    `${RDF_PREFIXES.crm}${property.replace(/ /g, "_")}` // Assuming CRM property
   );
-  const typeNode = namedNode(`${rdfPrefixes.rdfs}type`); // Standard rdf:type
+  const typeNode = namedNode(`${RDF_PREFIXES.rdfs}type`); // Standard rdf:type
 
   // --- Define Domain Type Assertion (always present) ---
   const domainClassNode = namedNode(
-    `${rdfPrefixes.crm}${domain.class.replace(/ /g, "_")}` // Assuming CRM class
+    `${RDF_PREFIXES.crm}${domain.class.replace(/ /g, "_")}` // Assuming CRM class
   );
   const domainTypeQuad = quad(subjectNode, typeNode, domainClassNode);
 
@@ -129,7 +123,7 @@ function quadsFromOntologyTriplet({ domain, property, range }) {
     ? literal(range.name) // Create literal if range.class is "Literal"
     : namedNode(
         // Otherwise, create named node
-        `${rdfPrefixes.tix}${range.name.replace(/ /g, "_")}`
+        `${RDF_PREFIXES.tix}${range.name.replace(/ /g, "_")}`
       );
 
   // --- Define Main Relationship Quad (always present) ---
@@ -142,7 +136,7 @@ function quadsFromOntologyTriplet({ domain, property, range }) {
     : quad(
         objectTerm,
         typeNode,
-        namedNode(`${rdfPrefixes.crm}${range.class.replace(/ /g, "_")}`)
+        namedNode(`${RDF_PREFIXES.crm}${range.class.replace(/ /g, "_")}`)
       );
 
   return [mainQuad, domainTypeQuad, rangeTypeQuad].filter((q) => q !== null);

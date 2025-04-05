@@ -6,6 +6,7 @@
     "@libs/xml": "jsr:@libs/xml@^6.0.4",
     "@openai/openai": "jsr:@openai/openai@^4.86.1",
     "@std/cli": "jsr:@std/cli@^1.0.15",
+    "@std/fs": "jsr:@std/fs@^1.0.15",
     "@std/json": "jsr:@std/json@0.223.0",
     "@std/path": "jsr:@std/path@^1.0.8",
     "@std/streams": "jsr:@std/streams@0.223.0",
