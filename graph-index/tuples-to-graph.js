@@ -67,7 +67,7 @@ if (import.meta.main) {
       rdfWriter.addQuads(parseOntology.data.flatMap(quadsFromOntologyTriplet));
     }
   }
-
+  rdfWriter.end();
   rdfStream.close();
 }
 
