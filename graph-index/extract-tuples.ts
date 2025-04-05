@@ -90,8 +90,8 @@ if (import.meta.main) {
     console.log("Skipping simple tuple extraction");
   } else {
     console.log("Starting simple tuple extraction");
-    const linesPath = path.join(outFolderSimple, `${configName}.jsonl`);
-    const mergedPath = path.join(outFolderSimple, `${configName}.json`);
+    const linesPath = path.join(outFolderSimple, `${configName}_simple.jsonl`);
+    const mergedPath = path.join(outFolderSimple, `${configName}_simple.json`);
     await processChunks(textChunks, {
       maxAttempts,
       concurrencyLimiter,
@@ -114,8 +114,14 @@ if (import.meta.main) {
     console.log("Skipping ontology tuple extraction");
   } else {
     console.log("Starting ontology tuple extraction");
-    const linesPath = path.join(outFolderOntology, `${configName}.jsonl`);
-    const mergedPath = path.join(outFolderOntology, `${configName}.json`);
+    const linesPath = path.join(
+      outFolderOntology,
+      `${configName}_ontology.jsonl`,
+    );
+    const mergedPath = path.join(
+      outFolderOntology,
+      `${configName}_ontology.json`,
+    );
     await processChunks(textChunks, {
       maxAttempts,
       concurrencyLimiter,
