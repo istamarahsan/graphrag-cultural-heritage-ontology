@@ -1,5 +1,6 @@
 import { parseArgs } from "@std/cli/parse-args";
 import { exists } from "@std/fs/exists";
+import * as path from "@std/path";
 import * as N3 from "n3"; // RDF handling library
 import OpenAI from "@openai/openai"; // OpenAI client
 import z from "zod"; // Schema validation
@@ -38,6 +39,10 @@ async function main() {
   }
 
   const rdfFilePath = args.f;
+  const outRdfFilePath = path.join(
+    path.dirname(rdfFilePath),
+    path.basename(rdfFilePath, path.extname(rdfFilePath)) + "_embed.ttl",
+  );
   const configFilePath = args.c;
 
   if (!(await exists(rdfFilePath))) {
@@ -173,10 +178,7 @@ async function main() {
 
   console.log(`Added/Updated ${targetNodes.length} embedding triples.`);
 
-  // 7. Re-write RDF Turtle File
-  console.warn(
-    `WARNING: Overwriting original RDF file "${rdfFilePath}" with new embeddings...`,
-  );
+  // 7. Write RDF Turtle File
   const writer = new N3.Writer({ prefixes });
   writer.addQuads(store.getQuads(null, null, null, null));
   let outputTurtle = "";
@@ -193,7 +195,7 @@ async function main() {
 
   await writePromise;
 
-  await Deno.writeTextFile(rdfFilePath, outputTurtle);
+  await Deno.writeTextFile(outRdfFilePath, outputTurtle);
   console.log(`Successfully updated RDF file: "${rdfFilePath}"`);
 }
 
