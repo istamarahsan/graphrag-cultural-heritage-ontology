@@ -38,7 +38,7 @@ export default function preprocess(
             url: it.url,
             title: it.title,
           } as MuseumEntryMetadata,
-          content: `Koleksi Museum Nasional - ${it.title}\n---\n` +
+          content: `Koleksi Museum Nasional: ${it.title}\n---\n` +
             sentences.join(". "),
         }),
       )
