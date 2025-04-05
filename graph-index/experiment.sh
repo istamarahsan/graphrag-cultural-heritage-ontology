@@ -5,6 +5,9 @@ root_dir="experiment"
 data_file="out/data/museum.json"
 # ---------------------
 
+# Array to keep track of PIDs
+pids=()
+
 # Function to process config files in a subfolder
 process_subfolder() {
   local subfolder="$1"
@@ -26,10 +29,10 @@ process_subfolder() {
     done
     echo "Finished processing subfolder: $subfolder_name"
   ) &
-  disown -h
-
+  
   local pid=$!
   echo "Background process started for $subfolder_name with PID: $pid"
+  pids+=($pid)
 }
 
 # Find all subdirectories in the root directory, ignoring those starting with "_"
@@ -40,3 +43,9 @@ find "$root_dir" -maxdepth 1 -type d -not -name "_*" -print0 | while IFS= read -
 done
 
 echo "Started background processing for all eligible subfolders."
+
+# Trap that waits for user input to terminate all processes
+trap "echo 'Stopping all background processes'; kill ${pids[*]}; exit" SIGINT SIGTERM
+
+# Wait indefinitely to catch signals
+wait

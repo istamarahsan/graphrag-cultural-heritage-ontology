@@ -1,6 +1,7 @@
 data/
 out/*
 experiment/
+_experiment/
 default.json
 embed.json
 node_modules
