@@ -107,12 +107,8 @@ async function main() {
       Deno.writeTextFile(
         `${outFilePrefix}.jsonl`,
         JSON.stringify({
-          page: {
-            // title: entry.title,
-            // url: entry.url,
-          },
           data: generatedQuestions,
-        }, null, 4) + "\n",
+        }) + "\n",
         {
           append: true,
           create: true,

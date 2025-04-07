@@ -124,6 +124,111 @@ async function main() {
   }
 }
 
+export async function giveMeEmbeddings(filePath: string, configPath: string = 'embed.json', userQuery: string[] | string) {
+  const config = await Deno.readTextFile(configPath).then(JSON.parse).then(
+    configSchema.parse,
+  );
+  const openai = new OpenAI({
+    apiKey: config.apiKey ?? "",
+    baseURL: config.endpoint,
+  });
+
+  const store = new N3.Store();
+  const parser = new N3.Parser();
+  const turtleString = await Deno.readTextFile(filePath);
+  (await new Promise<N3.Prefixes>((resolve, reject) => {
+    parser.parse(turtleString, (error, quad, currentPrefixes) => {
+      if (error) {
+        reject(error);
+      } else if (quad) {
+        store.addQuad(quad);
+      } else {
+        // Parsing complete
+        resolve(currentPrefixes ?? {});
+      }
+    });
+  })) as N3.Prefixes;
+
+  const embeddings: { node: string; embedding: number[] }[] = [];
+  for (const quad of store) {
+    const { subject, predicate, object } = quad;
+    if (predicate.value !== `${RDF_BASE_URI}hasEmbedding`) {
+      continue;
+    }
+    embeddings.push({
+      node: subject.value,
+      embedding: JSON.parse(object.value),
+    });
+  }
+
+  const [queryEmbedding] = await getEmbeddingsSilent(
+    openai,
+    config.model,
+    (userQuery instanceof Array) ? userQuery : [userQuery],
+    "search_query",
+  );
+
+  const similarityResults = vec.similaritySearch(
+    queryEmbedding,
+    embeddings.map(({ embedding }) => embedding),
+    1,
+  ).map(({ originalIndex }) => embeddings[originalIndex].node);
+
+  const stuff: {subject: string, predicate: string, object: string}[] = [];
+
+  const subgraph = getNHopSubgraph(store, similarityResults, 1);
+  for (const quad of subgraph) {
+    const { subject, predicate, object } = quad;
+    if (
+      predicate.value === `${RDF_BASE_URI}hasEmbedding` ||
+      getLocalNameFromUri(predicate.value) === "type"
+    ) {
+      continue;
+    }
+    stuff.push({
+      subject: getLocalNameFromUri(subject.value),
+      predicate: getLocalNameFromUri(predicate.value),
+      object: getLocalNameFromUri(object.value),
+    });
+  }
+
+  return stuff;
+}
+
+async function getEmbeddingsSilent(
+  client: OpenAI,
+  model: string,
+  texts: string[],
+  task: "search_query" | "search_document",
+): Promise<number[][]> {
+  if (texts.length === 0) {
+    return [];
+  }
+  // console.log(`Requesting embeddings for ${texts.length} text(s)...`);
+  const TASK_PREFIX = `${task}: `;
+  try {
+    // Nomic requires input_type but standard OpenAI API doesn't.
+    // Assume endpoint handles it based on model name or defaults correctly.
+    // Use 'encoding_format: "float"' for numerical arrays.
+    const response = await client.embeddings.create({
+      model: model,
+      input: texts.map((it) => TASK_PREFIX + it),
+      encoding_format: "float",
+      // If your endpoint *specifically* requires dimensions for Nomic v1.5:
+      // dimensions: 768,
+    });
+    // console.log(
+    //   `Received ${response.data.length} embedding(s).`,
+    // );
+    // Sort embeddings back into original order based on index
+    response.data.sort((a, b) => a.index - b.index);
+    return response.data.map((d) => d.embedding);
+  } catch (error) {
+    // console.error("Error getting embeddings:", error);
+    throw error; // Re-throw to stop the process
+  }
+}
+
 async function getEmbeddings(
   client: OpenAI,
   model: string,

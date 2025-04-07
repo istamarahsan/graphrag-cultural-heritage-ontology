@@ -65,10 +65,12 @@ async function main() {
   // 2. Read RDF Turtle File
   console.log(`Reading RDF file from "${rdfFilePath}"...`);
   const turtleString = await Deno.readTextFile(rdfFilePath);
+  const cleanTurtleString = turtleString.replaceAll('\\"', "");
+
   const store = new N3.Store();
   const parser = new N3.Parser();
   const prefixes = (await new Promise<N3.Prefixes>((resolve, reject) => {
-    parser.parse(turtleString, (error, quad, currentPrefixes) => {
+    parser.parse(cleanTurtleString, (error, quad, currentPrefixes) => {
       if (error) {
         reject(error);
       } else if (quad) {
