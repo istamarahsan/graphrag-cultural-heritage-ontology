@@ -22,26 +22,26 @@ type Config = z.infer<typeof configSchema>;
 async function main() {
   const args = parseArgs(Deno.args, {
     string: ["f", "c"], // -f for RDF file, -c for config file
-    alias: { "f": "file", "c": "config" },
+    alias: { f: "file", c: "config" },
   });
 
   if (!args.f) {
     console.error(
-      "Error: RDF Turtle file path must be specified with -f or --file",
+      "Error: RDF Turtle file path must be specified with -f or --file"
     );
     Deno.exit(1);
   }
   if (!args.c) {
     console.error(
-      "Error: Config file path must be specified with -c or --config",
+      "Error: Config file path must be specified with -c or --config"
     );
     Deno.exit(1);
   }
 
   const rdfFilePath = args.f;
-  const outRdfFilePath = path.join(
+  const outJsonFilePath = path.join(
     path.dirname(rdfFilePath),
-    path.basename(rdfFilePath, path.extname(rdfFilePath)) + "_embed.ttl",
+    path.basename(rdfFilePath, path.extname(rdfFilePath)) + "_embeddings.json"
   );
   const configFilePath = args.c;
 
@@ -64,27 +64,13 @@ async function main() {
 
   // 2. Read RDF Turtle File
   console.log(`Reading RDF file from "${rdfFilePath}"...`);
-  const turtleString = await Deno.readTextFile(rdfFilePath);
   const store = new N3.Store();
-  const parser = new N3.Parser();
-  const prefixes = (await new Promise<N3.Prefixes>((resolve, reject) => {
-    parser.parse(turtleString, (error, quad, currentPrefixes) => {
-      if (error) {
-        reject(error);
-      } else if (quad) {
-        store.addQuad(quad);
-      } else {
-        // Parsing complete
-        resolve(currentPrefixes ?? {});
-      }
-    });
-  })) as N3.Prefixes; // Cast needed as N3 types aren't perfect on completion
 
   console.log(`Parsed ${store.size} triples.`);
   const tixPrefixUri = RDF_BASE_URI;
   if (!tixPrefixUri) {
     console.error(
-      "Error: 'tix' prefix not found in RDF file and no default specified.",
+      "Error: 'tix' prefix not found in RDF file and no default specified."
     );
     Deno.exit(1);
   }
@@ -92,35 +78,36 @@ async function main() {
 
   // 3. Identify Target Nodes for Embedding
   const nodesToEmbed = new Map<string, N3.NamedNode>(); // Store URI string -> NamedNode object
-  store.forEach(
-    (quad, _data) => {
-      if (
-        quad.subject.termType === "NamedNode" &&
-        quad.subject.value.startsWith(tixPrefixUri)
-      ) {
-        if (!nodesToEmbed.has(quad.subject.value)) {
-          nodesToEmbed.set(quad.subject.value, quad.subject);
-        }
+  store.forEach((quad, _data) => {
+    const subjectIsTarget =
+      quad.subject.termType === "NamedNode" &&
+      quad.subject.value.startsWith(tixPrefixUri);
+    if (subjectIsTarget) {
+      if (!nodesToEmbed.has(quad.subject.value)) {
+        nodesToEmbed.set(quad.subject.value, quad.subject as any);
       }
-      // Also consider objects if they can be tix resources
-      if (
-        quad.object.termType === "NamedNode" &&
-        quad.object.value.startsWith(tixPrefixUri)
-      ) {
-        if (!nodesToEmbed.has(quad.object.value)) {
-          nodesToEmbed.set(quad.object.value, quad.object);
-        }
+    }
+    // Also consider objects if they can be tix resources or literals
+    const objectIsResource =
+      quad.object.termType === "NamedNode" &&
+      quad.object.value.startsWith(tixPrefixUri);
+    if (
+      objectIsResource ||
+      (quad.object.termType === "Literal" && subjectIsTarget)
+    ) {
+      if (!nodesToEmbed.has(quad.object.value)) {
+        nodesToEmbed.set(quad.object.value, quad.object as any);
       }
-    },
-  ); // Iterate through all quads
+    }
+  }); // Iterate through all quads
 
   const targetNodes = Array.from(nodesToEmbed.values());
   console.log(
-    `Identified ${targetNodes.length} unique nodes with prefix 'tix:' to embed.`,
+    `Identified ${targetNodes.length} literals or unique nodes with prefix 'tix:' to embed.`
   );
 
   if (targetNodes.length === 0) {
-    console.log("No nodes matching the 'tix:' prefix found to embed. Exiting.");
+    console.log("No matching nodes found to embed. Exiting.");
     return;
   }
 
@@ -143,11 +130,11 @@ async function main() {
     const batchEmbeddings = await getEmbeddings(
       openai,
       config.model,
-      batchTexts,
+      batchTexts
     );
     if (batchEmbeddings.length !== batchTexts.length) {
       throw new Error(
-        `Mismatch in batch size: requested ${batchTexts.length}, received ${batchEmbeddings.length}`,
+        `Mismatch in batch size: requested ${batchTexts.length}, received ${batchEmbeddings.length}`
       );
     }
     allEmbeddings = allEmbeddings.concat(batchEmbeddings);
@@ -155,48 +142,28 @@ async function main() {
 
   if (allEmbeddings.length !== targetNodes.length) {
     throw new Error(
-      `Embedding count mismatch: expected ${targetNodes.length}, got ${allEmbeddings.length}`,
+      `Embedding count mismatch: expected ${targetNodes.length}, got ${allEmbeddings.length}`
     );
   }
 
   // 6. Add Embeddings as Literals to the Store
   console.log("Adding embeddings as literals to the RDF store...");
-  const { namedNode, literal } = N3.DataFactory;
-  const embeddingPredicateNode = namedNode(EMBEDDING_PREDICATE);
-  const embeddingDatatypeNode = namedNode(EMBEDDING_DATATYPE);
 
-  // Delete existing embeddings
-  store.deleteMatches(null, embeddingPredicateNode);
-  targetNodes.forEach((node, index) => {
-    const embeddingVector = allEmbeddings[index];
-    const embeddingString = `[${embeddingVector.join(",")}]`; // Serialize as comma-separated
-    const embeddingLiteral = literal(embeddingString, embeddingDatatypeNode);
-
-    // Add the new embedding triple
-    store.addQuad(node, embeddingPredicateNode, embeddingLiteral);
-  });
-
-  console.log(`Added/Updated ${targetNodes.length} embedding triples.`);
-
-  // 7. Write RDF Turtle File
-  const writer = new N3.Writer({ prefixes });
-  writer.addQuads(store.getQuads(null, null, null, null));
-  let outputTurtle = "";
-  const writePromise = new Promise<void>((resolve, reject) => {
-    writer.end((error, result) => {
-      if (error) {
-        reject(error);
-      } else {
-        outputTurtle = result as string;
-        resolve();
-      }
-    });
-  });
-
-  await writePromise;
-
-  await Deno.writeTextFile(outRdfFilePath, outputTurtle);
-  console.log(`Successfully updated RDF file: "${rdfFilePath}"`);
+  const embeddingsIndexed = Object.fromEntries(
+    _.zip(
+      targetNodes.map((it) => it.value),
+      allEmbeddings
+    )
+  );
+  await Deno.writeTextFile(
+    outJsonFilePath,
+    JSON.stringify(embeddingsIndexed, undefined, 2)
+  );
+  for (const [targetNode, embedding] of _.zip(targetNodes, allEmbeddings)) {
+    if (!targetNode || !embedding) {
+      continue;
+    }
+  }
 }
 
 async function loadConfig(filePath: string): Promise<Config> {
@@ -214,11 +181,6 @@ async function loadConfig(filePath: string): Promise<Config> {
     Deno.exit(1);
   }
 }
-
-// --- RDF Processing Functions ---
-
-const EMBEDDING_PREDICATE = `${RDF_BASE_URI}hasEmbedding`; // Predicate for storing embeddings
-const EMBEDDING_DATATYPE = `${RDF_BASE_URI}vectorFloat`; // Custom datatype for clarity
 
 // --- Utility Function ---
 
@@ -239,7 +201,7 @@ function getLocalName(uri: string, prefixUri: string): string {
 async function getEmbeddings(
   client: OpenAI,
   model: string,
-  texts: string[],
+  texts: string[]
 ): Promise<number[][]> {
   if (texts.length === 0) {
     return [];
@@ -257,9 +219,7 @@ async function getEmbeddings(
       // If your endpoint *specifically* requires dimensions for Nomic v1.5:
       // dimensions: 768,
     });
-    console.log(
-      `Received ${response.data.length} embedding(s).`,
-    );
+    console.log(`Received ${response.data.length} embedding(s).`);
     // Sort embeddings back into original order based on index
     response.data.sort((a, b) => a.index - b.index);
     return response.data.map((d) => d.embedding);

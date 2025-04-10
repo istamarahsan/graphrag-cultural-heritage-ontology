@@ -6,6 +6,7 @@ import N3 from "n3";
 import { RDF_BASE_URI } from "./lib/rdf.ts";
 import * as vec from "./lib/vec.ts";
 import { getNHopSubgraph } from "./lib/graph.ts";
+import path from "node:path";
 
 const configSchema = z.object({
   endpoint: z.string().url(),
@@ -17,36 +18,44 @@ type Config = z.infer<typeof configSchema>;
 
 async function main() {
   const args = parseArgs(Deno.args, {
-    string: ["f", "c", "q"],
-    alias: { "f": "file", "c": "config" },
+    string: ["f", "e", "c", "q"],
+    alias: { f: "file", c: "config" },
   });
 
   if (!args.f) {
     console.error(
-      "Error: RDF Turtle file path must be specified with -f or --file",
+      "Error: RDF Turtle file path must be specified with -f or --file"
     );
     Deno.exit(1);
   }
   if (!args.c) {
     console.error(
-      "Error: Config file path must be specified with -c or --config",
+      "Error: Config file path must be specified with -c or --config"
     );
     Deno.exit(1);
   }
 
   if (!args.q) {
-    console.error(
-      "Error: Specify your query with -q",
-    );
+    console.error("Error: Specify your query with -q");
     Deno.exit(1);
   }
 
   const rdfFilePath = args.f;
+  const embeddingsJsonFilePath =
+    args.e ??
+    path.join(
+      path.dirname(rdfFilePath),
+      path.basename(rdfFilePath, path.extname(rdfFilePath)) + "_embeddings.json"
+    );
   const configFilePath = args.c;
   const query = args.q;
 
   if (!(await exists(rdfFilePath))) {
     console.error(`Error: RDF file not found at "${rdfFilePath}"`);
+    Deno.exit(1);
+  }
+  if (!(await exists(embeddingsJsonFilePath))) {
+    console.error(`Error: JSON file not found at "${embeddingsJsonFilePath}"`);
     Deno.exit(1);
   }
   if (!(await exists(configFilePath))) {
@@ -55,14 +64,18 @@ async function main() {
   }
 
   console.log(`Loading config from "${configFilePath}"...`);
-  const config = await Deno.readTextFile(configFilePath).then(JSON.parse).then(
-    configSchema.parse,
-  );
+  const config = await Deno.readTextFile(configFilePath)
+    .then(JSON.parse)
+    .then(configSchema.parse);
   const openai = new OpenAI({
     apiKey: config.apiKey ?? "",
     baseURL: config.endpoint,
   });
 
+  console.log(`Reading embeddings from "${rdfFilePath}"...`);
+  const embeddingsByNodeValue = await Deno.readTextFile(embeddingsJsonFilePath)
+    .then(JSON.parse)
+    .then(z.record(z.array(z.number())).parse);
   console.log(`Reading RDF file from "${rdfFilePath}"...`);
   const store = new N3.Store();
   const parser = new N3.Parser();
@@ -82,30 +95,37 @@ async function main() {
 
   console.log(`Parsed ${store.size} triples.`);
 
-  const embeddings: { node: string; embedding: number[] }[] = [];
-  for (const quad of store) {
-    const { subject, predicate, object } = quad;
-    if (predicate.value !== `${RDF_BASE_URI}hasEmbedding`) {
-      continue;
-    }
-    embeddings.push({
-      node: subject.value,
-      embedding: JSON.parse(object.value),
-    });
-  }
+  const embeddingsOrdered: { node: string; embedding: number[] }[] =
+    Object.entries(embeddingsByNodeValue).map(([node, embedding]) => ({
+      node,
+      embedding,
+    }));
+  // for (const quad of store) {
+  //   const { subject, predicate, object } = quad;
+  //   if (predicate.value !== `${RDF_BASE_URI}hasEmbedding`) {
+  //     continue;
+  //   }
+  //   embeddingsOrdered.push({
+  //     node: subject.value,
+  //     embedding: JSON.parse(object.value),
+  //   });
+  // }
 
   const [queryEmbedding] = await getEmbeddings(
     openai,
     config.model,
     [query],
-    "search_query",
+    "search_query"
   );
 
-  const similarityResults = vec.similaritySearch(
-    queryEmbedding,
-    embeddings.map(({ embedding }) => embedding),
-    1,
-  ).map(({ originalIndex }) => embeddings[originalIndex].node);
+  const similarityResults = vec
+    .similaritySearch(
+      queryEmbedding,
+      embeddingsOrdered.map(({ embedding }) => embedding),
+      3
+    )
+    .map(({ originalIndex }) => embeddingsOrdered[originalIndex].node);
+  console.log(similarityResults);
 
   const subgraph = getNHopSubgraph(store, similarityResults, 1);
   for (const quad of subgraph) {
@@ -117,9 +137,9 @@ async function main() {
       continue;
     }
     console.log(
-      `${getLocalNameFromUri(subject.value)} -> ${
-        getLocalNameFromUri(predicate.value)
-      } -> ${getLocalNameFromUri(object.value)}`,
+      `${getLocalNameFromUri(subject.value)} -> ${getLocalNameFromUri(
+        predicate.value
+      )} -> ${getLocalNameFromUri(object.value)}`
     );
   }
 }
@@ -128,7 +148,7 @@ async function getEmbeddings(
   client: OpenAI,
   model: string,
   texts: string[],
-  task: "search_query" | "search_document",
+  task: "search_query" | "search_document"
 ): Promise<number[][]> {
   if (texts.length === 0) {
     return [];
@@ -146,9 +166,7 @@ async function getEmbeddings(
       // If your endpoint *specifically* requires dimensions for Nomic v1.5:
       // dimensions: 768,
     });
-    console.log(
-      `Received ${response.data.length} embedding(s).`,
-    );
+    console.log(`Received ${response.data.length} embedding(s).`);
     // Sort embeddings back into original order based on index
     response.data.sort((a, b) => a.index - b.index);
     return response.data.map((d) => d.embedding);
