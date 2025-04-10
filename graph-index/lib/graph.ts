@@ -12,9 +12,9 @@ import N3 from "n3";
 export function getNHopSubgraph(
   store: N3.Store,
   startNodeUris: string[],
-  hops: number,
+  hops: number
 ): N3.Store {
-  const { namedNode, blankNode } = N3.DataFactory;
+  const { namedNode, literal } = N3.DataFactory;
   const subgraphStore = new N3.Store();
 
   // --- Step 1: Identify all nodes within N hops using BFS ---
@@ -29,23 +29,16 @@ export function getNHopSubgraph(
     }
 
     for (const nodeId of frontier) {
-      // Determine if it's a named node or blank node based on typical structure
-      // N3.js uses the value for named nodes and the id property for blank nodes,
-      // but BlankNode.id includes '_:'. Let's try creating the term first.
-      let nodeTerm: N3.NamedNode | N3.BlankNode;
+      let nodeTerm: N3.NamedNode | N3.BlankNode | N3.Literal;
       try {
-        // Assume NamedNode if it looks like a URI, else BlankNode
-        // A more robust check might involve checking if nodeId starts with '_:'
-        // after ensuring it's not already in the map from a previous hop.
-        // For simplicity, we'll rely on N3 to handle it or assume URI for start nodes.
-        if (nodeId.startsWith("_:")) {
-          nodeTerm = blankNode(nodeId.substring(2)); // N3 expects ID without '_:' prefix
-        } else {
+        if (nodeId.startsWith("https://tix.fyi/museum#")) {
           nodeTerm = namedNode(nodeId);
+        } else {
+          nodeTerm = literal(nodeId);
         }
       } catch (e) {
         console.warn(`Could not create term for node ID: ${nodeId}`, e);
-        continue; // Skip if node ID is invalid
+        continue;
       }
 
       // Find neighbors via outgoing links (node -> object)
