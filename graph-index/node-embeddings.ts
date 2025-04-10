@@ -69,7 +69,7 @@ async function main() {
 
   const store = new N3.Store();
   const parser = new N3.Parser();
-  const prefixes = (await new Promise<N3.Prefixes>((resolve, reject) => {
+  const _prefixes = (await new Promise<N3.Prefixes>((resolve, reject) => {
     parser.parse(cleanTurtleString, (error, quad, currentPrefixes) => {
       if (error) {
         reject(error);
