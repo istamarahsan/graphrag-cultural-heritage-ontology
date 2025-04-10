@@ -1,10 +1,11 @@
-Berdasarkan beberapa informasi yang akan diberikan, yang terdiri dari judul, deskripsi, dan kategori, buatlah <%= it.nQuestions %> pertanyaan trivia pilihan ganda dalam Bahasa Indonesia. Cobalah untuk menggabungkan beberapa elemen informasi menjadi satu pertanyaan agar lebih bervariasi. Hindari penggunaan kata "ini" dalam pertanyaan serta frasa seperti "menurut teks di atas" atau yang serupa. Anda bisa memasukkan konteks dan penjelasan ke dalam kalimat pertanyaan.
+Berdasarkan beberapa informasi yang akan diberikan, yang terdiri dari judul, deskripsi, dan kategori, buatlah <%= it.nQuestions %> pertanyaan trivia pilihan ganda dalam Bahasa Indonesia. Cobalah untuk menggabungkan beberapa elemen informasi menjadi satu pertanyaan agar lebih bervariasi. Hindari penggunaan kata "ini" dalam pertanyaan melainkan sebut secara lengkap subyek, predikat, dan obyek. Serta hindari frasa seperti "menurut teks di atas" atau yang serupa. Anda bisa memasukkan konteks dan penjelasan ke dalam kalimat pertanyaan.
 
 Instruksi untuk jawaban:
 
 1. Upayakan untuk menciptakan pertanyaan yang menghubungkan beberapa elemen informasi, seperti menggabungkan tema dari judul dengan detail dari deskripsi.
 Susunlah pertanyaan yang menguji pengetahuan dengan cara mencocokkan satu elemen informasi dengan elemen lainnya.
 2. Format jawaban Anda harus berupa file JSON yang berisi daftar soal pilihan ganda dengan atribut "question" (pertanyaan), "choices" (pilihan jawaban), dan "answerIdx" (indeks jawaban benar). Susunlah pertanyaan tanpa merujuk langsung ke teksnya, tetapi referensikan nama koleksinya.
+3. Pertanyaan dan jawaban harus mengandung dari teks / deskripsi original.
 
 Hindari menyertakan teks pengantar, penjelasan, atau format markdown di luar struktur JSON. Gunakan "" ketika memakai simbol petik dua di dalam pertanyaan maupun jawaban.
 

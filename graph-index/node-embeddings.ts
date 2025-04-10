@@ -64,7 +64,23 @@ async function main() {
 
   // 2. Read RDF Turtle File
   console.log(`Reading RDF file from "${rdfFilePath}"...`);
+  const turtleString = await Deno.readTextFile(rdfFilePath);
+  const cleanTurtleString = turtleString.replaceAll('\\"', "");
+
   const store = new N3.Store();
+  const parser = new N3.Parser();
+  const prefixes = (await new Promise<N3.Prefixes>((resolve, reject) => {
+    parser.parse(cleanTurtleString, (error, quad, currentPrefixes) => {
+      if (error) {
+        reject(error);
+      } else if (quad) {
+        store.addQuad(quad);
+      } else {
+        // Parsing complete
+        resolve(currentPrefixes ?? {});
+      }
+    });
+  })) as N3.Prefixes; // Cast needed as N3 types aren't perfect on completion
 
   console.log(`Parsed ${store.size} triples.`);
   const tixPrefixUri = RDF_BASE_URI;
