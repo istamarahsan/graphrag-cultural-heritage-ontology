@@ -5,8 +5,9 @@ import z from "zod";
 import N3 from "n3";
 import { RDF_BASE_URI } from "./lib/rdf.ts";
 import * as vec from "./lib/vec.ts";
-import { getNHopSubgraph } from "./lib/graph.ts";
+import { getLocalNameFromUri, getNHopSubgraph } from "./lib/graph.ts";
 import path from "node:path";
+import _ from "lodash";
 
 const configSchema = z.object({
   endpoint: z.string().url(),
@@ -18,8 +19,9 @@ type Config = z.infer<typeof configSchema>;
 
 async function main() {
   const args = parseArgs(Deno.args, {
-    string: ["f", "e", "c", "q"],
+    string: ["f", "e", "c", "q", "r", "k"],
     alias: { f: "file", c: "config" },
+    default: { r: "1", k: "3" },
   });
 
   if (!args.f) {
@@ -49,6 +51,8 @@ async function main() {
     );
   const configFilePath = args.c;
   const query = args.q;
+  const r = parseInt(args.r);
+  const k = parseInt(args.k);
 
   if (!(await exists(rdfFilePath))) {
     console.error(`Error: RDF file not found at "${rdfFilePath}"`);
@@ -122,32 +126,49 @@ async function main() {
     .similaritySearch(
       queryEmbedding,
       embeddingsOrdered.map(({ embedding }) => embedding),
-      3
+      k
     )
     .map(({ originalIndex }) => embeddingsOrdered[originalIndex].node);
   console.log(similarityResults);
 
-  const subgraph = getNHopSubgraph(store, similarityResults, 1);
-  for (const quad of subgraph) {
-    const { subject, predicate, object } = quad;
-    if (
-      predicate.value === `${RDF_BASE_URI}hasEmbedding` ||
-      getLocalNameFromUri(predicate.value) === "type"
-    ) {
-      continue;
-    }
+  const subgraph = getNHopSubgraph(store, similarityResults, r);
+  const subgraphSubjects = subgraph.getSubjects(null, null, null);
+  for (const subject of subgraphSubjects) {
+    const quads = subgraph.getQuads(subject, null, null, null);
     console.log(
-      `${getLocalNameFromUri(subject.value)} -> ${getLocalNameFromUri(
-        predicate.value
-      )} -> ${getLocalNameFromUri(object.value)}`
+      `${getLocalNameFromUri(subject.id)}:\n${_.sortBy(
+        quads,
+        (it) => it.predicate.value
+      )
+        .filter(
+          ({ predicate }) => predicate.value !== `${RDF_BASE_URI}hasEmbedding`
+        )
+        .map(
+          ({ predicate, object }) =>
+            `  - ${getLocalNameFromUri(predicate.value)}: ${getLocalNameFromUri(
+              object.value
+            )}`
+        )
+        .join("\n")}\n`
     );
   }
 }
 
-export async function giveMeEmbeddings(filePath: string, configPath: string = 'embed.json', userQuery: string[] | string) {
-  const config = await Deno.readTextFile(configPath).then(JSON.parse).then(
-    configSchema.parse,
-  );
+export async function giveMeEmbeddings(
+  filePath: string,
+  configPath: string = "embed.json",
+  userQuery: string[] | string,
+  {
+    r = 1,
+    k = 3,
+  }: {
+    r?: number;
+    k?: number;
+  } = {}
+) {
+  const config = await Deno.readTextFile(configPath)
+    .then(JSON.parse)
+    .then(configSchema.parse);
   const openai = new OpenAI({
     apiKey: config.apiKey ?? "",
     baseURL: config.endpoint,
@@ -184,19 +205,21 @@ export async function giveMeEmbeddings(filePath: string, configPath: string = 'e
   const [queryEmbedding] = await getEmbeddingsSilent(
     openai,
     config.model,
-    (userQuery instanceof Array) ? userQuery : [userQuery],
-    "search_query",
+    userQuery instanceof Array ? userQuery : [userQuery],
+    "search_query"
   );
 
-  const similarityResults = vec.similaritySearch(
-    queryEmbedding,
-    embeddings.map(({ embedding }) => embedding),
-    1,
-  ).map(({ originalIndex }) => embeddings[originalIndex].node);
+  const similarityResults = vec
+    .similaritySearch(
+      queryEmbedding,
+      embeddings.map(({ embedding }) => embedding),
+      k
+    )
+    .map(({ originalIndex }) => embeddings[originalIndex].node);
 
-  const stuff: {subject: string, predicate: string, object: string}[] = [];
+  const stuff: { subject: string; predicate: string; object: string }[] = [];
 
-  const subgraph = getNHopSubgraph(store, similarityResults, 1);
+  const subgraph = getNHopSubgraph(store, similarityResults, r);
   for (const quad of subgraph) {
     const { subject, predicate, object } = quad;
     if (
@@ -219,7 +242,7 @@ async function getEmbeddingsSilent(
   client: OpenAI,
   model: string,
   texts: string[],
-  task: "search_query" | "search_document",
+  task: "search_query" | "search_document"
 ): Promise<number[][]> {
   if (texts.length === 0) {
     return [];
@@ -279,34 +302,6 @@ async function getEmbeddings(
     console.error("Error getting embeddings:", error);
     throw error; // Re-throw to stop the process
   }
-}
-
-/**
- * Extracts the local name part of a URI string.
- * It returns the substring after the last '#' or '/' character.
- * If neither character is found, it returns the original URI string.
- *
- * @param uri The full URI string (e.g., from NamedNode.value).
- * @returns The local name part of the URI.
- */
-function getLocalNameFromUri(uri: string): string {
-  // Find the index of the last '#'
-  const hashIndex = uri.lastIndexOf("#");
-  // Find the index of the last '/'
-  const slashIndex = uri.lastIndexOf("/");
-
-  // Determine which separator appears later in the string
-  const separatorIndex = Math.max(hashIndex, slashIndex);
-
-  // If a separator was found (index is not -1)
-  if (separatorIndex !== -1) {
-    // Return the part of the string *after* the separator
-    return uri.substring(separatorIndex + 1);
-  }
-
-  // If no separator ('#' or '/') was found, return the original string
-  // (This might happen with URNs or other URI schemes)
-  return uri;
 }
 
 if (import.meta.main) {

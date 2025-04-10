@@ -1,4 +1,5 @@
 import N3 from "n3";
+import { RDF_PREFIXES } from "./rdf.ts";
 
 /**
  * Retrieves a subgraph containing nodes within N hops of the starting nodes
@@ -15,23 +16,19 @@ export function getNHopSubgraph(
   hops: number
 ): N3.Store {
   const { namedNode, literal } = N3.DataFactory;
-  const subgraphStore = new N3.Store();
-
   // --- Step 1: Identify all nodes within N hops using BFS ---
   const allNodesInSubgraph = new Set<string>(startNodeUris); // Use node URIs/IDs as keys
   let frontier = new Set<string>(startNodeUris); // Nodes to explore in the current hop
-
   for (let i = 0; i < hops; i++) {
-    const nextFrontier = new Set<string>();
     if (frontier.size === 0) {
       console.debug(`BFS stopped early at hop ${i} as frontier became empty.`);
       break; // No new nodes found in the previous hop
     }
-
+    const nextFrontier = new Set<string>();
     for (const nodeId of frontier) {
       let nodeTerm: N3.NamedNode | N3.BlankNode | N3.Literal;
       try {
-        if (nodeId.startsWith("https://tix.fyi/museum#")) {
+        if (nodeId.startsWith(RDF_PREFIXES.tix)) {
           nodeTerm = namedNode(nodeId);
         } else {
           nodeTerm = literal(nodeId);
@@ -40,55 +37,70 @@ export function getNHopSubgraph(
         console.warn(`Could not create term for node ID: ${nodeId}`, e);
         continue;
       }
-
-      // Find neighbors via outgoing links (node -> object)
-      for (const quad of store.getQuads(nodeTerm, null, null, null)) {
-        if (
-          quad.object.termType === "NamedNode" ||
-          quad.object.termType === "BlankNode"
-        ) {
-          const neighborId = quad.object.id; // .id works for both NamedNode (value) and BlankNode (id)
-          if (!allNodesInSubgraph.has(neighborId)) {
-            allNodesInSubgraph.add(neighborId);
-            nextFrontier.add(neighborId);
-          }
-        }
-      }
-
-      // Find neighbors via incoming links (subject -> node)
-      for (const quad of store.getQuads(null, null, nodeTerm, null)) {
-        if (
-          quad.subject.termType === "NamedNode" ||
-          quad.subject.termType === "BlankNode"
-        ) {
-          const neighborId = quad.subject.id;
-          if (!allNodesInSubgraph.has(neighborId)) {
-            allNodesInSubgraph.add(neighborId);
-            nextFrontier.add(neighborId);
-          }
+      const neighbors = new Set([
+        ...store
+          .getQuads(nodeTerm, null, null, null)
+          .filter(
+            (it) =>
+              it.object.termType === "NamedNode" &&
+              !it.predicate.value.startsWith(RDF_PREFIXES.rdfs)
+          )
+          .map((it) => it.object.id),
+        ...store
+          .getQuads(null, null, nodeTerm, null)
+          .filter(
+            (it) =>
+              it.subject.termType === "NamedNode" &&
+              !it.predicate.value.startsWith(RDF_PREFIXES.rdfs)
+          )
+          .map((it) => it.subject.id),
+      ]);
+      for (const neighborId of neighbors) {
+        if (!allNodesInSubgraph.has(neighborId)) {
+          allNodesInSubgraph.add(neighborId);
+          nextFrontier.add(neighborId);
         }
       }
     }
     frontier = nextFrontier; // Move to the next level
   }
 
-  // Clear the store first before adding based on the stricter logic
-  subgraphStore.removeQuads(subgraphStore.getQuads(null, null, null, null));
-  let addedQuadsCount = 0;
+  const subgraphQuads = store.getQuads(null, null, null, null).filter(
+    (it) =>
+      allNodesInSubgraph.has(it.subject.id) &&
+      (allNodesInSubgraph.has(it.object.id) || // subject and object are in the subgraph
+        it.object.termType === "Literal" || // object is a literal
+        it.predicate.id === `${RDF_PREFIXES.rdfs}type`) // is a type relation
+  );
+  const subgraphStore = new N3.Store();
+  subgraphStore.addQuads(subgraphQuads);
+  return subgraphStore;
+}
 
-  for (const quad of store.getQuads(null, null, null, null)) {
-    const subjectId = quad.subject.id;
-    if (allNodesInSubgraph.has(subjectId)) {
-      // If the subject is in our set, include the quad if the object is a Literal OR also in our set
-      if (
-        quad.object.termType === "Literal" ||
-        allNodesInSubgraph.has(quad.object.id)
-      ) {
-        subgraphStore.addQuad(quad);
-        addedQuadsCount++;
-      }
-    }
+/**
+ * Extracts the local name part of a URI string.
+ * It returns the substring after the last '#' or '/' character.
+ * If neither character is found, it returns the original URI string.
+ *
+ * @param uri The full URI string (e.g., from NamedNode.value).
+ * @returns The local name part of the URI.
+ */
+export function getLocalNameFromUri(uri: string): string {
+  // Find the index of the last '#'
+  const hashIndex = uri.lastIndexOf("#");
+  // Find the index of the last '/'
+  const slashIndex = uri.lastIndexOf("/");
+
+  // Determine which separator appears later in the string
+  const separatorIndex = Math.max(hashIndex, slashIndex);
+
+  // If a separator was found (index is not -1)
+  if (separatorIndex !== -1) {
+    // Return the part of the string *after* the separator
+    return uri.substring(separatorIndex + 1);
   }
 
-  return subgraphStore;
+  // If no separator ('#' or '/') was found, return the original string
+  // (This might happen with URNs or other URI schemes)
+  return uri;
 }
