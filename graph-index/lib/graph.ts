@@ -72,48 +72,9 @@ export function getNHopSubgraph(
     frontier = nextFrontier; // Move to the next level
   }
 
-  // --- Step 2: Add all quads involving identified nodes to the subgraph store ---
-  let addedQuadsCount = 0;
-  for (const quad of store.getQuads(null, null, null, null)) {
-    // Check if subject OR object is one of the nodes identified within N hops
-    // Note: .id returns the value for NamedNode and the id for BlankNode
-    const subjectId = quad.subject.id;
-    const objectId = quad.object.id; // Works even for Literals, just won't match Set keys
-
-    // Add quad if subject is in the set OR (object is in the set AND object is not a literal)
-    // Or more simply: Add quad if subject is in the set OR object is in the set
-    // Let's refine: Add quad if subject is in the set. Also add quad if object is *a resource* in the set.
-    // This prevents adding quads only connected via literals outside the core nodes.
-    // Safest approach: add quad if subject is in set OR object is in set.
-    // This grabs all properties of nodes within N hops, and potentially links *out* from them.
-
-    // Let's try: Add quad if SUBJECT is in the set of nodes. This gets all outgoing properties.
-    // And ALSO add quad if OBJECT is in the set of nodes. This gets all incoming properties.
-    // This might duplicate quads if both S and O are in the set, but N3.Store handles duplicates.
-
-    if (
-      allNodesInSubgraph.has(subjectId) ||
-      (quad.object.termType !== "Literal" && allNodesInSubgraph.has(objectId))
-    ) {
-      subgraphStore.addQuad(quad);
-      addedQuadsCount++;
-    }
-
-    // Alternative Logic (more precise, only includes edges *between* subgraph nodes + literals attached to them):
-    /*
-       if (allNodesInSubgraph.has(subjectId)) {
-           if (quad.object.termType === 'Literal' || allNodesInSubgraph.has(objectId)) {
-               subgraphStore.addQuad(quad);
-               addedQuadsCount++;
-           }
-       }
-       */
-  }
-  // The alternative logic above is likely closer to a true subgraph definition. Let's use that.
-
   // Clear the store first before adding based on the stricter logic
   subgraphStore.removeQuads(subgraphStore.getQuads(null, null, null, null));
-  addedQuadsCount = 0;
+  let addedQuadsCount = 0;
 
   for (const quad of store.getQuads(null, null, null, null)) {
     const subjectId = quad.subject.id;
