@@ -16,6 +16,7 @@
     "npm:@types/luxon@^3.4.2": "3.6.0",
     "npm:@types/n3@^1.24.2": "1.24.2",
     "npm:@types/node@*": "22.12.0",
+    "npm:eta@^3.5.0": "3.5.0",
     "npm:lodash@^4.17.21": "4.17.21",
     "npm:luxon@^3.6.0": "3.6.1",
     "npm:n3@^1.24.2": "1.24.2",
@@ -115,6 +116,9 @@
         "ieee754"
       ]
     },
+    "eta@3.5.0": {
+      "integrity": "sha512-e3x3FBvGzeCIHhF+zhK8FZA2vC5uFn6b4HJjegUbIWrDb4mJ7JjTGMJY9VGIbRVpmSwHopNiaJibhjIr+HfLug=="
+    },
     "event-target-shim@5.0.1": {
       "integrity": "sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ=="
     },
@@ -185,6 +189,7 @@
       "npm:@types/lodash@^4.17.15",
       "npm:@types/luxon@^3.4.2",
       "npm:@types/n3@^1.24.2",
+      "npm:eta@^3.5.0",
       "npm:lodash@^4.17.21",
       "npm:luxon@^3.6.0",
       "npm:n3@^1.24.2",

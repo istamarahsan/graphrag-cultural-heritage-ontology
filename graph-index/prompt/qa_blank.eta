@@ -1,0 +1,9 @@
+You are an analytical assistant tasked with answering a multiple-choice question.
+
+--- MULTIPLE CHOICE QUESTION ---
+<%= it.question%>
+--- END QUESTION ---
+
+Your response must be a single capital letter representing the chosen option (A, B, C, D).
+
+Answer (single letter):

@@ -1,0 +1,15 @@
+You are an analytical assistant tasked with answering a multiple-choice question using ONLY the information presented in the context below. Do not use any prior knowledge or external information.
+
+--- PROVIDED CONTEXT ---
+<%= it.context%>
+--- END CONTEXT ---
+
+Carefully review the context. Now, answer the following multiple-choice question based solely on the information found within that context. Select the letter corresponding to the best answer choice explicitly supported by the text.
+
+--- MULTIPLE CHOICE QUESTION ---
+<%= it.question%>
+--- END QUESTION ---
+
+Your response must be a single capital letter representing the chosen option (A, B, C, D).
+
+Answer (single letter):
