@@ -4,6 +4,7 @@ import { Eta } from "eta";
 import OpenAI from "@openai/openai";
 import _ from "lodash";
 import Config from "./config.ts";
+import { parseArgs } from "@std/cli";
 
 const museumNasionalScrapedPage = z.object({
   url: z.string().url(),
@@ -39,15 +40,17 @@ const multipleChoiceQuestionSchema = z
 type MultipleChoiceQuestion = z.infer<typeof multipleChoiceQuestionSchema>;
 
 async function main() {
+  const args = parseArgs(Deno.args, {
+    string: ["f"],
+    default: { f: "data/museum_nasional_scraped.json" },
+  });
   const config = await Deno.readTextFile("config.json")
     .then(JSON.parse)
     .then(Config.parse);
   Deno.mkdir("out/", { recursive: true });
   const outFilePrefix = `out/${new Date().toISOString().replaceAll(":", ".")}`;
 
-  const allData = await loadAndValidateData(
-    "data/museum_nasional_scraped.json"
-  ); // Load and validate input JSON
+  const allData = await loadAndValidateData(args.f); // Load and validate input JSON
 
   const collectionEntries = allData.filter(
     (entry) => entry.type === "collection"
@@ -76,7 +79,7 @@ async function main() {
             promptTemplate,
             {
               page: entry,
-              nQuestions: 5,
+              nQuestions: 2,
               model: config.model,
               temperature: config.temperature,
             }
@@ -122,11 +125,11 @@ async function loadAndValidateData(
       .array(museumNasionalScrapedPage)
       .safeParse(jsonData); // Validates input data
     if (!validationResult.success) {
-      console.error("Input data validation failed (scraped.json):");
+      console.error(`Input data validation failed (${filePath}):`);
       validationResult.error.errors.forEach((err) => {
         console.error(` Path: ${err.path.join(".")} -> ${err.message}`);
       });
-      throw new Error("Invalid data format in scraped.json");
+      throw new Error(`Invalid data format in ${filePath}`);
     }
     console.log("Museum input data loaded and validated successfully.");
     return validationResult.data;
