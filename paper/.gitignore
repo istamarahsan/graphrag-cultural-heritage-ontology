@@ -1,0 +1,6 @@
+*
+!*/
+!assets/*
+!.gitignore
+!*.tex
+!*.cls
