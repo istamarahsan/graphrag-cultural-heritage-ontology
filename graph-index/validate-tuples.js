@@ -40,36 +40,53 @@ async function main() {
   const propertyCheatsheet = await Deno.readTextFile(args.c).then((txt) =>
     propertyCheatsheetSchema.parse(JSON.parse(txt))
   );
-  const validationResults = chunkTriplets.map(({ chunkId, triplets }) => ({
-    chunkId,
-    triplets: triplets.map((triplet) => ({
-      ...triplet,
-      validation: {
-        verdict:
-          triplet.property in propertyCheatsheet &&
-          propertyCheatsheet[triplet.property].domain.includes(
-            triplet.domain
-          ) &&
-          propertyCheatsheet[triplet.property].range.includes(triplet.range),
-        validProperty: triplet.property in propertyCheatsheet,
-        validDomain:
-          propertyCheatsheet[triplet.property]?.domain?.includes(
-            triplet.domain
-          ) ?? false,
-        validRange:
-          propertyCheatsheet[triplet.property]?.range?.includes(
-            triplet.range
-          ) ?? false,
+  const byChunkValidationResults = chunkTriplets.map(
+    ({ chunkId, triplets }) => ({
+      chunkId,
+      triplets: triplets.map((triplet) => ({
+        ...triplet,
+        validation: {
+          verdict:
+            triplet.property in propertyCheatsheet &&
+            propertyCheatsheet[triplet.property].domain.includes(
+              triplet.domain
+            ) &&
+            propertyCheatsheet[triplet.property].range.includes(triplet.range),
+          validProperty: triplet.property in propertyCheatsheet,
+          validDomain:
+            propertyCheatsheet[triplet.property]?.domain?.includes(
+              triplet.domain
+            ) ?? false,
+          validRange:
+            propertyCheatsheet[triplet.property]?.range?.includes(
+              triplet.range
+            ) ?? false,
+        },
+      })),
+    })
+  );
+  const validationResults = {
+    summary: {
+      valid: byChunkValidationResults
+        .flatMap((chunk) => chunk.triplets)
+        .filter((it) => it.validation.verdict).length,
+      total: byChunkValidationResults.flatMap((chunk) => chunk.triplets).length,
+    },
+    byChunk: byChunkValidationResults.map((chunk) => ({
+      summary: {
+        valid: chunk.triplets.filter((it) => it.validation.verdict).length,
+        total: chunk.triplets.length,
       },
+      ...chunk,
     })),
-  }));
+  };
   const outPath = path.join(
     path.dirname(args.f),
-    path.basename(args.f, path.extname(args.f)) + "_validate.jsonl"
+    path.basename(args.f, path.extname(args.f)) + "_validate.json"
   );
   await Deno.writeTextFile(
     outPath,
-    validationResults.map(JSON.stringify).join("\n")
+    JSON.stringify(validationResults, undefined, 2)
   );
 }
 
