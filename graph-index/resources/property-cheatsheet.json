@@ -1,0 +1,262 @@
+{
+  "P1_is_identified_by": {
+    "domain": [
+      "E7_Activity",
+      "E8_Acquisition",
+      "E12_Production",
+      "E19_Physical_Object",
+      "E24_Physical_Human-Made_Thing",
+      "E39_Actor",
+      "E41_Appellation",
+      "E52_Time-Span",
+      "E53_Place",
+      "E54_Dimension",
+      "E55_Type",
+      "E57_Material",
+      "E65_Creation",
+      "E73_Information_Object"
+    ],
+    "range": [
+      "E41_Appellation"
+    ]
+  },
+  "P2_has_type": {
+    "domain": [
+      "E7_Activity",
+      "E8_Acquisition",
+      "E12_Production",
+      "E19_Physical_Object",
+      "E24_Physical_Human-Made_Thing",
+      "E39_Actor",
+      "E41_Appellation",
+      "E52_Time-Span",
+      "E53_Place",
+      "E54_Dimension",
+      "E55_Type",
+      "E57_Material",
+      "E65_Creation",
+      "E73_Information_Object"
+    ],
+    "range": [
+      "E55_Type",
+      "E57_Material"
+    ]
+  },
+  "P4_has_time-span": {
+    "domain": [
+      "E7_Activity",
+      "E8_Acquisition",
+      "E12_Production",
+      "E65_Creation"
+    ],
+    "range": [
+      "E52_Time-Span"
+    ]
+  },
+  "P7_took_place_at": {
+    "domain": [
+      "E7_Activity",
+      "E8_Acquisition",
+      "E12_Production",
+      "E65_Creation"
+    ],
+    "range": [
+      "E53_Place"
+    ]
+  },
+  "P11_had_participant": {
+    "domain": [
+      "E7_Activity",
+      "E8_Acquisition",
+      "E12_Production",
+      "E65_Creation"
+    ],
+    "range": [
+      "E39_Actor"
+    ]
+  },
+  "P12_occurred_in_the_presence_of": {
+    "domain": [
+      "E7_Activity",
+      "E8_Acquisition",
+      "E12_Production",
+      "E65_Creation"
+    ],
+    "range": [
+      "E19_Physical_Object",
+      "E24_Physical_Human-Made_Thing",
+      "E39_Actor",
+      "E41_Appellation",
+      "E55_Type",
+      "E57_Material",
+      "E73_Information_Object"
+    ]
+  },
+  "P14_carried_out_by": {
+    "domain": [
+      "E7_Activity",
+      "E8_Acquisition",
+      "E12_Production",
+      "E65_Creation"
+    ],
+    "range": [
+      "E39_Actor"
+    ]
+  },
+  "P16_used_specific_object": {
+    "domain": [
+      "E7_Activity",
+      "E8_Acquisition",
+      "E12_Production",
+      "E65_Creation"
+    ],
+    "range": [
+      "E19_Physical_Object",
+      "E24_Physical_Human-Made_Thing",
+      "E41_Appellation",
+      "E55_Type",
+      "E57_Material",
+      "E73_Information_Object"
+    ]
+  },
+  "P22_transferred_title_to": {
+    "domain": [
+      "E8_Acquisition"
+    ],
+    "range": [
+      "E39_Actor"
+    ]
+  },
+  "P23_transferred_title_from": {
+    "domain": [
+      "E8_Acquisition"
+    ],
+    "range": [
+      "E39_Actor"
+    ]
+  },
+  "P43_has_dimension": {
+    "domain": [
+      "E19_Physical_Object",
+      "E24_Physical_Human-Made_Thing",
+      "E41_Appellation",
+      "E55_Type",
+      "E57_Material",
+      "E73_Information_Object"
+    ],
+    "range": [
+      "E54_Dimension"
+    ]
+  },
+  "P45_consists_of": {
+    "domain": [
+      "E19_Physical_Object",
+      "E24_Physical_Human-Made_Thing"
+    ],
+    "range": [
+      "E57_Material"
+    ]
+  },
+  "P51_has_former_or_current_owner": {
+    "domain": [
+      "E19_Physical_Object",
+      "E24_Physical_Human-Made_Thing"
+    ],
+    "range": [
+      "E39_Actor"
+    ]
+  },
+  "P52_has_current_owner": {
+    "domain": [
+      "E19_Physical_Object",
+      "E24_Physical_Human-Made_Thing"
+    ],
+    "range": [
+      "E39_Actor"
+    ]
+  },
+  "P53_has_former_or_current_location": {
+    "domain": [
+      "E19_Physical_Object",
+      "E24_Physical_Human-Made_Thing"
+    ],
+    "range": [
+      "E53_Place"
+    ]
+  },
+  "P55_has_current_location": {
+    "domain": [
+      "E19_Physical_Object"
+    ],
+    "range": [
+      "E53_Place"
+    ]
+  },
+  "P59_has_section": {
+    "domain": [
+      "E19_Physical_Object",
+      "E24_Physical_Human-Made_Thing"
+    ],
+    "range": [
+      "E53_Place"
+    ]
+  },
+  "P67_refers_to": {
+    "domain": [
+      "E73_Information_Object"
+    ],
+    "range": [
+      "E7_Activity",
+      "E8_Acquisition",
+      "E12_Production",
+      "E19_Physical_Object",
+      "E24_Physical_Human-Made_Thing",
+      "E39_Actor",
+      "E41_Appellation",
+      "E52_Time-Span",
+      "E53_Place",
+      "E54_Dimension",
+      "E55_Type",
+      "E57_Material",
+      "E65_Creation",
+      "E73_Information_Object"
+    ]
+  },
+  "P89_falls_within": {
+    "domain": [
+      "E53_Place"
+    ],
+    "range": [
+      "E53_Place"
+    ]
+  },
+  "P108_has_produced": {
+    "domain": [
+      "E12_Production"
+    ],
+    "range": [
+      "E24_Physical_Human-Made_Thing"
+    ]
+  },
+  "P3_has_note": {
+    "domain": [
+      "E7_Activity",
+      "E8_Acquisition",
+      "E12_Production",
+      "E19_Physical_Object",
+      "E24_Physical_Human-Made_Thing",
+      "E39_Actor",
+      "E41_Appellation",
+      "E52_Time-Span",
+      "E53_Place",
+      "E54_Dimension",
+      "E55_Type",
+      "E57_Material",
+      "E65_Creation",
+      "E73_Information_Object"
+    ],
+    "range": [
+      "Literal"
+    ]
+  }
+}
