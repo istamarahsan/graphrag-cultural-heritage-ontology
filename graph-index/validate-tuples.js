@@ -1,0 +1,78 @@
+import { parseArgs } from "@std/cli";
+import { ontologyTripletSchema } from "./lib/extract.ts";
+import z from "zod";
+import path from "node:path";
+
+const propertyCheatsheetSchema = z.record(
+  z.object({
+    domain: z.array(z.string()),
+    range: z.array(z.string()),
+  })
+);
+
+async function main() {
+  const args = parseArgs(Deno.args, {
+    string: ["f", "c"],
+  });
+  if (!args.f) {
+    console.error("Specify the tuples file with -f");
+    return -1;
+  }
+  if (!args.c) {
+    console.error("Specify valid property cheatsheet file with -c");
+    return -1;
+  }
+  const chunkTriplets = await Deno.readTextFile(args.f).then((txt) =>
+    z
+      .array(
+        z.object({
+          chunkId: z.string(),
+          triplets: z.array(ontologyTripletSchema),
+        })
+      )
+      .parse(
+        txt
+          .split("\n")
+          .filter(Boolean)
+          .flatMap((line) => JSON.parse(line))
+      )
+  );
+  const propertyCheatsheet = await Deno.readTextFile(args.c).then((txt) =>
+    propertyCheatsheetSchema.parse(JSON.parse(txt))
+  );
+  const validationResults = chunkTriplets.map(({ chunkId, triplets }) => ({
+    chunkId,
+    triplets: triplets.map((triplet) => ({
+      ...triplet,
+      validation: {
+        verdict:
+          triplet.property in propertyCheatsheet &&
+          propertyCheatsheet[triplet.property].domain.includes(
+            triplet.domain
+          ) &&
+          propertyCheatsheet[triplet.property].range.includes(triplet.range),
+        validProperty: triplet.property in propertyCheatsheet,
+        validDomain:
+          propertyCheatsheet[triplet.property]?.domain?.includes(
+            triplet.domain
+          ) ?? false,
+        validRange:
+          propertyCheatsheet[triplet.property]?.range?.includes(
+            triplet.range
+          ) ?? false,
+      },
+    })),
+  }));
+  const outPath = path.join(
+    path.dirname(args.f),
+    path.basename(args.f, path.extname(args.f)) + "_validate.jsonl"
+  );
+  await Deno.writeTextFile(
+    outPath,
+    validationResults.map(JSON.stringify).join("\n")
+  );
+}
+
+if (import.meta.main) {
+  await main();
+}
