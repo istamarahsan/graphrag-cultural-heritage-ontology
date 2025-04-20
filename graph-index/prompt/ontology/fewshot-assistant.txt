@@ -1,29 +1,7 @@
 [
   {
     "domain": {
-      "class": "E22_Human-Made_Object",
-      "name": "Ani-ani"
-    },
-    "property": "P1_is_identified_by",
-    "range": {
-      "class": "E41_Appellation",
-      "name": "Ani-ani"
-    }
-  },
-  {
-    "domain": {
-      "class": "E22_Human-Made_Object",
-      "name": "Ani-ani"
-    },
-    "property": "P50_has_current_keeper",
-    "range": {
-      "class": "E74_Group",
-      "name": "Museum Nasional"
-    }
-  },
-  {
-    "domain": {
-      "class": "E22_Human-Made_Object",
+      "class": "E24_Physical_Human-Made_Thing",
       "name": "Ani-ani"
     },
     "property": "P45_consists_of",
@@ -34,7 +12,7 @@
   },
   {
     "domain": {
-      "class": "E22_Human-Made_Object",
+      "class": "E24_Physical_Human-Made_Thing",
       "name": "Ani-ani"
     },
     "property": "P45_consists_of",
@@ -45,30 +23,30 @@
   },
   {
     "domain": {
-      "class": "E22_Human-Made_Object",
-      "name": "Ani-ani"
-    },
-    "property": "P108i_was_produced_by",
-    "range": {
       "class": "E12_Production",
-      "name": "Produksi Ani-ani"
-    }
-  },
-  {
-    "domain": {
-      "class": "E12_Production",
-      "name": "Produksi Ani-ani"
+      "name": "Pembuatan Ani-ani"
     },
     "property": "P108_has_produced",
     "range": {
-      "class": "E22_Human-Made_Object",
+      "class": "E24_Physical_Human-Made_Thing",
       "name": "Ani-ani"
     }
   },
   {
     "domain": {
       "class": "E12_Production",
-      "name": "Produksi Ani-ani"
+      "name": "Pembuatan Ani-ani"
+    },
+    "property": "P4_has_time-span",
+    "range": {
+      "class": "E52_Time-Span",
+      "name": "Awal abad 20"
+    }
+  },
+  {
+    "domain": {
+      "class": "E12_Production",
+      "name": "Pembuatan Ani-ani"
     },
     "property": "P7_took_place_at",
     "range": {
@@ -87,70 +65,70 @@
       "name": "Jawa Tengah"
     }
   },
-   {
+  {
     "domain": {
-      "class": "E53_Place",
-      "name": "Tegal"
+      "class": "E24_Physical_Human-Made_Thing",
+      "name": "Ani-ani"
     },
-    "property": "P1_is_identified_by",
+    "property": "P52_has_current_owner",
     "range": {
-      "class": "E41_Appellation",
-      "name": "Tegal"
-    }
-  },
-   {
-    "domain": {
-      "class": "E53_Place",
-      "name": "Jawa Tengah"
-    },
-    "property": "P1_is_identified_by",
-    "range": {
-      "class": "E41_Appellation",
-      "name": "Jawa Tengah"
+      "class": "E39_Actor",
+      "name": "Museum Nasional"
     }
   },
   {
     "domain": {
-      "class": "E12_Production",
-      "name": "Produksi Ani-ani"
+      "class": "E24_Physical_Human-Made_Thing",
+      "name": "Ani-ani"
     },
-    "property": "P4_has_time-span",
+    "property": "P2_has_type",
     "range": {
-      "class": "E52_Time-Span",
-      "name": "Timespan Produksi Ani-ani"
+      "class": "E55_Type",
+      "name": "Ketam"
     }
   },
   {
     "domain": {
-      "class": "E52_Time-Span",
-      "name": "Timespan Produksi Ani-ani"
+      "class": "E24_Physical_Human-Made_Thing",
+      "name": "Ani-ani"
     },
-    "property": "P82_at_some_time_within",
+    "property": "P3_has_note",
     "range": {
       "class": "Literal",
-      "name": "Awal abad 20"
+      "name": "Umumnya petani menghormati dan tidak ingin menyakiti dewi padi dengan menggunakan ani-ani atau ketam ketika panen."
     }
   },
   {
     "domain": {
-      "class": "E22_Human-Made_Object",
-      "name": "Ani-ani"
+      "class": "E39_Actor",
+      "name": "Dewi Sri"
     },
-    "property": "P101_had_as_general_use",
+    "property": "P1_is_identified_by",
     "range": {
-      "class": "E55_Type",
-      "name": "Panen Padi"
+      "class": "E41_Appellation",
+      "name": "Sanghyang Pohaci"
     }
   },
   {
     "domain": {
-      "class": "E22_Human-Made_Object",
-      "name": "Ani-ani"
-     },
-    "property": "P103_was_intended_for",
+      "class": "E39_Actor",
+      "name": "Dewi Sri"
+    },
+    "property": "P2_has_type",
     "range": {
       "class": "E55_Type",
-      "name": "Menghormati Padi/Dewi Padi saat Panen"
+      "name": "dewi padi"
+    }
+  },
+  {
+    "domain": {
+      "class": "E39_Actor",
+      "name": "Dewi Sri"
+    },
+    "property": "P3_has_note",
+    "range": {
+      "class": "Literal",
+      "name": "contoh dewi padi di Pulau Jawa"
     }
   }
 ]

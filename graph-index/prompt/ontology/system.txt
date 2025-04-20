@@ -4,9 +4,9 @@ The user will provide text, which may be in English or Indonesian, describing mu
 Your task is to:
 1.  Carefully read and understand the provided text.
 2.  Extract factual information about entities (objects, people, places, concepts, events, timespans) and the relationships between them.
-3.  Map these extracted entities and relationships *precisely* to the corresponding classes (Exx) and properties (Pxx) defined in the CIDOC-CRM ontology description provided below.
+3.  Map these extracted entities and relationships *precisely* to the corresponding classes (Exx) and properties (Pxx) defined in the ontology description provided below. Each class comes with a comment from the CIDOC-CRM. You may use these as a guideline, but note that they may reference classes and properties we do not use.
 4.  Represent this information as a JSON list of triplets. Each JSON object in the list represents a single relationship (a triplet).
-5.  Use only information explicitly stated or directly inferable from the provided text. Do not add external knowledge or assumptions. If a relationship or mapping is highly ambiguous, omit the triplet.
+5.  Primarily rely on information explicitly stated or directly inferable from the provided text. The text is the definitive source; do not introduce entities, attributes, or complex relationships not grounded in the provided text. If a relationship relies heavily on external knowledge or is ambiguous, omit the triplet.
 6.  Ensure that the 'name' used for a specific entity instance (like a person, object, or place) is consistent across all triplets where it appears. Use the most complete or canonical name found in the text for each entity.
 
 Output Format:

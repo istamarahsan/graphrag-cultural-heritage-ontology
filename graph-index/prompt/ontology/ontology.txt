@@ -1,917 +1,333 @@
 # Ontology Concepts
-## E1_CRM_Entity
-Subclass of: []
-This class comprises all things in the universe of discourse of the CIDOC Conceptual Reference Model.It is an abstract concept providing for three general properties:Identification by name or appellation, and in particular by a preferred identifierClassification by type, allowing further refinement of the specific subclass to which an instance belongsAttachment of free text and other unstructured data for the expression of anything not captured by formal propertiesAll other classes within the CIDOC CRM are directly or indirectly specialisations of E1 CRM Entity.
-
-## E2_Temporal_Entity
-Subclass of: [E1_CRM_Entity]
-This class comprises all phenomena, such as the instances of E4 Periods and E5 Events, which happen over a limited extent in time. This extent in time must be contiguous, i.e., without gaps. In case the defining kinds of phenomena for an instance of E2 Temporal Entity cease to happen, and occur later again at another time, we regard that the former instance of E2 Temporal Entity has ended and a new instance has come into existence. In more intuitive terms, the same event cannot happen twice.In some contexts, such phenomena are also called perdurants. This class is disjoint from E77 Persistent Item and is an abstract class that typically has no direct instances. E2 Temporal Entity is specialized into E4 Period, which applies to a particular geographic area (defined with a greater or lesser degree of precision), and E3 Condition State, which applies to instances of E18 Physical Thing.
-
-## E3_Condition_State
-Subclass of: [E2_Temporal_Entity]
-This class comprises the states of objects characterised by a certain condition over a time-span.An instance of this class describes the prevailing physical condition of any material object or feature during a specific instance of E52 Time-Span. In general, the time-span for which a certain condition can be asserted may be shorter than the real time-span, for which this condition held.The nature of that condition can be described using P2 has type. For example, the instance of E3 Condition State “condition of the SS Great Britain between 22-nd September 1846 and 27-th August 1847” can be characterized as an instance “wrecked” of E55 Type.
-
-## E4_Period
-Subclass of: [E2_Temporal_Entity]
-This class comprises sets of coherent phenomena or cultural manifestations occurring in time and space.It is the social or physical coherence of these phenomena that identify an instance of E4 Period and not the associated spatiotemporal extent. This extent is only the “ground” or space in an abstract physical sense that the actual process of growth, spread and retreat has covered. Consequently, different periods can overlap and coexist in time and space, such as when a nomadic culture exists in the same area and time as a sedentary culture. This also means that overlapping land use rights, common among first nations, amounts to overlapping periods.Often, this class is used to describe prehistoric or historic periods such as the “Neolithic Period”, the “Ming Dynasty” or the “McCarthy Era”, but also geopolitical units and activities of settlements are regarded as special cases of E4 Period. However, there are no assumptions about the scale of the associated phenomena. In particular all events are seen as synthetic processes consisting of coherent phenomena. Therefore, E4 Period is a superclass of E5 Event. For example, a modern clinical birth, an instance of E67 Birth, can be seen as both a single event, i.e. an instance of E5 Event, and as an extended period, i.e. an instance of E4 Period, that consists of multiple physical processes and complementary activities performed by multiple instances of E39 Actor.E4 Period is a subclass of E2 Temporal Entity and of E92 Spacetime Volume. The latter is intended as a phenomenal spacetime volume as defined in CIDOC CRMgeo (Doerr &amp; Hiebel, 2013). By virtue of this multiple inheritance, it is possible to discuss the physical extent of an instance of E4 Period without representing each instance of it together with an instance of its associated spacetime volume. This model combines two quite different kinds of substance: an instance of E4 Period is a phenomenon while an instance of E92 Spacetime Volume is an aggregation of points in spacetime. However, the real spatiotemporal extent of an instance of E4 Period is regarded to be unique to it due to all its details and fuzziness; its identity and existence depends uniquely on the identity of the instance of E4 Period. Therefore, this multiple inheritance is unambiguous and effective and furthermore corresponds to the intuitions of natural language.Typical use of this class in cultural heritage documentation is for documenting cultural and artistic periods. There are two different conceptualisations of ‘artistic style’, defined either by physical features or by historical context. For example, “Impressionism” can be viewed as a period in the European sphere of influence lasting from approximately 1870 to 1905 during which paintings with particular characteristics were produced by a group of artists that included (among others) Monet, Renoir, Pissarro, Sisley and Degas. Alternatively, it can be regarded as a style applicable to all paintings sharing the characteristics of the works produced by the Impressionist painters, regardless of historical context. The first interpretation is an instance of E4 Period, and the second defines morphological object types that fall under E55 Type.A geopolitical unit as a specific case of an instance of E4 Period is the set of activities and phenomena related to the claim of power, the consequences of belonging to a jurisdictional area and an administrative system that establishes a geopolitical unit. Examples from the modern period are countries or administrative areas of countries such as districts whose actions and structures define activities and phenomena in the area that they intend to govern. The borders of geopolitical units are often defined in contracts or treaties although they may deviate from the actual practice. The spatiotemporal properties of Geopolitical units can be modelled through the properties inherited from E92 Spacetime Volume.Another specific case of an instance of E4 Period is the actual extent of the set of activities and phenomena as evidenced by their physical traces that define a settlement, such as the populated period of Nineveh.
-
-## E5_Event
-Subclass of: [E4_Period]
-This class comprises distinct, delimited and coherent processes and interactions of a material nature, in cultural, social or physical systems, involving and affecting instances of E77 Persistent Item in a way characteristic of the kind of process. Typical examples are meetings, births, deaths, actions of decision taking, making or inventing things, but also more complex and extended ones such as conferences, elections, building of a castle, or battles.While the continuous growth of a tree lacks the limits characteristic of an event, its germination from a seed does qualify as an event. Similarly, the blowing of the wind lacks the distinctness and limits of an event, but a hurricane, flood or earthquake would qualify as an event. Mental processes are considered as events, in cases where they are connected with the material externalization of their results; for example, the creation of a poem, a performance or a change of intention that becomes obvious from subsequent actions or declarations.The effects of an instance of E5 Event may not lead to relevant permanent changes of properties or relations of the items involved in it, for example an unrecorded performance. Of course, in order to be documented, some kind of evidence for an event must exist, be it witnesses, traces or products of the event.While instances of E4 Period always require some form of coherence between its constituent phenomena, in addition, the essential constituents of instances of E5 Event should contribute to an overall effect; for example, the statements made during a meeting and the listening of the audience.Viewed at a coarse level of detail, an instance of E5 Event may appear as if it had an ‘instantaneous’ overall effect, but any process or interaction of material nature in reality have an extent in time and space. At a fine level, instances of E5 Event may be analysed into component phenomena and phases within a space and timeframe, and as such can be seen as a period, regardless of the size of the phenomena. The reverse is not necessarily the case: not all instances of E4 Period give rise to a noteworthy overall effect and are thus not instances of E5 Event.
-
-## E6_Destruction
-Subclass of: [E64_End_of_Existence]
-This class comprises events that destroy one or more instances of E18 Physical Thing, such that they lose their identity as the subjects of documentation.Some destruction events are intentional, while others are independent of human activity. Intentional destruction can be documented by classifying the event as both an instance of E6 Destruction and of E7 Activity.The decision to document an object as destroyed, transformed, or modified is context-sensitive:1. If the matter remaining from the destruction is not documented, the event is modelled solely as an instance of E6 Destruction.2. An event should also be documented using E81 Transformation if it results in the destruction of one or more objects and the simultaneous production of others using parts or material from the original. In this case, the new items have separate identities. Matter is preserved, but identity is not.3. When the initial identity of the changed instance of E18 Physical Thing is preserved, the event should be documented as an instance of E11 Modification.
-
 ## E7_Activity
-Subclass of: [E5_Event]
-This class comprises actions intentionally carried out by instances of E39 Actor that result in changes of state in the cultural, social, or physical systems documented.This notion includes complex, composite, and long-lasting actions such as the building of a settlement or a war, as well as simple, short-lived actions such as the opening of a door.
+Scope note:
+This class comprises actions intentionally carried out by instances of E39 Actor that result in changes of state in the cultural, social, or physical systems documented. 
+This notion includes complex, composite, and long-lasting actions such as the building of a settlement or a war, as well as simple, short-lived actions such as the opening of a door.
+
+Examples:
+- the Battle of Stalingrad (Hoyt, 1993)
+- the Yalta Conference (Harbutt, 2010)
+- my birthday celebration 28-6-1995
+- the writing of “Faust” by Goethe (E65) (Williams, 2020)
+- the formation of the Bauhaus 1919 (E66) (Droste, 2006)
+- the people of Iraq giving the name ‘Quyunjig’ to the place identified by the TGN as ‘7017998’
+- Kira Weber working in glass art from 1984 to 1993
+- Kira Weber working in oil and pastel painting from 1993
+
+In First Order Logic:
+- E7(x) ⇒ E5(x)
 
 ## E8_Acquisition
-Subclass of: [E7_Activity]
-This class comprises transfers of legal ownership from one or more instances of E39 Actor to one or more other instances of E39 Actor.The class also applies to the establishment or loss of ownership of instances of E18 Physical Thing. It does not, however, imply changes of any other kinds of rights. The recording of the donor and/or recipient is optional. It is possible that in an instance of E8 Acquisition there is either no donor or no recipient. Depending on the circumstances, it may describe:1. the beginning of ownership2. the end of ownership3. the transfer of ownership4. the acquisition from an unknown source5. the loss of title due to destruction of the itemIt may also describe events where a collector appropriates legal title, for example, by annexation or field collection. The interpretation of the museum notion of “accession” differs between institutions. The CIDOC CRM therefore models legal ownership (E8 Acquisition) and physical custody (E10 Transfer of Custody) separately. Institutions will then model their specific notions of accession and deaccession as combinations of these.
+Scope note:
+This class comprises transfers of legal ownership from one or more instances of E39 Actor to one or more other instances of E39 Actor. 
+The class also applies to the establishment or loss of ownership of instances of E18 Physical Thing. It does not, however, imply changes of any other kinds of rights. The recording of the donor and/or recipient is optional. It is possible that in an instance of E8 Acquisition there is either no donor or no recipient. Depending on the circumstances, it may describe:
+1. the beginning of ownership
+2. the end of ownership
+3. the transfer of ownership
+4. the acquisition from an unknown source
+5. the loss of title due to destruction of the item
+It may also describe events where a collector appropriates legal title, for example, by annexation or field collection. The interpretation of the museum notion of “accession” differs between institutions. The CIDOC CRM therefore models legal ownership (E8 Acquisition) and physical custody (E10 Transfer of Custody) separately. Institutions will then model their specific notions of accession and deaccession as combinations of these.
 
-## E9_Move
-Subclass of: [E7_Activity]
-This class comprises changes of the physical location of the instances of E19 Physical Object.Note, that the class E9 Move inherits the property P7 took place at (witnessed): E53 Place. This property should be used to describe the trajectory or a larger area within which a move takes place, whereas the properties P26 moved to (was destination of), P27 moved from (was origin of) describe the start and end points only. Moves may also be documented to consist of other moves (via P9 consists of (forms part of)), in order to describe intermediate stages on a trajectory. In that case, start and end points of the partial moves should match appropriately between each other and with the overall event.
+Examples:
+- the collection of a hammerhead shark, genus Sphyrna (Carchariniformes), by John Steinbeck and Edward Ricketts at Puerto Escondido in the Gulf of Mexico on 25(th) March 1940. (Steinbeck, 2000)
+- the acquisition of El Greco’s “The Apostles Peter and Paul” by the State Hermitage in Saint Petersburg. (https://hermitagemuseum.org/wps/portal/hermitage/digital-collection/01.+Paintings/32730)
+- the loss of my stuffed Fringilla coelebs due to insect damage last year (fictitious)
 
-## E10_Transfer_of_Custody
-Subclass of: [E7_Activity]
-This class comprises transfers of the physical custody or the legal responsibility for the physical custody of objects. The recording of the donor or recipient is optional. It is possible that in an instance of E10 Transfer of Custody there is either no donor or no recipient.Depending on the circumstances, it may describe:1. the beginning of custody (there is no previous custodian)2. the end of custody (there is no subsequent custodian)3. the transfer of custody (transfer from one custodian to the next)4. the receipt of custody from an unknown source (the previous custodian is unknown)5. the declared loss of an object (the current or subsequent custodian is unknown)In the event that only a single kind of transfer of custody occurs, either the legal responsibility for the custody or the actual physical possession of the object but not both, this difference should be expressed using the property P2 has type (is type of).The sense of physical possession requires that the object of custody be in the hands of the keeper at least with a part representative for the whole. The way, in which a representative part is defined, should ensure that it is unambiguous who keeps a part and who the whole and should be consistent with the identity criteria of the kept instance of E18 Physical Thing.The interpretation of the museum notion of "accession" differs between institutions. The CIDOC CRM therefore models legal ownership and physical custody separately. Institutions will then model their specific notions of accession and deaccession as combinations of these.Theft is a specific case of illegal transfer of custody.
-
-## E11_Modification
-Subclass of: [E7_Activity]
-This class comprises instances of E7 Activity that are undertaken to create, alter or change instances of E24 Physical Human-Made Thing.This class includes the production of an item from raw materials and other so far undocumented objects. It also includes the conservation treatment of an object.Since the distinction between modification and production is not always clear, modification is regarded as the more generally applicable concept. This implies that some items may be consumed or destroyed in an instance of E11 Modification, and that others may be produced as a result of it. An event should also be documented using an instance of E81 Transformation if it results in the destruction of one or more objects and the simultaneous production of others using parts or material from the originals. In this case, the new items have separate identities.An activity undertaken on an object which was designed to alter it, but which, in fact, it did not in any seemingly significant way (such as the application of a solvent during conservation which failed to dissolve any part of the object), is still considered as an instance of E11 Modification. Typically, any such activity will leave at least forensic traces of evidence on the object.If the instance of E29 Design or Procedure utilized for the modification prescribes the use of specific materials, they should be documented using property P68 foresees use of (use foreseen by): E57 Material of E29 Design or Procedure, rather than via P126 employed (was employed in): E57 Material.
+In First Order Logic:
+- E8(x) ⇒ E7(x)
 
 ## E12_Production
-Subclass of: [E11_Modification, E63_Beginning_of_Existence]
-This class comprises activities that are designed to, and succeed in, creating one or more new items.It specializes the notion of modification into production. The decision as to whether or not an object is regarded as new is context sensitive. Normally, items are considered “new” if there is no obvious overall similarity between them and the consumed items and material used in their production. In other cases, an item is considered “new” because it becomes relevant to documentation by a modification. For example, the scribbling of a name on a potsherd may make it a voting token. The original potsherd may not be worth documenting, in contrast to the inscribed one.This entity can be collective: the printing of a thousand books, for example, would normally be considered a single event.An event should also be documented using an instance of E81 Transformation if it results in the destruction of one or more objects and the simultaneous production of others using parts or material from the originals. In this case, the new items have separate identities and matter is preserved, but identity is not.
+Scope note:
+This class comprises activities that are designed to, and succeed in, creating one or more new items. 
+It specializes the notion of modification into production. The decision as to whether or not an object is regarded as new is context sensitive. Normally, items are considered “new” if there is no obvious overall similarity between them and the consumed items and material used in their production. In other cases, an item is considered “new” because it becomes relevant to documentation by a modification. For example, the scribbling of a name on a potsherd may make it a voting token. The original potsherd may not be worth documenting, in contrast to the inscribed one. 
+This entity can be collective: the printing of a thousand books, for example, would normally be considered a single event. 
+An event should also be documented using an instance of E81 Transformation if it results in the destruction of one or more objects and the simultaneous production of others using parts or material from the originals. In this case, the new items have separate identities and matter is preserved, but identity is not.
 
-## E13_Attribute_Assignment
-Subclass of: [E7_Activity]
-This class comprises the actions of making assertions about one property of an object or any single relation between two items or concepts. The type of the property asserted to hold between two items or concepts can be described by the property P177 assigned property of type (is type of property assigned): E55 Type.For example, the class describes the actions of people making propositions and statements during certain scientific/scholarly procedures, e.g. the person and date when a condition statement was made, an identifier was assigned, the museum object was measured, etc. Which kinds of such assignments and statements need to be documented explicitly in structures of a schema rather than free text, depends on whether this information should be accessible by structured queries.This class allows for the documentation of how the respective assignment came about, and whose opinion it was. Note that all instances of properties described in a knowledge base are the opinion of someone. Per default, they are the opinion of the team maintaining the knowledge base. This fact must not individually be registered for all instances of properties provided by the maintaining team, because it would result in an endless recursion of whose opinion was the description of an opinion. Therefore, the use of instances of E13 Attribute Assignment marks the fact that the maintaining team is in general neutral to the validity of the respective assertion, but registers someone else’s opinion and how it came about.All properties assigned in such an action can also be seen as directly relating the respective pair of items or concepts. Multiple use of instances of E13 Attribute Assignment may possibly lead to a collection of contradictory values.
+Examples:
+- the construction of the SS Great Britain (Gregor, 1971)
+- the first casting of the Little Mermaid from the harbour of Copenhagen (Dewey, 2003)
+- Rembrandt’s creating of the seventh state of his etching “Woman sitting half dressed beside a stove”, 1658, identified by Bartsch Number 197 (E12, E65, E81) (Hind, 1923)
 
-## E14_Condition_Assessment
-Subclass of: [E13_Attribute_Assignment]
-This class describes the act of assessing the state of preservation of an object during a particular period.The condition assessment may be carried out by inspection, measurement, or through historical research. This class is used to document circumstances of the respective assessment that is relevant to interpret its quality at a later stage, or to continue research on related documents.
-
-## E15_Identifier_Assignment
-Subclass of: [E13_Attribute_Assignment]
-This class comprises activities that result in the allocation of an identifier to an instance of E1 CRM Entity. An instance of E15 Identifier Assignment may include the creation of the identifier from multiple constituents, which themselves may be instances of E41 Appellation. The syntax and kinds of constituents to be used may be declared in a rule constituting an instance of E29 Design or Procedure.Examples of such identifiers include Find Numbers, Inventory Numbers, uniform titles in the sense of librarianship and Digital Object Identifiers (DOI). Documenting the act of identifier assignment and deassignment is especially useful when objects change custody or the identification system of an organization is changed. In order to keep track of the identity of things in such cases, it is important to document by whom, when, and for what purpose an identifier is assigned to an item.The fact that an identifier is a preferred one for an organisation can be expressed by using the property E1 CRM Entity. P48 has preferred identifier (is preferred identifier of): E42 Identifier. It can better be expressed in a context independent form by assigning a suitable E55 Type, such as “preferred identifier assignment”, to the respective instance of E15 Identifier Assignment through the P2 has type (is type of) property.
-
-## E16_Measurement
-Subclass of: [E13_Attribute_Assignment]
-This class comprises actions measuring physical properties and other values that can be determined by a systematic, objective procedure of direct observation of particular states of physical reality.An instance of E16 Measurement may use simple counting or tools, such as yardsticks or radiation detection devices. The interest is in the method and care applied, so that the reliability of the result may be judged at a later stage, or research continued on the associated documents. The date of the event is important for dimensions, which may change value over time, such as the length of an object subject to shrinkage. Methods and devices employed should be associated with instances of E16 Measurement by properties such as P33 used specific technique: E29 Design or Procedure, P125 used object of type: E55 Type, P16 used specific object (was used for): E70 Thing, whereas basic techniques such as "carbon-14 dating" should be encoded using P2 has type (is type of): E55 Type. Details of methods and devices reused or reusable in other instances of E16 Measurement should be documented for these entities rather than the measurements themselves, whereas details of particular execution may be documented by free text or by instantiating adequate sub-activities, if the detail may be of interest for an overarching query.Regardless whether a measurement is made by an instrument or by human senses, it represents the initial transition from physical reality to information without any other documented information object in between within the reasoning chain that would represent the result of the interaction of the observer or device with reality. Therefore, determining properties of an instance of E90 Symbolic Object is regarded as an instance of E13 Attribute Assignment, which may be inferred from observing and measuring representative carriers. In the case that the carrier can be named, the property P16 used specific object (was used for) should be used to indicate the instance(s) of E18 Physical Thing that was used as the empirical basis for the attribute assignment. For instance, inferring properties of depicted items using image material, such as satellite images, is not regarded as an instance of E16 Measurement, but as a subsequent instance of E13 Attribute Assignment. Rather, only the production of the images, understood as arrays of radiation intensities, is regarded as an instance of E16 Measurement. The same reasoning holds for other sensor data.
-
-## E17_Type_Assignment
-Subclass of: [E13_Attribute_Assignment]
-This class comprises the actions of classifying items of whatever kind. Such items include objects, specimens, people, actions, and concepts.This class allows for the documentation of the context of classification acts in cases where the value of the classification depends on the personal opinion of the classifier, and the date that the classification was made. This class also encompasses the notion of “determination,” i.e. the systematic and molecular identification of a specimen in biology.
-
-## E18_Physical_Thing
-Subclass of: []
-This class comprises all persistent physical items with a relatively stable form, human-made or natural.Depending on the existence of natural boundaries of such things, the CIDOC CRM distinguishes the instances of E19 Physical Object from instances of E26 Physical Feature, such as holes, rivers, pieces of land, etc. Most instances of E19 Physical Object can be moved (if not too heavy), whereas features are integral to the surrounding matter.An instance of E18 Physical Thing occupies not only a particular geometric space at any instant of its existence, but in the course of its existence it also forms a trajectory through spacetime, which occupies a real, that is phenomenal, volume in spacetime. We include in the occupied space the space filled by the matter of the physical thing and all its inner spaces, such as the interior of a box. For the purpose of more detailed descriptions of the presence of an instance of E18 Physical Thing in space and time it can be associated with its specific instance of E92 Spacetime Volume by the property P196 defines (is defined by).The CIDOC CRM is generally not concerned with amounts of matter in fluid or gaseous states, as long as they are not confined in an identifiable way for an identifiable minimal time-span.
+In First Order Logic:
+- E12(x) ⇒ E11(x)
+- E12(x) ⇒ E63(x)
 
 ## E19_Physical_Object
-Subclass of: [E18_Physical_Thing]
-This class comprises items of a material nature that are units for documentation and have physical boundaries that separate them completely in an objective way from other objects.The class also includes all aggregates of objects made for functional purposes of whatever kind, independent of physical coherence, such as a set of chessmen. Typically, instances of E19 Physical Object can be moved (if not too heavy).In some contexts, such objects, except for aggregates, are also called “bona fide objects”, i.e. naturally defined objects (Smith &amp; Varzi, 2000).The decision as to what is documented as a complete item, rather than by its parts or components, may be purely administrative or may be a result of the order in which the item was acquired.
+Scope note:
+This class comprises items of a material nature that are units for documentation and have physical boundaries that separate them completely in an objective way from other objects. 
+The class also includes all aggregates of objects made for functional purposes of whatever kind, independent of physical coherence, such as a set of chessmen. Typically, instances of E19 Physical Object can be moved (if not too heavy).
+In some contexts, such objects, except for aggregates, are also called “bona fide objects”, i.e. naturally defined objects (Smith & Varzi, 2000). 
+The decision as to what is documented as a complete item, rather than by its parts or components, may be purely administrative or may be a result of the order in which the item was acquired.
 
-## E20_Biological_Object
-Subclass of: [E19_Physical_Object]
-This class comprises individual items of a material nature, which live, have lived, or are natural products of or from living organisms.Artificial objects that incorporate biological elements, such as Victorian butterfly frames, can be documented as both instances of E20 Biological Object and E22 Human-Made Object.
+Examples:
+- Aphrodite of Milos (E22) (Kousser, 2005)
+- the Cullinan Diamond (Scarratt and Shor, 2006)
+- Apollo 13 at the time of launch (E22) (Lovell and Kluger, 1994)
 
-## E21_Person
-Subclass of: [E20_Biological_Object, E39_Actor]
-This class comprises real persons who live or are assumed to have lived.Legendary figures that may have existed, such as Ulysses and King Arthur, fall into this class if the documentation refers to them as historical figures. In cases where doubt exists as to whether several persons are in fact identical, multiple instances can be created and linked to indicate their relationship. The CIDOC CRM does not propose a specific form to support reasoning about possible identity.In a bibliographic context, a name presented following the conventions usually employed for personal names will be assumed to correspond to an actual real person (an instance of E21 Person), unless evidence is available to indicate that this is not the case. The fact that a persona may erroneously be classified as an instance of E21 Person does not imply that the concept comprises personae.
-
-## E22_Human-Made_Object
-Subclass of: [E19_Physical_Object, E24_Physical_Human-Made_Thing]
-This class comprises all persistent physical objects of any size that are purposely created by human activity and have physical boundaries that separate them completely in an objective way from other objects.The class also includes all aggregates of objects made for functional purposes of whatever kind, independent of physical coherence, such as a set of chessmen.
+In First Order Logic:
+- E19(x) ⇒ E18(x)
 
 ## E24_Physical_Human-Made_Thing
-Subclass of: [E18_Physical_Thing, E71_Human-Made_Thing]
-This class comprises all persistent physical items of any size that are purposely created by human activity. This class comprises, besides others, human-made objects, such as a sword, and human-made features, such as rock art. For example, a “cup and ring” carving on bedrock is regarded as instance of E24 Physical Human-Made Thing.Instances of E24 Physical Human-Made Thing may be the result of modifying pre-existing physical things, preserving larger parts or most of the original matter and structure, which poses the question if they are new or even human-made, the respective interventions of production made on such original material should be obvious and sufficient to regard that the product has a new, distinct identity and intended function and is human-made. Substantial continuity of the previous matter and structure in the new product can be documented by describing the production process also as an instance of E81 Transformation.Whereas interventions of conservation and repair are not regarded to produce a new instance of E24 Physical Human-Made Thing, the results of preparation of natural history specimens that substantially change their natural or original state should be regarded as instances of E24 Physical Human-Made Things, including the uncovering of petrified biological features from a solid piece of stone. On the other side, scribbling a museum number on a natural object should not be regarded to make it human-made. This notwithstanding, parts, sections, segments, or features of an instance of E24 Physical Human-Made Thing may continue to be non-human-made and preserved during the production process, for example natural pearls used as a part of an eardrop.
+Scope note:
+This class comprises all persistent physical items of any size that are purposely created by human activity. This class comprises, besides others, human-made objects, such as a sword, and human-made features, such as rock art. For example, a “cup and ring” carving on bedrock is regarded as instance of E24 Physical Human-Made Thing.
+Instances of E24 Physical Human-Made Thing may be the result of modifying pre-existing physical things, preserving larger parts or most of the original matter and structure, which poses the question if they are new or even human-made, the respective interventions of production made on such original material should be obvious and sufficient to regard that the product has a new, distinct identity and intended function and is human-made. Substantial continuity of the previous matter and structure in the new product can be documented by describing the production process also as an instance of E81 Transformation.
+Whereas interventions of conservation and repair are not regarded to produce a new instance of E24 Physical Human-Made Thing, the results of preparation of natural history specimens that substantially change their natural or original state should be regarded as instances of E24 Physical Human-Made Things, including the uncovering of petrified biological features from a solid piece of stone. On the other side, scribbling a museum number on a natural object should not be regarded to make it human-made. This notwithstanding, parts, sections, segments, or features of an instance of E24 Physical Human-Made Thing may continue to be non-human-made and preserved during the production process, for example natural pearls used as a part of an eardrop.
 
-## E26_Physical_Feature
-Subclass of: [E18_Physical_Thing]
-This class comprises identifiable features that are physically attached in an integral way to particular physical objects.Instances of E26 Physical Feature share many of the attributes of instances of E19 Physical Object. They may have a one-dimensional, two-dimensional, or three-dimensional geometric extent, but there are no natural borders that separate them completely in an objective way from the carrier objects. For example, a doorway is a feature but the door itself, being attached by hinges, is not.Instances of E26 Physical Feature can be features in a narrower sense, such as scratches, holes, reliefs, surface colours, reflection zones in an opal crystal or a density change in a piece of wood. In the wider sense, they are portions of particular objects with partially imaginary borders, such as the core of the Earth, an area of property on the surface of the Earth, a landscape or the head of a contiguous marble statue. They can be measured and dated, and it is sometimes possible to state who or what is or was responsible for them. They cannot be separated from the carrier object, but a segment of the carrier object may be identified (or sometimes removed) carrying the complete feature.This definition coincides with the definition of “fiat objects”, with the exception of aggregates of “bona fide objects” (Smith &amp; Varzi, 2000).
+Examples:
+- the Forth Railway Bridge (Shipway, Bouch, Baker and Fowler, 1990).
+- the Channel Tunnel (E25) (Holliday, Marcou and Vickerman, 1991)
+- the Palace of Knossos (Evans, 1921)
+- the Colosseum in Rome, Italy (Hopkins and Beard, 2011)
+- the Historical Collection of the Museum Benaki in Athens (E78) (Georgoula, 2005)
+- the Rosetta Stone (E22)
+- my paperback copy of Crime & Punishment (E22) (fictitious)
+- the computer disk at ICS-FORTH that stores the canonical Definition of the CIDOC CRM v.3.2 (E22)
+- my empty DVD disk (E22) (fictitious)
 
-## E28_Conceptual_Object
-Subclass of: [E71_Human-Made_Thing]
-This class comprises non-material products of our minds and other human produced data that have become objects of a discourse about their identity, circumstances of creation, or historical implication. The production of such information might have been supported by the use of technical devices such as cameras or computers.Characteristically, instances of this class are created, invented or thought by someone, and then may be documented or communicated between persons. Instances of E28 Conceptual Object have the ability to exist on more than one particular carrier at the same time, such as paper, electronic signals, marks, audio media, paintings, photos, human memories, etc.They cannot be destroyed. They exist as long as they can be found on at least one carrier or in at least one human memory. Their existence ends when the last carrier and the last memory are lost.
-
-## E29_Design_or_Procedure
-Subclass of: [E73_Information_Object]
-This class comprises documented plans for the execution of actions in order to achieve a result of a specific quality, form, or contents. In particular, it comprises plans for deliberate human activities that may result in new instances of E71 Human-Made Thing or for shaping or guiding the execution of an instance of E7 Activity.Instances of E29 Design or Procedure can be structured in parts and sequences or depend on others.This is modelled using P69 has association with (is associated with): E29 Design or Procedure.Designs or procedures can be seen as one of the following:1. A schema for the activities it describes2. A schema of the products that result from their application3. An independent intellectual product that may have never been applied, such as Leonardo da Vinci’s famous plans for flying machinesBecause designs or procedures may never be applied or only partially executed, the CIDOC CRM models a loose relationship between the plan and the respective product.
-
-## E31_Document
-Subclass of: [E73_Information_Object]
-This class comprises identifiable immaterial items that make propositions about reality.These propositions may be expressed in text, graphics, images, audiograms, videograms, or by other similar means. Documentation databases are regarded as instances of E31 Document. This class should not be confused with the concept “document” in Information Technology, which is compatible with E73 Information Object.
-
-## E33_Linguistic_Object
-Subclass of: [E73_Information_Object]
-This class comprises identifiable expressions in natural language or languages.Instances of E33 Linguistic Object can be expressed in many ways: e.g. as written texts, recorded speech, or sign language. However, the CIDOC CRM treats instances of E33 Linguistic Object independently from the medium or method by which they are expressed. Expressions in formal languages, such as computer code or mathematical formulae, are not treated as instances of E33 Linguistic Object by the CIDOC CRM. These should be modelled as instances of E73 Information Object.In general, an instance of E33 Linguistic Object may also contain non-linguistic information, often of artistic or aesthetic value. Only in cases in which the content of an instance of E33 Linguistic Object can completely be expressed by a series of binary-encoded symbols, its content may be documented within a respective knowledge base by the property P190 has symbolic content: E62 String. Otherwise, it should be understood as an identifiable digital resource only available independently from the respective knowledge base.In other cases, such as pages of an illuminated manuscript or recordings containing speech in a language supported by a writing system, the linguistic part of the content of an instance of E33 Linguistic Object may be documented within a respective knowledge base in a note by P3 has note: E62 String. Otherwise, it may be described using the property P165 incorporates (is incorporated in): E73 Information Object as a different object with its own identity.
-
-## E34_Inscription
-Subclass of: [E33_Linguistic_Object]
-This class comprises recognisable texts that can be attached to instances of E24 Physical Human-Made Thing.The transcription of the text can be documented in a note by P3 has note: E62 String. The alphabet used can be documented by P2 has type: E55 Type. This class is not intended to describe the idiosyncratic characteristics of an individual physical embodiment of an inscription, but the underlying prototype. The physical embodiment is modelled in the CIDOC CRM as instances of E24 Physical Human-Made Thing.The relationship of a physical copy of a book to the text it contains is modelled using E18 Physical Thing. P128 carries (is carried by): E33 Linguistic Object.
-
-## E35_Title
-Subclass of: [E33_Linguistic_Object, E41_Appellation]
-This class comprises the textual strings that within a cultural context can be clearly identified as titles due to their form. Being a subclass of E41 Appellation, E35 Title can only be used when such a string is actually used as a title of a work, such as a text, an artwork, or a piece of music.Titles are proper noun phrases or verbal phrases, and should not be confused with generic object names such as “chair”, “painting”, or “book” (the latter are common nouns that stand for instances of E55 Type). Titles may be assigned by the creator of the work itself, or by a social group.This class also comprises the translations of titles that are used as surrogates for the original titles in different social contexts.
-
-## E36_Visual_Item
-Subclass of: [E73_Information_Object]
-This class comprises the intellectual or conceptual aspects of recognisable marks and images.This class does not intend to describe the idiosyncratic characteristics of an individual physical embodiment of a visual item, but the underlying prototype. For example, a mark such as the ICOM logo is generally considered to be the same logo when used on any number of publications. The size, orientation, and colour may change, but the logo remains uniquely identifiable. The same is true of images that are reproduced many times. This means that visual items are independent of their physical support.The E36 Visual Item class provides a means of identifying and linking together instances of E24 Physical Human-Made Thing that carry the same visual symbols, marks, or images, etc. The property P62 depicts (is depicted by) between E24 Physical Human-Made Thing and the depicted subjects (E1 CRM Entity) can be regarded as a shortcut of the more fully developed path from E24 Physical Human-Made Thing through P65 shows visual item (is shown by), E36 Visual Item, P138 represents (has representation) to E1 CRM Entity, which in addition captures the optical features of the depiction.
+In First Order Logic:
+- E24(x) ⇒ E18(x)
+- E24(x) ⇒ E71(x)
 
 ## E39_Actor
-Subclass of: [E77_Persistent_Item]
+Scope note:
 This class comprises people, either individually or in groups, who have the potential to perform intentional actions of kinds for which they can be held responsible.
 
-## E41_Appellation
-Subclass of: [E90_Symbolic_Object]
-This class comprises all signs, either meaningful or not, or arrangements of signs following a specific syntax, that are used or can be used to refer to and identify a specific instance of some class within a certain context.Instances of E41 Appellation do not identify things by their meaning, even if they happen to have one, but by convention, tradition, or agreement. Instances of E41 Appellation are cultural constructs; as such, they have a context, a history, and a use in time and space by some group of users. A given instance of E41 Appellation can have alternative forms, i.e. other instances of E41 Appellation that are regarded as equivalent, regardless of the thing it denotes.Different languages may use different appellations for the same thing, such as the names of major cities. Some appellations may be formulated using a valid noun phrase of a particular language. In these cases, the respective instances of E41 Appellation should also be declared as instances of E33 Linguistic Object. Then the language using the appellation can be declared with the property P72 has language: E56 Language.Instances of E41 Appellation may be used to identify any instance of E1 CRM Entity and sometimes are characteristic for instances of more specific subclasses of E1 CRM Entity, such as for instances of E52 Time-Span (for instance “dates”), E39 Actor, E53 Place or E28 Conceptual Object. Postal addresses and E-mail addresses are characteristic examples of identifiers used by services transporting things between clients.Even numerically expressed identifiers for extents in space or time are also regarded as instances of E41 Appellation, such as Gregorian dates or spatial coordinates, even though they allow for determining some time or location by a known procedure starting from a reference point and by virtue of that fact play a double role as instances of E59 Primitive Value.E41 Appellation should not be confused with the act of naming something. Cf. E15 Identifier Assignment.
+Examples:
+- London and Continental Railways (E74)
+- the Governor of the Bank of England in 1975 (E21)
+- Sir Ian McKellen (E21) (Gibson, 1986)
 
-## E42_Identifier
-Subclass of: [E41_Appellation]
-This class comprises strings or codes assigned to instances of E1 CRM Entity in order to identify them uniquely and permanently within the context of one or more organisations. Such codes are often known as inventory numbers, registration codes, etc. and are typically composed of alphanumeric sequences. Postal addresses, telephone numbers, URLs and e-mail addresses are characteristic examples of identifiers used by services transporting things between clients.The class E42 Identifier is not normally used for machine-generated identifiers used for automated processing unless these are also used by human agents.
+In First Order Logic:
+- E39(x) ⇒ E77(x)
+
+## E41_Appellation
+Scope note:
+This class comprises all signs, either meaningful or not, or arrangements of signs following a specific syntax, that are used or can be used to refer to and identify a specific instance of some class within a certain context.
+Instances of E41 Appellation do not identify things by their meaning, even if they happen to have one, but by convention, tradition, or agreement. Instances of E41 Appellation are cultural constructs; as such, they have a context, a history, and a use in time and space by some group of users. A given instance of E41 Appellation can have alternative forms, i.e. other instances of E41 Appellation that are regarded as equivalent, regardless of the thing it denotes.
+Different languages may use different appellations for the same thing, such as the names of major cities. Some appellations may be formulated using a valid noun phrase of a particular language. In these cases, the respective instances of E41 Appellation should also be declared as instances of E33 Linguistic Object. Then the language using the appellation can be declared with the property P72 has language: E56 Language.
+Instances of E41 Appellation may be used to identify any instance of E1 CRM Entity and sometimes are characteristic for instances of more specific subclasses of E1 CRM Entity, such as for instances of E52 Time-Span (for instance “dates”), E39 Actor, E53 Place or E28 Conceptual Object. Postal addresses and E-mail addresses are characteristic examples of identifiers used by services transporting things between clients.
+Even numerically expressed identifiers for extents in space or time are also regarded as instances of E41 Appellation, such as Gregorian dates or spatial coordinates, even though they allow for determining some time or location by a known procedure starting from a reference point and by virtue of that fact play a double role as instances of E59 Primitive Value.
+E41 Appellation should not be confused with the act of naming something. Cf. E15 Identifier Assignment.
+
+Examples:
+- “Martin”
+- “Aquae Sulis Minerva”
+- “the Merchant of Venice” (E35) (McCullough, 2005)
+- “Spigelia marilandica (L.) L.” [not the species, just the name] (Hershberger, Robacker and Jenkins, 2015)
+- “information science” [not the science itself, but the name used to refer to the subject matter in an English-speaking context]
+- “安” [Chinese “an”, meaning “peace”]
+- “6°5’29”N 45°12’13”W” [example of a spatial coordinate]
+- “Black queen’s bishop 4” [chess coordinate, example of an identifier in a conceptual space (E89)]
+- “19-MAR-1922” [example of date]
+- “+41 22 418 5571” [example of contact point]
+- “weasel@paveprime.com” [example of contact point]
+- “CH-1211, Genève” [example of place appellation]
+- “1-29-3 Otsuka, Bunkyo-ku, Tokyo, 121, Japan” [example of a postal address]
+- “the poop deck of H.M.S Victory” [example of a section definition on a human-made object (E22)]
+- “the Venus de Milo’s left buttock” [example of a section definition on a human-made object (E22)]
+
+In First Order Logic:
+- E41(x) ⇒ E90(x)
 
 ## E52_Time-Span
-Subclass of: [E1_CRM_Entity]
-This class comprises abstract temporal extents, in the sense of Galilean physics, having a beginning, an end, and a duration.Instances of E52 Time-Span have no semantic connotations about phenomena happening within the temporal extent they represent. They do not convey any meaning other than a positioning on the “time-line” of chronology. The actual extent of an instance of E52 Time-Span can be approximated by properties of E52 Time-Span giving inner and outer bounds in the form of dates (instances of E61 Time Primitive). Comparing knowledge about time-spans is fundamental for chronological reasoning.Some instances of E52 Time-Span may be defined as the actual, in principle observable, temporal extent of instances of E2 Temporal Entity via the property P4 has time-span (is time-span of): E52 Time-Span. They constitute phenomenal time-spans as defined in CRMgeo (Doerr &amp; Hiebel 2013). Since our knowledge of history is imperfect and physical phenomena are fuzzy in nature, the extent of phenomenal time-spans can only be described in approximation. An extreme case of approximation, might, for example, define an instance of E52 Time-Span having unknown beginning, end and duration. It may, nevertheless, be associated with other descriptions by which people can infer knowledge about it, such as in relative chronologies.Some instances of E52 may be defined precisely as representing a declaration of a temporal extent, as, for instance, done in a business contract. They constitute declarative time-spans as defined in CRMgeo (Doerr &amp; Hiebel 2013) and can be described via the property E61 Time Primitive P170 defines time (time is defined by): E52 Time-Span.When used as a common E52 Time-Span for two events, it will nevertheless describe them as being simultaneous, even if nothing else is known.
+Scope note:
+This class comprises abstract temporal extents, in the sense of Galilean physics, having a beginning, an end, and a duration. 
+Instances of E52 Time-Span have no semantic connotations about phenomena happening within the temporal extent they represent. They do not convey any meaning other than a positioning on the “time-line” of chronology. The actual extent of an instance of E52 Time-Span can be approximated by properties of E52 Time-Span giving inner and outer bounds in the form of dates (instances of E61 Time Primitive). Comparing knowledge about time-spans is fundamental for chronological reasoning.
+Some instances of E52 Time-Span may be defined as the actual, in principle observable, temporal extent of instances of E2 Temporal Entity via the property P4 has time-span (is time-span of): E52 Time-Span. They constitute phenomenal time-spans as defined in CRMgeo (Doerr & Hiebel 2013). Since our knowledge of history is imperfect and physical phenomena are fuzzy in nature, the extent of phenomenal time-spans can only be described in approximation. An extreme case of approximation, might, for example, define an instance of E52 Time-Span having unknown beginning, end and duration. It may, nevertheless, be associated with other descriptions by which people can infer knowledge about it, such as in relative chronologies.
+Some instances of E52 may be defined precisely as representing a declaration of a temporal extent, as, for instance, done in a business contract. They constitute declarative time-spans as defined in CRMgeo (Doerr & Hiebel 2013) and can be described via the property E61 Time Primitive P170 defines time (time is defined by): E52 Time-Span. 
+When used as a common E52 Time-Span for two events, it will nevertheless describe them as being simultaneous, even if nothing else is known.
+
+Examples:
+- 1961
+- From 12-17-1993 to 12-8-1996
+- 14h30 to 16h22 4(th) July 1945
+- 9.30 am 1.1.1999 to 2.00 pm 1.1.1999
+- the time-span of the Ming Dynasty (Chan, 2011)
+
+In First Order Logic:
+- E52(x) ⇒ E1(x)
 
 ## E53_Place
-Subclass of: [E1_CRM_Entity]
-This class comprises extents in the natural space where people live, in particular on the surface of the Earth, in the pure sense of physics: independent from temporal phenomena and matter. They may serve describing the physical location of things or phenomena or other areas of interest. Geometrically, instances of E53 Place constitute single contiguous areas or a finite aggregation of disjoint areas in space which are each individually contiguous. They may have fuzzy boundaries.The instances of E53 Place are usually determined by reference to the position of “immobile” objects such as buildings, cities, mountains, rivers, or dedicated geodetic marks, but may also be determined by reference to mobile objects. A Place can be determined by combining a frame of reference and a location with respect to this frame.It is sometimes argued that instances of E53 Place are best identified by global coordinates or absolute reference systems. However, relative references are often more relevant in the context of cultural documentation and tend to be more precise. In particular, people are often interested in position in relation to large, mobile objects, such as ships. For example, the Place at which Nelson died is known with reference to a large mobile object, i.e. H.M.S Victory. A resolution of this Place in terms of absolute coordinates would require knowledge of the movements of the vessel and the precise time of death, either of which may be revised, and the result would lack historical and cultural relevance.Any instance of E18 Physical Thing can serve as a frame of reference for an instance of E53 Place. This may be documented using the property P157 is at rest relative to (provides reference space for).
+Scope note:
+This class comprises extents in the natural space where people live, in particular on the surface of the Earth, in the pure sense of physics: independent from temporal phenomena and matter. They may serve describing the physical location of things or phenomena or other areas of interest. Geometrically, instances of E53 Place constitute single contiguous areas or a finite aggregation of disjoint areas in space which are each individually contiguous. They may have fuzzy boundaries.
+The instances of E53 Place are usually determined by reference to the position of “immobile” objects such as buildings, cities, mountains, rivers, or dedicated geodetic marks, but may also be determined by reference to mobile objects. A Place can be determined by combining a frame of reference and a location with respect to this frame.
+It is sometimes argued that instances of E53 Place are best identified by global coordinates or absolute reference systems. However, relative references are often more relevant in the context of cultural documentation and tend to be more precise. In particular, people are often interested in position in relation to large, mobile objects, such as ships. For example, the Place at which Nelson died is known with reference to a large mobile object, i.e. H.M.S Victory. A resolution of this Place in terms of absolute coordinates would require knowledge of the movements of the vessel and the precise time of death, either of which may be revised, and the result would lack historical and cultural relevance.
+Any instance of E18 Physical Thing can serve as a frame of reference for an instance of E53 Place. This may be documented using the property P157 is at rest relative to (provides reference space for).
+
+Examples:
+- the extent of the UK in the year 2003
+- the position of the hallmark on the inside of my wedding ring (fictitious)
+- the place referred to in the phrase: “Fish collected at three miles north of the confluence of the Arve and the Rhone”
+- here -> <- [the place between these two arrows in one of the reader's paper copy of this document. Each copy constitutes a different place of this spot.]
+
+In First Order Logic:
+- E53(x) ⇒ E1(x)
 
 ## E54_Dimension
-Subclass of: [E1_CRM_Entity]
-This class comprises quantifiable properties that can be measured by some calibrated means and can be approximated by values, i.e. points or regions in a mathematical or conceptual space, such as natural or real numbers, RGB values, etc.An instance of E54 Dimension represents the empirical or theoretically derived quantity, including the precision tolerances resulting from the particular method or calculation. The identity of an instance of E54 Dimension depends on the method of its determination because each method may produce different values even when determining comparable qualities. For instance, the wingspan of a bird alive or dead is a different dimension. Thermoluminescence dating and Rehydroxylation [RHX] dating are different dimensions of temporal distance from now, even if they aim at dating the same object. The method of determination should be expressed using the property P2 has type (is type of). Note that simple terms such as “diameter” or “length” are normally insufficient to unambiguously describe a respective dimension. In contrast, “maximum linear extent” may be sufficient.The properties of the class E54 Dimension allow for expressing the numerical approximation of the values of instances of E54 Dimension adequate to the precision of the applied method of determination. If the respective quantity belongs to a non-discrete space according to the laws of physics, such as spatial distances, it is recommended to record them as approximations by intervals or regions of indeterminacy enclosing the assumed true values. For instance, a length of 5 cm may be recorded as 4.5-5.5 cm, according to the precision of the respective observation. Note, that comparability of values described in different units depends critically on the representation as value regions.Numerical approximations in archaic instances of E58 Measurement Unit used in historical records should be preserved. Equivalents corresponding to current knowledge should be recorded as additional instances of E54 Dimension, as appropriate.
+Scope note:
+This class comprises quantifiable properties that can be measured by some calibrated means and can be approximated by values, i.e. points or regions in a mathematical or conceptual space, such as natural or real numbers, RGB values, etc.
+An instance of E54 Dimension represents the empirical or theoretically derived quantity, including the precision tolerances resulting from the particular method or calculation. The identity of an instance of E54 Dimension depends on the method of its determination because each method may produce different values even when determining comparable qualities. For instance, the wingspan of a bird alive or dead is a different dimension. Thermoluminescence dating and Rehydroxylation [RHX] dating are different dimensions of temporal distance from now, even if they aim at dating the same object. The method of determination should be expressed using the property P2 has type (is type of). Note that simple terms such as “diameter” or “length” are normally insufficient to unambiguously describe a respective dimension. In contrast, “maximum linear extent” may be sufficient.
+The properties of the class E54 Dimension allow for expressing the numerical approximation of the values of instances of E54 Dimension adequate to the precision of the applied method of determination. If the respective quantity belongs to a non-discrete space according to the laws of physics, such as spatial distances, it is recommended to record them as approximations by intervals or regions of indeterminacy enclosing the assumed true values. For instance, a length of 5 cm may be recorded as 4.5-5.5 cm, according to the precision of the respective observation. Note, that comparability of values described in different units depends critically on the representation as value regions.
+Numerical approximations in archaic instances of E58 Measurement Unit used in historical records should be preserved. Equivalents corresponding to current knowledge should be recorded as additional instances of E54 Dimension, as appropriate.
+
+Examples:
+- the weight of the Luxor Obelisk [250 metric tons]
+- the vertical height of the statue of David by Michelangelo [5.17 metres]
+- the weight of the Great Star of Africa diamond [530.2 carats]
+- the calibrated C14 date for the Shroud of Turin [AD1262-1312, 1303-1384]
+- the horizontal diameter of the Stonehenge Sarsen Circle [33 metres] (Pryor, 2016)
+- the length of the sides of the Great Pyramid at Giza [230.34 metres] (Lehner and Hawass, 2017)
+- the duration of the time-span of the Battle of Issos/Issus on 15(th) November 333 B.C.E. [less than 12 hours] (Howard, 2012)
+- Christie’s hammer price, in British Pounds, for Vincent van Gogh's "Still Life: Vase with Fifteen Sunflowers" in London on 30(th) March 1987 (E97) [24.75 million GBP (British Pounds)]
+
+In First Order Logic:
+- E54(x) ⇒ E1(x)
 
 ## E55_Type
-Subclass of: [E28_Conceptual_Object]
-This class comprises concepts denoted by terms from thesauri and controlled vocabularies used to characterize and classify instances of CIDOC CRM classes. Instances of E55 Type represent concepts, in contrast to instances of E41 Appellation which are used to name instances of CIDOC CRM classes.E55 Type provides an interface to domain specific ontologies and thesauri. These can be represented in the CIDOC CRM as subclasses of E55 Type, forming hierarchies of terms, i.e. instances of E55 Type linked via P127 has broader term (has narrower term): E55 Type. Such hierarchies may be extended with additional properties.
+Scope note:
+This class comprises concepts denoted by terms from thesauri and controlled vocabularies used to characterize and classify instances of CIDOC CRM classes. Instances of E55 Type represent concepts, in contrast to instances of E41 Appellation which are used to name instances of CIDOC CRM classes. 
+E55 Type provides an interface to domain specific ontologies and thesauri. These can be represented in the CIDOC CRM as subclasses of E55 Type, forming hierarchies of terms, i.e. instances of E55 Type linked via P127 has broader term (has narrower term): E55 Type. Such hierarchies may be extended with additional properties.
 
-## E56_Language
-Subclass of: [E55_Type]
-This class is a specialization of E55 Type and comprises the natural languages in the sense of concepts.This type is used categorically in the model without reference to instances of it, i.e. the Model does not foresee the description of instances of instances of E56 Language, e.g. “instances of Mandarin Chinese”.It is recommended that internationally or nationally agreed codes and terminology should be used to denote instances of E56 Language, such as those defined in ISO 639-3:2007 and later versions.
+Examples:
+- weight, length, depth [types for instances of E54 Dimension]
+- portrait, sketch, animation [types for instances of E36 Visual Item]
+- French, English, German [types for instances of E56 Language]
+- excellent, good, poor [types for instances of E3 Condition State]
+- Ford Model T, chop stick [types for instances of E22 Human-Made Object]
+- cave, doline, scratch [types for instances of E26 Physical Feature]
+- poem, short story [types for instances of E33 Linguistic Object]
+- wedding, earthquake, skirmish [types for instances of E5 Event]
+
+In First Order Logic:
+- E55(x) ⇒ E28(x)
 
 ## E57_Material
-Subclass of: [E55_Type]
-This class is a specialization of E55 Type and comprises the concepts of materials.Instances of E57 Material may denote properties of matter before its use, during its use, and as incorporated in an object, such as ultramarine powder, tempera paste, reinforced concrete. Discrete pieces of raw-materials kept in museums, such as bricks, sheets of fabric, pieces of metal, should be modelled individually in the same way as other objects. Discrete used or processed pieces, such as the stones from Nefer Titi's temple, should be modelled as parts (cf. P46 is composed of (forms part of): E18 Physical Thing).This type is used categorically in the model without reference to instances of it, i.e. the Model does not foresee the description of instances of instances of E57 Material, e.g. “instances of gold”.It is recommended that internationally or nationally agreed codes and terminology should be used.
+Scope note:
+This class is a specialization of E55 Type and comprises the concepts of materials. 
+Instances of E57 Material may denote properties of matter before its use, during its use, and as incorporated in an object, such as ultramarine powder, tempera paste, reinforced concrete. Discrete pieces of raw-materials kept in museums, such as bricks, sheets of fabric, pieces of metal, should be modelled individually in the same way as other objects. Discrete used or processed pieces, such as the stones from Nefer Titi's temple, should be modelled as parts (cf. P46 is composed of (forms part of): E18 Physical Thing).
+This type is used categorically in the model without reference to instances of it, i.e. the Model does not foresee the description of instances of instances of E57 Material, e.g. “instances of gold”.
+It is recommended that internationally or nationally agreed codes and terminology should be used.
 
-## E58_Measurement_Unit
-Subclass of: [E55_Type]
-This class is a specialization of E55 Type and comprises the types of measurement units: feet, inches, centimetres, litres, lumens, etc.This type is used categorically in the model without reference to instances of it, i.e. the model does not foresee the description of instances of instances of E58 Measurement Unit, e.g. “instances of cm”.Système International (SI) units or internationally recognized non-SI terms should be used whenever possible, such as those defined by ISO80000:2009. Archaic Measurement Units used in historical records should be preserved.
+Examples:
+- brick (Gurcke, 1987)
+- gold (Watson, 1990)
+- aluminium (Norman, 1986)
+- polycarbonate (Mhaske, 2011)
+- resin (Barton, 1992)
 
-## E63_Beginning_of_Existence
-Subclass of: [E5_Event]
-This class comprises events that bring into existence any instance of E77 Persistent Item.It may be used for temporal reasoning about things (intellectual products, physical items, groups of people, living beings) beginning to exist; it serves as a hook for both a terminus post quem and a terminus ante quem.
+In First Order Logic:
+- E57(x) ⇒ E55(x)
 
-## E64_End_of_Existence
-Subclass of: [E5_Event]
-This class comprises events that end the existence of any instance of E77 Persistent Item.It may be used for temporal reasoning about things (physical items, groups of people, living beings) ceasing to exist; it serves as a hook both a terminus post quem and a terminus ante quem. In cases where substance from an instance of E77 Persistent Item continues to exist in a new form, the process would be documented as instances of E81 Transformation.
+## E65_Creation
+Scope note:
+This class comprises events that result in the creation of conceptual items or immaterial products, such as legends, poems, texts, music, images, movies, laws, types, etc.
 
-## E67_Birth
-Subclass of: [E63_Beginning_of_Existence]
-This class comprises the births of human beings. E67 Birth is a biological event focussing on the context of people coming into life. (E63 Beginning of Existence comprises the coming into life of any living being.)Twins, triplets, etc. are brought into life by the same instance of E67 Birth. The introduction of the E67 Birth event as a documentation element allows the description of a range of family relationships in a simple model. Suitable extensions may describe more details and the complexity of motherhood since the advent of modern medicine. In this model, the biological father is not seen as a necessary participant in the E67 Birth.
+Examples:
+- the framing of the U.S. Constitution (Farrand, 1913)
+- the drafting of U.N. Resolution 1441 (United Nations Security Council, 2002)
 
-## E69_Death
-Subclass of: [E64_End_of_Existence]
-This class comprises the deaths of human beings.If a person is killed, their death should be instantiated as E69 Death and as E7 Activity. The death or perishing of other living beings should be documented as instances of E64 End of Existence.
-
-## E70_Thing
-Subclass of: [E77_Persistent_Item]
-This general class comprises discrete, identifiable, instances of E77 Persistent Item that are documented as single units, that either consist of matter or depend on being carried by matter and are characterized by relative stability.They may be intellectual products or physical things. They may, for instance, have a solid physical form, an electronic encoding, or they may be a logical concept or structure.
-
-## E71_Human-Made_Thing
-Subclass of: [E70_Thing]
-This class comprises discrete, identifiable human-made items that are documented as single units.These items are either intellectual products or human-made physical things, and are characterized by relative stability. They may, for instance, have a solid physical form, an electronic encoding, or they may be logical concepts or structures.
+In First Order Logic:
+- E65(x) ⇒ E7(x)
+- E65(x) ⇒ E63(x)
 
 ## E73_Information_Object
-Subclass of: [E89_Propositional_Object, E90_Symbolic_Object]
-This class comprises identifiable immaterial items, such as poems, jokes, data sets, images, texts, multimedia objects, procedural prescriptions, computer program code, algorithm or mathematical formulae, that have an objectively recognizable structure and are documented as single units. The encoding structure known as a “named graph” also falls under this class, so that each “named graph” is an instance of E73 Information Object.An instance of E73 Information Object does not depend on a specific physical carrier, which can include human memory, and it can exist on one or more carriers simultaneously.Instances of E73 Information Object of a linguistic nature should be declared as instances of the E33 Linguistic Object subclass. Instances of E73 Information Object of a documentary nature should be declared as instances of the E31 Document subclass. Conceptual items such as types and classes are not instances of E73 Information Object, nor are ideas without a reproducible expression.
+Scope note:
+This class comprises identifiable immaterial items, such as poems, jokes, data sets, images, texts, multimedia objects, procedural prescriptions, computer program code, algorithm or mathematical formulae, that have an objectively recognizable structure and are documented as single units. The encoding structure known as a “named graph” also falls under this class, so that each “named graph” is an instance of E73 Information Object.
+An instance of E73 Information Object does not depend on a specific physical carrier, which can include human memory, and it can exist on one or more carriers simultaneously.
+Instances of E73 Information Object of a linguistic nature should be declared as instances of the E33 Linguistic Object subclass. Instances of E73 Information Object of a documentary nature should be declared as instances of the E31 Document subclass. Conceptual items such as types and classes are not instances of E73 Information Object, nor are ideas without a reproducible expression.
 
-## E74_Group
-Subclass of: [E39_Actor]
-This class comprises any gatherings or organizations of human individuals or groups that act collectively or in a similar way due to any form of unifying relationship. In the wider sense this class also comprises official positions which used to be regarded in certain contexts as one actor, independent of the current holder of the office, such as the president of a country. In such cases, it may happen that the group never had more than one member. A joint pseudonym (i.e. a name that seems indicative of an individual but that is actually used as a persona by two or more people) is a particular case of E74 Group.A gathering of people becomes an instance of E74 Group when it exhibits organizational characteristics usually typified by a set of ideas or beliefs held in common, or actions performed together. These might be communication, creating some common artifact, a common purpose such as study, worship, business, sports, etc. Nationality can be modelled as membership in an instance of E74 Group. Married couples and other concepts of family are regarded as particular examples of E74 Group.
+Examples:
+- image BM000038850.JPG from the Clayton Herbarium in London (E31) (Natural History Museum, 2021)
+- E. A. Poe's “The Raven” (Poe, 1869)
+- the movie “The Seven Samurai” by Akira Kurosawa (Mellen, 2002)
+- the text of Huray describing the Maxwell Equations (Huray, 2010)
+- the Getty AAT as published as Linked Open Data, accessed 1/10/2014
 
-## E77_Persistent_Item
-Subclass of: [E1_CRM_Entity]
-This class comprises items that have persistent characteristics of structural nature substantially related to their identity and their integrity, sometimes known as “endurants” in philosophy. Persistent Items may be physical entities, such as people, animals or things, conceptual entities such as ideas, concepts, products of the imagination or even names.Instances of E77 Persistent Item may be present or be part of interactions in different periods or events. They can repeatedly be recognized at disparate occasions during their existence by characteristics of structural nature. The respective characteristics need not be exactly the same during all the existence of an instance of E77 Persistent Item. Often, they undergo gradual change, still bearing some similarities with that of previous times, or disappear completely and new emerge. For instance, a person, from the time of being born on, will gradually change all its features and acquire new ones, such as a scar. Even the DNA in different body cells will develop defects and mutations. Nevertheless, relevant characteristics used should be sufficiently similar to recognize the instance for some substantial period of time.The more specific criteria that determine the identity of instances of subclasses of E77 Persistent Item may vary considerably and are described or referred to in the respective scope notes. The decision about which exact criteria to use depends on whether the observable behaviour of the respective part of reality such confined conforms to the reasoning the user is interested in. For example, a building can be regarded as no longer existing if it is dismantled and the materials reused in a different configuration. On the other hand, human beings go through radical and profound changes during their life-span, affecting both material composition and form, yet preserve their identity by other criteria, such as being bodily separated from other persons. Similarly, inanimate objects may be subject to exchange of parts and matter. On the opposite, the identity of a (version of a) text of a scientific publication is given by the exact arrangement of its relevant symbols.The main classes of objects that fall outside the scope of the E77 Persistent Item class are temporal objects such as periods, events and acts, and descriptive properties.An instance of E77 Persistent Item does not require actual knowledge of the identifying features of the instance being currently known. There may be cases, where the actual identifying features of an instance of E77 Persistent Item are not decidable at a particular state of knowledge.
-
-## E79_Part_Addition
-Subclass of: [E11_Modification]
-This class comprises activities that result in an instance of E18 Physical Thing being increased, enlarged, or augmented by the addition of a part.Typical scenarios include the attachment of an accessory, the integration of a component, the addition of an element to an aggregate object, or the accessioning of an object into a curated instance of E78 Curated Holding. Both the E18 Physical Thing being augmented and the E18 Physical Thing that is being added are treated as separate identifiable wholes prior to the instance of E79 Part Addition. Following the addition of parts, the resulting assemblages are treated objectively as single identifiable wholes, made up of constituent or component parts bound together either physically (for example the engine becoming a part of the car), or by sharing a common purpose (such as the 32 chess pieces that make up a chess set). This class of activities forms a basis for reasoning about the history and continuity of identity of objects that are integrated into other objects over time, such as precious gemstones being repeatedly incorporated into different items of jewellery, or cultural artefacts being added to different museum instances of E78 Curated Holding over their lifespan.
-
-## E80_Part_Removal
-Subclass of: [E11_Modification]
-This class comprises the activities that result in an instance of E18 Physical Thing being decreased by the removal of a part.Typical scenarios include the detachment of an accessory, the removal of a component or part of a composite object, or the deaccessioning of an object from a curated collection, an instance of E78 Curated Holding. If the instance of E80 Part Removal results in the total decomposition of the original object into pieces, such that the whole ceases to exist, the activity should instead be modelled as an instance of E81 Transformation, i.e. a simultaneous destruction and production. In cases where the part removed has no discernible identity prior to its removal but does have an identity subsequent to its removal, the activity should be modelled as both an instance of E80 Part Removal and E12 Production. This class of activities forms a basis for reasoning about the history, and continuity of identity over time, of objects that are removed from other objects, such as precious gemstones being extracted from different items of jewellery, or cultural artifacts being deaccessioned from different museum collections over their lifespan.
-
-## E81_Transformation
-Subclass of: [E63_Beginning_of_Existence, E64_End_of_Existence]
-This class comprises the events that result in the simultaneous destruction of one or more than one E18 Physical Thing and the creation of one or more than one E18 Physical Thing that preserves recognizable substance and structure from the first one(s) but has fundamentally different nature or identity.Although the old and the new instances of E18 Physical Thing are treated as discrete entities having separate, unique identities, they are causally connected through the E81 Transformation; the destruction of the old E18 Physical Thing(s) directly causes the creation of the new one(s) using or preserving some relevant substance and structure. Instances of E81 Transformation are therefore distinct from re-classifications (documented using E17 Type Assignment) or modifications (documented using E11 Modification) of objects that do not fundamentally change their nature or identity. Characteristic cases are reconstructions and repurposing of historical buildings or ruins, fires leaving buildings in ruins, taxidermy of specimen in natural history.Even though such instances of E81 Transformation are often motivated by a change of intended use, substantial material changes should justify the documentation of the result as a new instance of E18 Physical Thing and not just the change of function. The latter may be documented as an extended activity (instance of E7 Activity) of using it.
-
-## E89_Propositional_Object
-Subclass of: [E28_Conceptual_Object]
-This class comprises immaterial items, including but not limited to stories, plots, procedural prescriptions, algorithms, laws of physics or images that are, or represent in some sense, sets of propositions about real or imaginary things and that are documented as single units or serve as topic of discourse.This class also comprises items that are “about” something in the sense of a subject. In the wider sense, this class includes expressions of psychological value such as non-figural art and musical themes. However, conceptual items such as types and classes are not instances of E89 Propositional Object. This should not be confused with the definition of a type, which is indeed an instance of E89 Propositional Object.
-
-## E90_Symbolic_Object
-Subclass of: [E28_Conceptual_Object]
-This class comprises identifiable symbols and any aggregation of symbols, such as characters, identifiers, traffic signs, emblems, texts, data sets, images, musical scores, multimedia objects, computer program code, or mathematical formulae that have an objectively recognizable structure and that are documented as single units.It includes sets of signs of any nature, which may serve to designate something, or to communicate some propositional content. An instance of E90 Symbolic Object may or may not have a specific meaning, for example an arbitrary character string.In some cases, the content of an instance of E90 Symbolic Object may completely be represented by a serialized digital content model, such as a sequence of ASCII-encoded characters, an XML or HTML document, or a TIFF image. The property P3 has note and its subproperty P190 has symbolic content allow for the description of this content model. In order to disambiguate which symbolic level is the carrier of the meaning, the property P3.1 has type can be used to specify the encoding (e.g. “bit”, “Latin character”, RGB pixel).
-
-## E96_Purchase
-Subclass of: [E8_Acquisition]
-This class comprises transfers of legal ownership from one or more instances of E39 Actor to one or more different instances of E39 Actor, where the transferring party is completely compensated by the payment of a monetary amount. In more detail, a purchase agreement establishes a fixed monetary obligation at its initialization on the receiving party, to the giving party. An instance of E96 Purchase begins with the contract or equivalent agreement and ends with the fulfilment of all contractual obligations. In the case that the activity is abandoned before both parties have fulfilled these obligations, the activity is not regarded as an instance of E96 Purchase.This class is a very specific case of the much more complex social business practices of exchange of goods and the creation and satisfaction of related social obligations. Purchase activities which define individual sales prices per object can be modelled by instantiating E96 Purchase for each object individually and as part of an overall instance of E96 Purchase transaction.
+In First Order Logic:
+- E73(x) ⇒ E89(x)
+- E73(x) ⇒ E90(x)
 
 # Ontology Relations
 ## P1_is_identified_by
-Domain: E1_CRM_Entity
+Domain: E7_Activity, E8_Acquisition, E12_Production, E19_Physical_Object, E24_Physical_Human-Made_Thing, E39_Actor, E41_Appellation, E52_Time-Span, E53_Place, E54_Dimension, E55_Type, E57_Material, E65_Creation, E73_Information_Object
 Range: E41_Appellation
-This property describes the naming or identification of any real-world item by a name or any other identifier.This property is intended for identifiers in general use, which form part of the world the model intends to describe, and not merely for internal database identifiers which are specific to a technical system, unless these latter also have a more general use outside the technical context. This property includes in particular identification by mathematical expressions such as coordinate systems used for the identification of instances of E53 Place. The property does not reveal anything about when, where and by whom this identifier was used. A more detailed representation can be made using the fully developed (i.e. indirect) path through E15 Identifier Assignment.This property is a shortcut for the path from E1 CRM Entity through P140i was attributed by, E15 Identifier Assignment, P37 assigned to E42 Identifier.It is also a shortcut for the path from E1 CRM Entity through P1 is identified by, E41 Appellation, P139 has alternative form to E41 Appellation.
-
-## P1i_identifies
-Domain: E41_Appellation
-Range: E1_CRM_Entity
 
 ## P2_has_type
-Domain: E1_CRM_Entity
-Range: E55_Type
-This property allows sub-typing of CIDOC CRM entities –a form of specialisation – through the use of a terminological hierarchy, or thesaurus.The CIDOC CRM is intended to focus on the high-level entities and relationships needed to describe data structures. Consequently, it does not specialise entities any further than is required for this immediate purpose. However, entities in the isA hierarchy of the CIDOC CRM may by specialised into any number of sub-entities, which can be defined in the E55 Type hierarchy. E41 Appellation, for example, may be specialised into “e-mail address”, “telephone number”, “post office box”, “URL”, etc., none of which figures explicitly in the CIDOC CRM class hierarchy. A comprehensive explanation about refining CIDOC CRM concepts by E55 Type is given in the section “About Types” in the section on “Specific Modelling Constructs” of this document.This property is a shortcut for the path from E1 CRM Entity through P41i was classified by, E17 Type Assignment, P42 assigned to E55 Type.
-
-## P2i_is_type_of
-Domain: E55_Type
-Range: E1_CRM_Entity
-
-## P3_has_note
-Domain: E1_CRM_Entity
-Range: http://www.w3.org/2000/01/rdf-schema#Literal
-This property is a container for all informal descriptions about an object that have not been expressed in terms of CIDOC CRM constructs.In particular, it captures the characterisation of the item itself, its internal structures, appearance, etc.Like property P2 has type (is type of), this property is a consequence of the restricted focus of the CIDOC CRM. The aim is not to capture, in a structured form, everything that can be said about an item; indeed, the CIDOC CRM formalism is not regarded as sufficient to express everything that can be said. Good practice requires use of distinct note fields for different aspects of a characterisation. The P3.1 has type property of P3 has note allows differentiation of specific notes, e.g. “construction”, “decoration”, etc.An item may have many notes, but a note is attached to a specific item.
+Domain: E7_Activity, E8_Acquisition, E12_Production, E19_Physical_Object, E24_Physical_Human-Made_Thing, E39_Actor, E41_Appellation, E52_Time-Span, E53_Place, E54_Dimension, E55_Type, E57_Material, E65_Creation, E73_Information_Object
+Range: E55_Type, E57_Material
 
 ## P4_has_time-span
-Domain: E2_Temporal_Entity
+Domain: E7_Activity, E8_Acquisition, E12_Production, E65_Creation
 Range: E52_Time-Span
-This property associates an instance of E2 Temporal Entity with the instance of E52 Time-Span during which it was on-going. The associated instance of E52 Time-Span is understood as the real time-span during which the phenomena making up the temporal entity instance were active. More than one instance of E2 Temporal Entity may share a common instance of E52 Time-Span only if they come into being and end being due to identical declarations or events.
-
-## P4i_is_time-span_of
-Domain: E52_Time-Span
-Range: E2_Temporal_Entity
 
 ## P7_took_place_at
-Domain: E4_Period
+Domain: E7_Activity, E8_Acquisition, E12_Production, E65_Creation
 Range: E53_Place
-This property describes the spatial location of an instance of E4 Period.The related instance of E53 Place should be seen as a wider approximation of the geometric area within which the phenomena that characterise the period in question occurred, see below. P7 took place at (witnessed) does not convey any meaning other than spatial positioning (frequently on the surface of the earth). For example, the period “Révolution française” can be said to have taken place in “France in 1789”; the “Victorian” period may be said to have taken place in “Britain from 1837-1901” and its colonies, as well as other parts of Europe and North America. An instance of E4 Period can take place at multiple non-contiguous, non-overlapping locations.Any place where something happened includes the spatial projection of the happening given in the same geometric reference system. For instance, HMS Victory, as place of Lord Nelson's dying, includes the location of his body relative to the hull of HMS Victory at his time of death as the most precise location of his death. By the definition of P161 has spatial projection, an instance of E4 Period takes place on all its spatial projections to respective reference systems, that is, instances of E53 Place. Therefore, this property implies the more fully developed path from E4 Period through P161 has spatial projection, E53 Place, P89 falls within to E53 Place, where both places are defined in the same geometric reference system. The relation between an instance of E53 Place and its reference system can conveniently be documented via the property P157 is at rest relative to (provides reference space for).Something that has happened at a given place can also be considered to have happened at a smaller place within it: for example, it is reasonable to say Caesar’s murder took place in Rome, but also on the Forum Romanum, and more precisely in the Curia. It is characteristic for different historical sources to use varying precision in such statements, without being in contradiction with each other. This may be due to lack of knowledge or to the relevance of the precision for the purpose of the statement. In information integration, the more precise statement improves the overall knowledge.
-
-## P7i_witnessed
-Domain: E53_Place
-Range: E4_Period
 
 ## P11_had_participant
-Domain: E5_Event
+Domain: E7_Activity, E8_Acquisition, E12_Production, E65_Creation
 Range: E39_Actor
-This property describes the active or passive participation of instances of E39 Actors in an instance of E5 Event.It documents known events in which an instance of E39 Actor has participated during the course of that actor’s life or history. The instances of E53 Place and E52 Time-Span where and when these events happened provide constraints about the presence of the related instances of E39 Actor in the past. Collective actors, i.e. instances of E74 Group, may physically participate in events via their representing instances of E21 Persons only. The participation of multiple actors in an event is most likely an indication of their acquaintance and interaction.The property implies that the actor was involved in the event but does not imply any causal relationship. For instance, someone having been portrayed can be said to have participated in the creation of the portrait.
-
-## P11i_participated_in
-Domain: E39_Actor
-Range: E5_Event
 
 ## P12_occurred_in_the_presence_of
-Domain: E5_Event
-Range: E77_Persistent_Item
-This property describes the active or passive presence of an E77 Persistent Item in an instance of E5 Event without implying any specific role.It documents known events in which an instance of E77 Persistent Item was present during the course of its life or history. For example, an object may be the desk, now in a museum, on which a treaty was signed. The instance of E53 Place and the instance of E52 Time-Span where and when these events happened provide constraints about the presence of the related instance E77 Persistent Item in the past. Instances of E90 Symbolic Object, in particular information objects, are physically present in events via at least one of the instances of E18 Physical Thing carrying them. Note, that the human mind can be such a carrier. A precondition for a transfer of information to a person or another new physical carrier is the presence of the respective information object and this person or physical thing in one event.
-
-## P12i_was_present_at
-Domain: E77_Persistent_Item
-Range: E5_Event
-
-## P13_destroyed
-Domain: E6_Destruction
-Range: E18_Physical_Thing
-This property links an instance of E6 Destruction to an instance of E18 Physical Thing that has been destroyed by it.Destruction implies the end of an item’s life as a subject of cultural documentation – the physical matter of which the item was composed may in fact continue to exist. An instance of E6 Destruction may be contiguous with an instance of E12 Production that brings into existence a derived object composed partly of matter from the destroyed object.
-
-## P13i_was_destroyed_by
-Domain: E18_Physical_Thing
-Range: E6_Destruction
+Domain: E7_Activity, E8_Acquisition, E12_Production, E65_Creation
+Range: E19_Physical_Object, E24_Physical_Human-Made_Thing, E39_Actor, E41_Appellation, E55_Type, E57_Material, E73_Information_Object
 
 ## P14_carried_out_by
-Domain: E7_Activity
+Domain: E7_Activity, E8_Acquisition, E12_Production, E65_Creation
 Range: E39_Actor
-This property describes the active participation of an instance of E39 Actor in an instance of E7 Activity.It implies causal or legal responsibility. The P14.1 in the role of property of the property specifies the nature of an Actor’s participation.
-
-## P14i_performed
-Domain: E39_Actor
-Range: E7_Activity
 
 ## P16_used_specific_object
-Domain: E7_Activity
-Range: E70_Thing
-This property describes the use of material or immaterial things in a way essential to the performance or the outcome of an instance of E7 Activity.This property typically applies to tools, instruments, moulds, raw materials and items embedded in a product. It implies that the presence of the object in question was a necessary condition for the action. For example, the activity of writing this text required the use of a computer. An immaterial thing can be used if at least one of its carriers is present. For example, the software tools on a computer.Another example is the use of a particular name by a particular group of people over some span to identify a thing, such as a settlement. In this case, the physical carriers of this name are at least the people understanding its use.
-
-## P16i_was_used_for
-Domain: E70_Thing
-Range: E7_Activity
+Domain: E7_Activity, E8_Acquisition, E12_Production, E65_Creation
+Range: E19_Physical_Object, E24_Physical_Human-Made_Thing, E41_Appellation, E55_Type, E57_Material, E73_Information_Object
 
 ## P22_transferred_title_to
 Domain: E8_Acquisition
 Range: E39_Actor
-This property identifies the instance of E39 Actor that acquires the legal ownership of an object as a result of an instance of E8 Acquisition.The property will typically describe an Actor purchasing or otherwise acquiring an object from another Actor. However, title may also be acquired without any corresponding loss of title by another Actor, through legal fieldwork such as hunting, shooting, or fishing.In reality, the title is either transferred to or from someone, or both.
-
-## P22i_acquired_title_through
-Domain: E39_Actor
-Range: E8_Acquisition
 
 ## P23_transferred_title_from
 Domain: E8_Acquisition
 Range: E39_Actor
-This property identifies the instance(s) of E39 Actor who relinquish legal ownership as the result of an instance of E8 Acquisition.The property will typically be used to describe a person donating or selling an object to a museum. In reality, the title is either transferred to or from someone, or both.
-
-## P23i_surrendered_title_through
-Domain: E39_Actor
-Range: E8_Acquisition
-
-## P24_transferred_title_of
-Domain: E8_Acquisition
-Range: E18_Physical_Thing
-This property identifies the instance(s) of E18 Physical Thing involved in an instance of E8 Acquisition.In reality, an acquisition must refer to at least one transferred item.
-
-## P24i_changed_ownership_through
-Domain: E18_Physical_Thing
-Range: E8_Acquisition
-
-## P25_moved
-Domain: E9_Move
-Range: E19_Physical_Object
-This property identifies an instance of E19 Physical Object that was moved by an instance of E9 Move. A move must concern at least one object.The property implies the object’s passive participation. For example, Monet’s painting “Impression sunrise” was moved for the first Impressionist exhibition in 1874.
-
-## P25i_moved_by
-Domain: E19_Physical_Object
-Range: E9_Move
-
-## P26_moved_to
-Domain: E9_Move
-Range: E53_Place
-This property identifies a destination, an instance of E53 Place, of an instance of E9 Move.A move will be linked to a destination, such as the move of an artifact from storage to display. A move may be linked to many terminal instances of E53 Place by multiple instances of this property. In this case the move describes a distribution of a set of objects. The area of the move includes the origin(s), route and destination(s).Therefore, the described destination is an instance of E53 Place which P89 falls within (contains) the instance of E53 Place the move P7 took place at.
-
-## P26i_was_destination_of
-Domain: E53_Place
-Range: E9_Move
-
-## P27_moved_from
-Domain: E9_Move
-Range: E53_Place
-This property identifies an origin, an instance of E53 Place, of an instance of E9 Move.A move will be linked to an origin, such as the move of an artifact from storage to display. A move may be linked to many starting instances of E53 Place by multiple instances of this property. In this case the move describes the picking up of a set of objects. The area of the move includes the origin(s), route and destination(s).Therefore, the described origin is an instance of E53 Place which P89 falls within (contains) the instance of E53 Place the move P7 took place at.
-
-## P27i_was_origin_of
-Domain: E53_Place
-Range: E9_Move
-
-## P28_custody_surrendered_by
-Domain: E10_Transfer_of_Custody
-Range: E39_Actor
-This property identifies the instance(s) of E39 Actor who surrender custody of an instance of E18 Physical Thing in an instance of E10 Transfer of Custody.The property will typically describe an Actor surrendering custody of an object when it is handed over to someone else’s care. On occasion, physical custody may be surrendered involuntarily, e.g. through accident, loss, or theft.In reality, custody is either transferred to someone or from someone, or both.
-
-## P28i_surrendered_custody_through
-Domain: E39_Actor
-Range: E10_Transfer_of_Custody
-
-## P29_custody_received_by
-Domain: E10_Transfer_of_Custody
-Range: E39_Actor
-This property identifies the instance(s) of E39 Actor who receive custody of an instance of E18 Physical Thing in an instance of E10 Transfer of Custody.The property will typically describe Actors receiving custody of an object when it is handed over from another Actor’s care. On occasion, physical custody may be received involuntarily or illegally, e.g. through accident, unsolicited donation, or theft.In reality, custody is either transferred to someone or from someone, or both.
-
-## P29i_received_custody_through
-Domain: E39_Actor
-Range: E10_Transfer_of_Custody
-
-## P30_transferred_custody_of
-Domain: E10_Transfer_of_Custody
-Range: E18_Physical_Thing
-This property identifies the instance(s) of E18 Physical Thing concerned in an instance of E10 Transfer of Custody.The property will typically describe the object that is handed over by an instance of E39 Actor to the custody of another instance of E39 Actor. On occasion, physical custody may be transferred involuntarily or illegally, e.g. through accident, unsolicited donation, or theft.
-
-## P30i_custody_transferred_through
-Domain: E18_Physical_Thing
-Range: E10_Transfer_of_Custody
-
-## P31_has_modified
-Domain: E11_Modification
-Range: E18_Physical_Thing
-This property identifies the instance of E18 Physical Thing modified in an instance of E11 Modification.
-
-## P31i_was_modified_by
-Domain: E18_Physical_Thing
-Range: E11_Modification
-
-## P32_used_general_technique
-Domain: E7_Activity
-Range: E55_Type
-This property identifies the technique or method, modelled as an instance of E55 Type, that was employed in an instance of E7 Activity.These techniques should be drawn from an external E55 Type hierarchy of consistent terminology of general techniques or methods such as embroidery, oil-painting, carbon dating, etc. Specific documented techniques should be described as instances of E29 Design or Procedure.
-
-## P32i_was_technique_of
-Domain: E55_Type
-Range: E7_Activity
-
-## P33_used_specific_technique
-Domain: E7_Activity
-Range: E29_Design_or_Procedure
-This property identifies a specific instance of E29 Design or Procedure in order to carry out an instance of E7 Activity or parts of it.The property differs from P32 used general technique (was technique of) in that P33 refers to an instance of E29 Design or Procedure, which is a concrete information object in its own right rather than simply being a term or a method known by tradition.Typical examples would include intervention plans for conservation or the construction plans of a building.
-
-## P33i_was_used_by
-Domain: E29_Design_or_Procedure
-Range: E7_Activity
-
-## P34_concerned
-Domain: E14_Condition_Assessment
-Range: E18_Physical_Thing
-This property identifies the instance of E18 Physical Thing that was assessed during an instance of E14 Condition Assessment.Conditions may be assessed either by direct observation or using recorded evidence. In the latter case the instance of E18 Physical Thing does not need to be present or extant at the time of assessment.
-
-## P34i_was_assessed_by
-Domain: E18_Physical_Thing
-Range: E14_Condition_Assessment
-
-## P35_has_identified
-Domain: E14_Condition_Assessment
-Range: E3_Condition_State
-This property identifies the instance of E3 Condition State that was observed in an instance of E14 Condition Assessment activity.
-
-## P35i_was_identified_by
-Domain: E3_Condition_State
-Range: E14_Condition_Assessment
-
-## P37_assigned
-Domain: E15_Identifier_Assignment
-Range: E42_Identifier
-This property records the identifier that was assigned to an item in an instance of E15 Identifier Assignment.The same identifier may be assigned on more than one occasion.An identifier might be created prior to an assignment.
-
-## P37i_was_assigned_by
-Domain: E42_Identifier
-Range: E15_Identifier_Assignment
-
-## P38_deassigned
-Domain: E15_Identifier_Assignment
-Range: E42_Identifier
-This property records the identifier that was deassigned from an instance of E1 CRM Entity.De-assignment of an identifier may be necessary when an item is taken out of an inventory, a new numbering system is introduced or items are merged or split up.The same identifier may be deassigned on more than one occasion.
-
-## P38i_was_deassigned_by
-Domain: E42_Identifier
-Range: E15_Identifier_Assignment
-
-## P39_measured
-Domain: E16_Measurement
-Range: E18_Physical_Thing
-This property associates an instance of E16 Measurement with the instance of E18 Physical Thing upon which it acted. The instance of E16 Measurement is specific to the measured object. An instance of E18 Physical Thing may be measured more than once with different results, constituting different instances of E16 Measurement.
-
-## P39i_was_measured_by
-Domain: E18_Physical_Thing
-Range: E16_Measurement
-
-## P40_observed_dimension
-Domain: E16_Measurement
-Range: E54_Dimension
-This property records the dimension that was observed in an E16 Measurement Event.E54 Dimension can be any quantifiable aspect of E70 Thing. Weight, image colour depth and monetary value are dimensions in this sense. One measurement activity may determine more than one dimension of one object.Dimensions may be determined either by direct observation or using recorded evidence. In the latter case the measured Thing does not need to be present or extant.Even though knowledge of the value of a dimension requires measurement, the dimension may be an object of discourse prior to, or even without, any measurement being made.
-
-## P40i_was_observed_in
-Domain: E54_Dimension
-Range: E16_Measurement
-
-## P41_classified
-Domain: E17_Type_Assignment
-Range: E1_CRM_Entity
-This property records the item to which a type was assigned in an E17 Type Assignment activity.Any instance of a CIDOC CRM entity may be assigned a type through type assignment. Type assignment events allow a more detailed path from E1 CRM Entity through P41i was classified by, E17 Type Assignment, P42 assigned, to E55 Type for assigning types to objects compared to the shortcut offered by P2 has type (is type of).
-
-## P41i_was_classified_by
-Domain: E1_CRM_Entity
-Range: E17_Type_Assignment
-
-## P42_assigned
-Domain: E17_Type_Assignment
-Range: E55_Type
-This property records the type that was assigned to an entity by an E17 Type Assignment activity.Type assignment events allow a more detailed path from E1 CRM Entity through P41i was classified by, E17 Type Assignment, P42 assigned, to E55 Type for assigning types to objects compared to the shortcut offered by P2 has type (is type of).For example, a fragment of an antique vessel could be assigned the type “attic red figured belly handled amphora” by expert A. The same fragment could be assigned the type “shoulder handled amphora” by expert B.A Type may be intellectually constructed independent from assigning an instance of it.
-
-## P42i_was_assigned_by
-Domain: E55_Type
-Range: E17_Type_Assignment
 
 ## P43_has_dimension
-Domain: E70_Thing
+Domain: E19_Physical_Object, E24_Physical_Human-Made_Thing, E41_Appellation, E55_Type, E57_Material, E73_Information_Object
 Range: E54_Dimension
-This property records an instance of E54 Dimension of some instance of E70 Thing.In the case that the recorded property is a result of a measurement of an instance of E18 Physical Thing, this property is a shortcut of the more fully developed path from E18 Physical Thing through P39i was measured by, E16 Measurement, P40 observed dimension to E54 Dimension.It offers no information about how and when an E54 Dimension was established, nor by whom. Knowledge about an instance of E54 Dimension need not be the result of a measurement; it may be the result of evaluating data or other information, which should be documented as an instance of E13 Attribute Assignment.An instance of E54 Dimension is specific to an instance of E70 Thing.
-
-## P43i_is_dimension_of
-Domain: E54_Dimension
-Range: E70_Thing
-
-## P44_has_condition
-Domain: E18_Physical_Thing
-Range: E3_Condition_State
-This property records an E3 Condition State for some E18 Physical Thing.This property is a shortcut of the more fully developed path from E18 Physical Thing through P34i was assessed by, E14 Condition Assessment, P35 has identified to E3 Condition State. It offers no information about how and when the E3 Condition State was established, nor by whom.An instance of E3 Condition State is specific to an instance of E18 Physical Thing.
-
-## P44i_is_condition_of
-Domain: E3_Condition_State
-Range: E18_Physical_Thing
 
 ## P45_consists_of
-Domain: E18_Physical_Thing
+Domain: E19_Physical_Object, E24_Physical_Human-Made_Thing
 Range: E57_Material
-This property identifies the instances of E57 Materials of which an instance of E18 Physical Thing is composed.All physical things consist of physical materials. P45 consists of (is incorporated in) allows the different materials to be recorded. P45 consists of (is incorporated in) refers here to observed material as opposed to the consumed raw material.A material, such as a theoretical alloy, may not have any physical instances.
-
-## P45i_is_incorporated_in
-Domain: E57_Material
-Range: E18_Physical_Thing
-
-## P46_is_composed_of
-Domain: E18_Physical_Thing
-Range: E18_Physical_Thing
-This property associates an instance of E18 Physical Thing with another instance of Physical Thing that forms part of it. The spatial extent of the composing part is included in the spatial extent of the whole.Component elements, since they are themselves instances of E18 Physical Thing, may be further analysed into sub-components, thereby creating a hierarchy of part decomposition. An instance of E18 Physical Thing may be shared between multiple wholes, for example two buildings may share a common wall. This property does not specify when and for how long a component element resided in the respective whole. If a component is not part of a whole from the beginning of existence or until the end of existence of the whole, the classes E79 Part Addition and E90 Part Removal can be used to document when a component became part of a particular whole and/or when it stopped being a part of it. For the time-span of being part of the respective whole, the component is completely contained in the place the whole occupies.This property is intended to describe specific components that are individually documented, rather than general aspects. Overall descriptions of the structure of an instance of E18 Physical Thing are captured by the P3 has note property.The instances of E57 Material of which an instance of E18 Physical Thing is composed should be documented using P45 consists of (is incorporated in).This property is transitive and asymmetric.
-
-## P46i_forms_part_of
-Domain: E18_Physical_Thing
-Range: E18_Physical_Thing
-
-## P48_has_preferred_identifier
-Domain: E1_CRM_Entity
-Range: E42_Identifier
-This property records the preferred instance of E42 Identifier that was used to identify an instance of E1 CRM Entity at the time this property was recorded.More than one preferred identifier may have been assigned to an item over time.Use of this property requires an external mechanism for assigning temporal validity to the respective CIDOC CRM instance.The fact that an identifier is a preferred one for an organisation can be better expressed in a context independent form by assigning a suitable instance of E55 Type to the respective instance of E15 Identifier Assignment using the P2 has type property.
-
-## P48i_is_preferred_identifier_of
-Domain: E42_Identifier
-Range: E1_CRM_Entity
-
-## P49_has_former_or_current_keeper
-Domain: E18_Physical_Thing
-Range: E39_Actor
-This property identifies the instance of E39 Actor who has or has had custody of an instance of E18 Physical Thing at some time. This property leaves open the question if parts of this physical thing have been added or removed during the time-spans it has been under the custody of this actor, but it is required that at least a part which can unambiguously be identified as representing the whole has been under this custody for its whole time. The way, in which a representative part is defined, should ensure that it is unambiguous who keeps a part and who the whole and should be consistent with the identity criteria of the kept instance of E18 Physical Thing.The distinction with P50 has current keeper (is current keeper of) is that P49 has former or current keeper (is former or current keeper of) leaves open the question as to whether the specified keepers are current.This property is a shortcut for the more detailed path from E18 Physical Thing through P30i custody transferred through, E10 Transfer of Custody, P28 custody surrendered by or P29 custody received by to E39 Actor.
-
-## P49i_is_former_or_current_keeper_of
-Domain: E39_Actor
-Range: E18_Physical_Thing
-
-## P50_has_current_keeper
-Domain: E18_Physical_Thing
-Range: E39_Actor
-This property identifies the instance of E39 Actor that had custody of an instance of E18 Physical Thing at the time of validity of the record or database containing the statement that uses this property.This property is a shortcut for the more detailed path from E18 Physical Thing through, P30i custody transferred through, E10 Transfer of Custody, P29 custody received by to E39 Actor, if and only if the custody has not been surrendered by the receiving actor at any later time
-
-## P50i_is_current_keeper_of
-Domain: E39_Actor
-Range: E18_Physical_Thing
 
 ## P51_has_former_or_current_owner
-Domain: E18_Physical_Thing
+Domain: E19_Physical_Object, E24_Physical_Human-Made_Thing
 Range: E39_Actor
-This property identifies an instance of E39 Actor that is or had been the legal owner (i.e. title holder) of an instance of E18 Physical Thing at some time.The distinction with P52 has current owner (is current owner of) is that P51 has former or current owner (is former or current owner of) does not indicate whether the specified owners are current.This property is a shortcut for the more detailed path from E18 Physical Thing through P24i changed ownership through, E8 Acquisition, P23 transferred title from, or P22 transferred title to to E39 Actor.
-
-## P51i_is_former_or_current_owner_of
-Domain: E39_Actor
-Range: E18_Physical_Thing
 
 ## P52_has_current_owner
-Domain: E18_Physical_Thing
+Domain: E19_Physical_Object, E24_Physical_Human-Made_Thing
 Range: E39_Actor
-This property identifies the instance of E21 Person or E74 Group that was the owner of an instance of E18 Physical Thing at the time of validity of the record or database containing the statement that uses this property.This property is a shortcut for the more detailed path from E18 Physical Thing through, P24i changed ownership through, E8 Acquisition, P22 transferred title to to E39 Actor, if and only if this acquisition event is the most recent.
-
-## P52i_is_current_owner_of
-Domain: E39_Actor
-Range: E18_Physical_Thing
 
 ## P53_has_former_or_current_location
-Domain: E18_Physical_Thing
+Domain: E19_Physical_Object, E24_Physical_Human-Made_Thing
 Range: E53_Place
-This property identifies an instance of E53 Place as the former or current location of an instance of E18 Physical Thing.In the case of instances of E19 Physical Object, the property does not allow any indication of the Time-Span during which the instance of E19 Physical Object was located at this instance of E53 Place, nor if this is the current location.In the case of immobile objects, the Place would normally correspond to the Place of creation.This property is a shortcut. A more detailed representation can make use of the fully developed (i.e. indirect) path from E19 Physical Object, though, P25i moved by, E9 Move, P26 moved to or P27 moved from to E53 Place.
-
-## P53i_is_former_or_current_location_of
-Domain: E53_Place
-Range: E18_Physical_Thing
 
 ## P55_has_current_location
 Domain: E19_Physical_Object
 Range: E53_Place
-This property records the location of an instance of E19 Physical Object at the time of validity of the record or database containing the statement that uses this property.This property is a specialisation of P53 has former or current location (is former or current location of). It indicates that the instance of E53 Place associated with the instance of E19 Physical Object is the current location of the object. The property does not allow any indication of how long the object has been at the current location.This property is a shortcut. A more detailed representation can make use of the fully developed (i.e., indirect) path from E19 Physical Object, through, P25i moved by, E9 Move, P26 moved to to E53 Place if and only if this Move is the most recent.
 
-## P55i_currently_holds
-Domain: E53_Place
-Range: E19_Physical_Object
-
-## P56_bears_feature
-Domain: E19_Physical_Object
-Range: E26_Physical_Feature
-This property links an instance of E19 Physical Object to an instance of E26 Physical Feature that it bears.An instance of E26 Physical Feature can only exist on one object. One object may bear more than one E26 Physical Feature. An instance of E27 Site should be considered as an instance of E26 Physical Feature on the surface of the Earth.An instance B of E26 Physical Feature being a detail of the structure of another instance A of E26 Physical Feature can be linked to B by use of the property P46 is composed of (forms part of). This implies that the subfeature B is P56i is found on the same E19 Physical Object as A.This property is a shortcut. A more detailed representation can make use of the fully developed (i.e. indirect) path E19 Physical Object, through, P59 has section, E53 Place, P53i is former or current location of to E26 Physical Feature.
-
-## P56i_is_found_on
-Domain: E26_Physical_Feature
-Range: E19_Physical_Object
-
-## P62_depicts
-Domain: E24_Physical_Human-Made_Thing
-Range: E1_CRM_Entity
-This property identifies something that is depicted by an instance of E24 Physical Human-Made Thing. Depicting is meant in the sense that an instance of E24 Physical Human-Made Thing intentionally shows, through its optical qualities or form, a representation of the entity depicted. Photographs are by default regarded as being intentional in this sense. Anything that is designed to change the properties of the depiction, such as an e-book reader, is specifically excluded. The property does not pertain to inscriptions or any other information encoding.This property is a shortcut of the more fully developed path from E24 Physical Human-Made Thing through P65 shows visual item, E36 Visual Item, P138 represents to E1 CRM Entity. P62.1 mode of depiction allows the nature of the depiction to be refined.
-
-## P62i_is_depicted_by
-Domain: E1_CRM_Entity
-Range: E24_Physical_Human-Made_Thing
-
-## P65_shows_visual_item
-Domain: E24_Physical_Human-Made_Thing
-Range: E36_Visual_Item
-This property documents an instance of E36 Visual Item shown by an instance of E24 Physical Human-Made Thing.This property is similar to P62 depicts (is depicted by) in that it associates an instance of E24 Physical Human-Made Thing with a visual representation. However, P65 shows visual item (is shown by) differs from the P62 depicts (is depicted by) property in that it makes no claims about what the instance of E36 Visual Item is deemed to represent. An instance of E36 Visual Item identifies a recognisable image or visual symbol, regardless of what this image may or may not represent.For example, all recent British coins bear a portrait of Queen Elizabeth II, a fact that is correctly documented using P62 depicts (is depicted by). Different portraits have been used at different periods, however. P65 shows visual item (is shown by) can be used to refer to a particular portrait.P65 shows visual item (is shown by) may also be used for Visual Items such as signs, marks and symbols, for example the 'Maltese Cross' or the 'copyright symbol’ that have no particular representational content.This property is part of the fully developed path E24 Physical Human-Made Thing, P65 shows visual item, E36 Visual Item, P138 represents to E1 CRM Entity which is shortcut by, P62 depicts (is depicted by).
-
-## P65i_is_shown_by
-Domain: E36_Visual_Item
-Range: E24_Physical_Human-Made_Thing
-
-## P70_documents
-Domain: E31_Document
-Range: E1_CRM_Entity
-This property describes the CRM Entities documented as instances of E31 Document.Documents may describe any conceivable entity, hence the link to the highest-level entity in the CIDOC CRM class hierarchy. This property is intended for cases where a reference is regarded as making a proposition about reality. This may be of a documentary character, in the scholarly or scientific sense, or a more general statement.
-
-## P70i_is_documented_in
-Domain: E1_CRM_Entity
-Range: E31_Document
-
-## P72_has_language
-Domain: E33_Linguistic_Object
-Range: E56_Language
-This property associates an instance(s) of E33 Linguistic Object with an instance of E56 Language in which it is, at least partially, expressed.Linguistic Objects are composed in one or more human languages. This property allows these languages to be documented.
-
-## P72i_is_language_of
-Domain: E56_Language
-Range: E33_Linguistic_Object
-
-## P74_has_current_or_former_residence
-Domain: E39_Actor
+## P59_has_section
+Domain: E19_Physical_Object, E24_Physical_Human-Made_Thing
 Range: E53_Place
-This property describes the current or former place of residence (an instance of E53 Place) of an instance of E39 Actor.The residence may be either the place where the actor resides, or a legally registered address of any kind.
 
-## P74i_is_current_or_former_residence_of
-Domain: E53_Place
-Range: E39_Actor
-
-## P79_beginning_is_qualified_by
-Domain: E52_Time-Span
-Range: http://www.w3.org/2000/01/rdf-schema#Literal
-This property associates an instance of E52 Time-Span with a note detailing the scholarly or scientific opinions and justifications about the certainty, precision, sources etc. of its beginning. Such notes may also be used to elaborate arguments about constraints or to give explanations of alternatives.
-
-## P80_end_is_qualified_by
-Domain: E52_Time-Span
-Range: http://www.w3.org/2000/01/rdf-schema#Literal
-This property associates an instance of E52 Time-Span with a note detailing the scholarly or scientific opinions and justifications about the end of this time-span concerning certainty, precision, sources etc. This property may also be used to describe arguments constraining possible dates and to distinguish reasons for alternative dates.
-
-## P81_ongoing_throughout
-Domain: E52_Time-Span
-Range: http://www.w3.org/2000/01/rdf-schema#Literal
-This property associates an instance of E52 Time-Span with an instance of E61 Time Primitive specifying a minimum period of time covered by it. Since Time-Spans may not have precisely known temporal extents, the CIDOC CRM supports statements about the minimum and maximum temporal extents of Time-Spans. This property allows a Time-Span’s minimum temporal extent (i.e., its inner boundary) to be assigned an E61 Time Primitive value. Time Primitives are treated by the CIDOC CRM as application or system specific date intervals, and are not further analysed. If different sources of evidence justify different minimum extents without contradicting each other, the smallest interval including all these extents will be the best estimate. This should be taken into account for information integration.
-
-## P82_at_some_time_within
-Domain: E52_Time-Span
-Range: http://www.w3.org/2000/01/rdf-schema#Literal
-This property describes the maximum period of time within which an E52 Time-Span falls. Since Time-Spans may not have precisely known temporal extents, the CIDOC CRM supports statements about the minimum and maximum temporal extents of Time-Spans. This property allows a Time-Span’s maximum temporal extent (i.e. its outer boundary) to be assigned an E61 Time Primitive value. Time Primitives are treated by the CIDOC CRM as application or system specific date intervals, and are not further analysed. If different sources of evidence justify different maximum extents without contradicting each other, the resulting intersection of all these extents will be the best estimate. This should be taken into account for information integration.
-
-## P86_falls_within
-Domain: E52_Time-Span
-Range: E52_Time-Span
-This property describes the inclusion relationship between two instances of E52 Time-Span.This property supports the notion that the temporal extent of an instance of E52 Time-Span falls within the temporal extent of another instance of E52 Time-Span. It addresses temporal containment only, and no contextual link between the two instances of E52 Time-Span is implied. This property is transitive and reflexive.
-
-## P86i_contains
-Domain: E52_Time-Span
-Range: E52_Time-Span
+## P67_refers_to
+Domain: E73_Information_Object
+Range: E7_Activity, E8_Acquisition, E12_Production, E19_Physical_Object, E24_Physical_Human-Made_Thing, E39_Actor, E41_Appellation, E52_Time-Span, E53_Place, E54_Dimension, E55_Type, E57_Material, E65_Creation, E73_Information_Object
 
 ## P89_falls_within
 Domain: E53_Place
 Range: E53_Place
-This property identifies an instance of E53 Place that falls wholly within the extent of another instance of E53 Place.It addresses spatial containment only and does not imply any relationship between things or phenomena occupying these places.This property is transitive and reflexive.
-
-## P89i_contains
-Domain: E53_Place
-Range: E53_Place
-
-## P90_has_value
-Domain: E54_Dimension
-Range: http://www.w3.org/2000/01/rdf-schema#Literal
-This property allows an instance of E54 Dimension to be approximated by an instance of E60 Number primitive.
-
-## P91_has_unit
-Domain: E54_Dimension
-Range: E58_Measurement_Unit
-This property shows the type of unit an instance of E54 Dimension was expressed in.
-
-## P91i_is_unit_of
-Domain: E58_Measurement_Unit
-Range: E54_Dimension
-
-## P92_brought_into_existence
-Domain: E63_Beginning_of_Existence
-Range: E77_Persistent_Item
-This property links an instance of E63 Beginning of Existence to the instance of E77 Persistent Item brought into existence by it.It allows a “start” to be attached to any instance of E77 Persistent Item being documented, i.e., as instances of E70 Thing, E72 Legal Object, E39 Actor, E41 Appellation and E55 Type.
-
-## P92i_was_brought_into_existence_by
-Domain: E77_Persistent_Item
-Range: E63_Beginning_of_Existence
-
-## P93_took_out_of_existence
-Domain: E64_End_of_Existence
-Range: E77_Persistent_Item
-This property links an instance of E64 End of Existence to the instance of E77 Persistent Item taken out of existence by it.In the case of immaterial things, the instance of E64 End of Existence is considered to take place with the destruction of the last physical carrier.This allows an “end” to be attached to any instance of E77 Persistent Item being documented i.e. instances of E70 Thing, E72 Legal Object, E39 Actor, E41 Appellation, and E55 Type. For many instances of E77 Persistent Item we know the maximum life-span and can infer that they must have ended to exist. We assume in that case an instance of E64 End of Existence, which may be as unnoticeable as forgetting the secret knowledge by the last representative of some indigenous nation.
-
-## P93i_was_taken_out_of_existence_by
-Domain: E77_Persistent_Item
-Range: E64_End_of_Existence
-
-## P98_brought_into_life
-Domain: E67_Birth
-Range: E21_Person
-This property links an instance of E67 Birth event to an instance of E21 Person in the role of offspring.Twins, triplets etc. are brought into life by the same instance of E67 Birth. This is not intended for use with general Natural History material, only people. There is no explicit method for modelling conception and gestation except by using extensions.
-
-## P98i_was_born
-Domain: E21_Person
-Range: E67_Birth
-
-## P100_was_death_of
-Domain: E69_Death
-Range: E21_Person
-This property links an instance of E69 Death to the instance of E21 Person that died.An instance of E69 Death may involve multiple people, for example in the case of a battle or disaster.This is not intended for use with general natural history material, only people.
-
-## P100i_died_in
-Domain: E21_Person
-Range: E69_Death
-
-## P101_had_as_general_use
-Domain: E70_Thing
-Range: E55_Type
-This property associates an instance of E70 Thing with an instance of E55 Type that describes the type of use that it was actually employed for.It allows the relationship between particular things, both physical and immaterial, and the general methods and techniques of real use to be documented. This may well be different from the intended functional purpose of the instance of E70 Thing (which can be documented with P103 was intended for (was intention of)). For example, it could be recorded that a particular wooden crate had a general use as a shelf support on a market stall even though it had been originally intended for carrying vegetables.The use of this property is intended to allow the documentation of usage patterns attested in historical records or through scientific investigation (for instance ceramic residue analysis). It should not be used to document the intended, and thus assumed, use of an object.
-
-## P101i_was_use_of
-Domain: E55_Type
-Range: E70_Thing
-
-## P102_has_title
-Domain: E71_Human-Made_Thing
-Range: E35_Title
-This property associates an instance of E35 Title that has been applied to an instance of E71 Human-Made Thing.The P102.1 has type property of the P102 has title (is title of) property enables the relationship between the title and the thing to be further clarified, for example, if the title was a given title, a supplied title etc.It allows any human-made material or immaterial thing to be given a title. It is possible to imagine a title being created without a specific object in mind.
-
-## P102i_is_title_of
-Domain: E35_Title
-Range: E71_Human-Made_Thing
-
-## P103_was_intended_for
-Domain: E71_Human-Made_Thing
-Range: E55_Type
-This property links an instance of E71 Human-Made Thing to an instance of E55 Type of usage or audience. It creates a relation between specific human-made things, both physical and immaterial, to E55 Types. This property can be used to specify intended methods and techniques of use or to characterise the intended audience by indicating a type of personal characteristic that everyone falling into the target audience has.Note: A link between specific human-made things and a specific use activity should be expressed using P19 was intended use of (was made for).
-
-## P103i_was_intention_of
-Domain: E55_Type
-Range: E71_Human-Made_Thing
-
-## P107_has_current_or_former_member
-Domain: E74_Group
-Range: E39_Actor
-This property associates an instance of E74 Group with an instance of E39 Actor that is or has been a member thereof.Instances of E74 Group and E21 Person may all be members of instances of E74 Group. An instance of E74 Group may be founded initially without any member.This property is a shortcut of the more fully developed path from E74 Group, P144i gained member by, E85 Joining, P143 joined to E39 Actor.The property P107.1 kind of member can be used to specify the type of membership or the role the member has in the group.
-
-## P107i_is_current_or_former_member_of
-Domain: E39_Actor
-Range: E74_Group
 
 ## P108_has_produced
 Domain: E12_Production
 Range: E24_Physical_Human-Made_Thing
-This property identifies the instance of E24 Physical Human-Made Thing that came into existence as a result of the instance of E12 Production.The identity of an instance of E24 Physical Human-Made Thing is not defined by its matter, but by its existence as a subject of documentation. An E12 Production can result in the creation of multiple instances of E24 Physical Human-Made Thing.
 
-## P108i_was_produced_by
-Domain: E24_Physical_Human-Made_Thing
-Range: E12_Production
-
-## P110_augmented
-Domain: E79_Part_Addition
-Range: E18_Physical_Thing
-This property identifies the instance of E18 Physical Thing that is added to (augmented) in an instance of E79 Part Addition.Although an instance of E79 Part Addition event normally concerns only one instance of E18 Physical Thing, it is possible to imagine circumstances under which more than one item might be added to (augmented). For example, the artist Jackson Pollock trailing paint onto multiple canvasses.
-
-## P110i_was_augmented_by
-Domain: E18_Physical_Thing
-Range: E79_Part_Addition
-
-## P111_added
-Domain: E79_Part_Addition
-Range: E18_Physical_Thing
-This property identifies the instance of E18 Physical Thing that is added during an instance of E79 Part Addition activity.
-
-## P111i_was_added_by
-Domain: E18_Physical_Thing
-Range: E79_Part_Addition
-
-## P112_diminished
-Domain: E80_Part_Removal
-Range: E18_Physical_Thing
-This property identifies the instance of E18 Physical Thing that was diminished by an instance of E80 Part Removal.Although an instance of E80 Part removal activity normally concerns only one instance of E18 Physical Thing, it is possible to imagine circumstances under which more than one item might be diminished by a single instance of E80 Part Removal activity.
-
-## P112i_was_diminished_by
-Domain: E18_Physical_Thing
-Range: E80_Part_Removal
-
-## P113_removed
-Domain: E80_Part_Removal
-Range: E18_Physical_Thing
-This property identifies the instance of E18 Physical Thing that is removed during an instance of E80 Part Removal activity.
-
-## P113i_was_removed_by
-Domain: E18_Physical_Thing
-Range: E80_Part_Removal
-
-## P123_resulted_in
-Domain: E81_Transformation
-Range: E18_Physical_Thing
-This property identifies the instance or instances of E18 Physical Thing that are the result of an instance of E81 Transformation. New items replace the transformed item or items, which cease to exist as units of documentation. The physical continuity between the old and the new is expressed by the links to the common instance of E81 Transformation.
-
-## P123i_resulted_from
-Domain: E18_Physical_Thing
-Range: E81_Transformation
-
-## P124_transformed
-Domain: E81_Transformation
-Range: E18_Physical_Thing
-This property identifies the instance or instances E18 Physical Thing that have ceased to exist due to an instance of E81 Transformation.The item that has ceased to exist and was replaced by the result of the Transformation. The continuity between both items, the new and the old, is expressed by the links to the common instance of E81 Transformation.
-
-## P124i_was_transformed_by
-Domain: E18_Physical_Thing
-Range: E81_Transformation
-
-## P126_employed
-Domain: E11_Modification
-Range: E57_Material
-This property identifies the instance of E57 Material employed in an instance of E11 Modification.The instance of E57 Material used during the instance of E11 Modification does not necessarily become incorporated into the instance of E24 Physical Human-Made Thing that forms the subject of the instance of E11 Modification.
-
-## P126i_was_employed_in
-Domain: E57_Material
-Range: E11_Modification
-
-## P127_has_broader_term
-Domain: E55_Type
-Range: E55_Type
-This property associates an instance of E55 Type with another instance of E55 Type that has a broader meaning.It allows instances of E55 Types to be organised into hierarchies. This is the sense of “broader term generic (BTG)” as defined in ISO 25964-2:2013 (International Organization for Standardization 2013).This property is transitive. This property is asymmetric.
-
-## P127i_has_narrower_term
-Domain: E55_Type
-Range: E55_Type
-
-## P128_carries
-Domain: E18_Physical_Thing
-Range: E90_Symbolic_Object
-This property identifies an instance E90 Symbolic Object carried by an instance of E18 Physical Thing. Since an instance of E90 Symbolic Object is defined as an immaterial idealization over potentially multiple carriers, any individual realization on a particular physical carrier may be defective, due to deterioration or shortcomings in the process of creating the realization compared to the intended ideal. As long as such defects do not substantially affect the complete recognition of the respective symbolic object, it is still regarded as carrying an instance of this E90 Symbolic Object. If these defects are of scholarly interest, the particular realization can be modelled as an instance of E25 Human-Made Feature. Note, that any instance of E90 Symbolic Object incorporated (P165) in the carried symbolic object is also carried by the same instance of E18 Physical Thing.
-
-## P128i_is_carried_by
-Domain: E90_Symbolic_Object
-Range: E18_Physical_Thing
-
-## P129_is_about
-Domain: E89_Propositional_Object
-Range: E1_CRM_Entity
-This property documents that an instance of E89 Propositional Object has as subject an instance of E1 CRM Entity.This differs from P67 refers to (is referred to by), which refers to an instance of E1 CRM Entity, in that it describes the primary subject or subjects of an instance of E89 Propositional Object.
-
-## P129i_is_subject_of
-Domain: E1_CRM_Entity
-Range: E89_Propositional_Object
-
-## P138_represents
-Domain: E36_Visual_Item
-Range: E1_CRM_Entity
-This property establishes the relationship between an instance of E36 Visual Item and the instance of E1 CRM Entity that it visually represents.Any entity may be represented visually. This property is part of the fully developed path from E24 Physical Human-Made Thing through P65 shows visual item (is shown by), E36 Visual Item, P138 represents (has representation) to E1 CRM Entity, which is shortcut by P62 depicts (is depicted by). P138.1 mode of representation allows the nature of the representation to be refined.This property is also used for the relationship between an original and a digitisation of the original by the use of techniques such as digital photography, flatbed or infrared scanning. Digitisation is here seen as a process with a mechanical, causal component rendering the spatial distribution of structural and optical properties of the original and does not necessarily include any visual similarity identifiable by human observation.
-
-## P138i_has_representation
-Domain: E1_CRM_Entity
-Range: E36_Visual_Item
-
-## P140_assigned_attribute_to
-Domain: E13_Attribute_Assignment
-Range: E1_CRM_Entity
-This property associates an instance of E13 Attribute Assignment with the instance of E1 CRM Entity about which it made an attribution. The instance of E1 CRM Entity plays the role of the domain of the attribution.The kind of attribution made should be documented using P177 assigned property of type (is type of property assigned).
-
-## P140i_was_attributed_by
-Domain: E1_CRM_Entity
-Range: E13_Attribute_Assignment
-
-## P141_assigned
-Domain: E13_Attribute_Assignment
-Range: E1_CRM_Entity
-This property associates an instance of E13 Attribute Assignment with the instance of E1 CRM Entity used in the attribution. The instance of E1 CRM Entity here plays the role of the range of the attribution.The kind of attribution made should be documented using P177 assigned property of type (is type of property assigned).
-
-## P141i_was_assigned_by
-Domain: E1_CRM_Entity
-Range: E13_Attribute_Assignment
-
-## P152_has_parent
-Domain: E21_Person
-Range: E21_Person
-This property associates an instance of E21 Person with another instance of E21 Person who plays the role of the first instance’s parent, regardless of whether the relationship is biological parenthood, assumed or pretended biological parenthood or an equivalent legal status of rights and obligations obtained by a social or legal act.This property is, among others, a shortcut of the fully developed paths from E21 Person through P98i was born, E67 Birth, P96 by mother to E21 Person, and from E21 Person through P98i was born, E67 Birth, P97 from father to E21 Person.This property is not transitive. This property is irreflexive.
-
-## P152i_is_parent_of
-Domain: E21_Person
-Range: E21_Person
-
-## P177_assigned_property_of_type
-Domain: E13_Attribute_Assignment
-Range: E55_Type
-This property associates an instance of E13 Attribute Assignment with the type of property or relation that this assignment maintains to hold between the item to which it assigns an attribute and the attribute itself. Note that the properties defined by the CIDOC CRM also constitute instances of E55 Type themselves. The direction of the assigned property of type is understood to be from the attributed item (the range of property P140 assigned attribute to) to the attribute item (the range of the property P141 assigned). More than one property type may be assigned to hold between two items.A comprehensive explanation about refining CIDOC CRM concepts by E55 Type is given in the section “About Types” in the section on “Specific Modelling Constructs” of this document.
-
-## P177i_is_type_of_property_assigned
-Domain: E55_Type
-Range: E13_Attribute_Assignment
-
-## P190_has_symbolic_content
-Domain: E90_Symbolic_Object
-Range: http://www.w3.org/2000/01/rdf-schema#Literal
-This property associates an instance of E90 Symbolic Object with a complete, identifying representation of its content in the form of an instance of E62 String.This property only applies to instances of E90 Symbolic Object that can be represented completely in this form. The representation may be more specific than the symbolic level defining the identity condition of the represented. This depends on the type of the symbolic object represented. For instance, if a name has type “Modern Greek character sequence”, it may be represented in a loss-free Latin transcription, meaning however the sequence of Greek letters.As another example, if the represented object has type “English words sequence”, American English or British English spelling variants may be chosen to represent the English word “colour” without defining a different symbolic object. If a name has type “European traditional name”, no particular string may define its content.
+## P3_has_note
+Domain: E7_Activity, E8_Acquisition, E12_Production, E19_Physical_Object, E24_Physical_Human-Made_Thing, E39_Actor, E41_Appellation, E52_Time-Span, E53_Place, E54_Dimension, E55_Type, E57_Material, E65_Creation, E73_Information_Object
+Range: literal (string)
