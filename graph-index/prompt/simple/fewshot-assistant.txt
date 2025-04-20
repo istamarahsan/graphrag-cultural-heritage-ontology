@@ -55,17 +55,12 @@
     "object": "dewi padi"
   },
   {
-    "subject": "Sanghyang Pohaci",
-    "predicate": "adalah contoh",
-    "object": "dewi padi"
+    "subject": "Dewi Sri",
+    "predicate": "memiliki nama lain",
+    "object": "Sanghyang Pohaci"
   },
   {
     "subject": "Dewi Sri",
-    "predicate": "berada di",
-    "object": "Pulau Jawa"
-  },
-    {
-    "subject": "Sanghyang Pohaci",
     "predicate": "berada di",
     "object": "Pulau Jawa"
   }
