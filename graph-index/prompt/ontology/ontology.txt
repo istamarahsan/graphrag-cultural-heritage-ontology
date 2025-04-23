@@ -218,6 +218,24 @@ Examples:
 In First Order Logic:
 - E57(x) ⇒ E55(x)
 
+## E58_Measurement_Unit
+Scope note:
+This class is a specialization of E55 Type and comprises the types of measurement units: feet, inches, centimetres, litres, lumens, etc. 
+This type is used categorically in the model without reference to instances of it, i.e. the model does not foresee the description of instances of instances of E58 Measurement Unit, e.g. “instances of cm”.
+Système International (SI) units or internationally recognized non-SI terms should be used whenever possible, such as those defined by ISO80000:2009. Archaic Measurement Units used in historical records should be preserved.
+
+Examples:
+- cm [centimetre]
+- km [kilometre]
+- m [metre]
+- m/s [metres per second] (Hau et al., 1999)
+- A [ampere]
+- GRD [Greek Drachma] (E98) (Daniel, 2014)
+- C [degrees centigrade] (Beckman, 1998)
+
+In First Order Logic:
+- E58(x) ⇒ E55(x)
+
 ## E65_Creation
 Scope note:
 This class comprises events that result in the creation of conceptual items or immaterial products, such as legends, poems, texts, music, images, movies, laws, types, etc.
@@ -249,12 +267,12 @@ In First Order Logic:
 
 # Ontology Relations
 ## P1_is_identified_by
-Domain: E7_Activity, E8_Acquisition, E12_Production, E19_Physical_Object, E24_Physical_Human-Made_Thing, E39_Actor, E41_Appellation, E52_Time-Span, E53_Place, E54_Dimension, E55_Type, E57_Material, E65_Creation, E73_Information_Object
+Domain: E7_Activity, E8_Acquisition, E12_Production, E19_Physical_Object, E24_Physical_Human-Made_Thing, E39_Actor, E41_Appellation, E52_Time-Span, E53_Place, E54_Dimension, E55_Type, E57_Material, E58_Measurement_Unit, E65_Creation, E73_Information_Object
 Range: E41_Appellation
 
 ## P2_has_type
-Domain: E7_Activity, E8_Acquisition, E12_Production, E19_Physical_Object, E24_Physical_Human-Made_Thing, E39_Actor, E41_Appellation, E52_Time-Span, E53_Place, E54_Dimension, E55_Type, E57_Material, E65_Creation, E73_Information_Object
-Range: E55_Type, E57_Material
+Domain: E7_Activity, E8_Acquisition, E12_Production, E19_Physical_Object, E24_Physical_Human-Made_Thing, E39_Actor, E41_Appellation, E52_Time-Span, E53_Place, E54_Dimension, E55_Type, E57_Material, E58_Measurement_Unit, E65_Creation, E73_Information_Object
+Range: E55_Type, E57_Material, E58_Measurement_Unit
 
 ## P4_has_time-span
 Domain: E7_Activity, E8_Acquisition, E12_Production, E65_Creation
@@ -270,7 +288,7 @@ Range: E39_Actor
 
 ## P12_occurred_in_the_presence_of
 Domain: E7_Activity, E8_Acquisition, E12_Production, E65_Creation
-Range: E19_Physical_Object, E24_Physical_Human-Made_Thing, E39_Actor, E41_Appellation, E55_Type, E57_Material, E73_Information_Object
+Range: E19_Physical_Object, E24_Physical_Human-Made_Thing, E39_Actor, E41_Appellation, E55_Type, E57_Material, E58_Measurement_Unit, E73_Information_Object
 
 ## P14_carried_out_by
 Domain: E7_Activity, E8_Acquisition, E12_Production, E65_Creation
@@ -278,7 +296,7 @@ Range: E39_Actor
 
 ## P16_used_specific_object
 Domain: E7_Activity, E8_Acquisition, E12_Production, E65_Creation
-Range: E19_Physical_Object, E24_Physical_Human-Made_Thing, E41_Appellation, E55_Type, E57_Material, E73_Information_Object
+Range: E19_Physical_Object, E24_Physical_Human-Made_Thing, E41_Appellation, E55_Type, E57_Material, E58_Measurement_Unit, E73_Information_Object
 
 ## P22_transferred_title_to
 Domain: E8_Acquisition
@@ -289,7 +307,7 @@ Domain: E8_Acquisition
 Range: E39_Actor
 
 ## P43_has_dimension
-Domain: E19_Physical_Object, E24_Physical_Human-Made_Thing, E41_Appellation, E55_Type, E57_Material, E73_Information_Object
+Domain: E19_Physical_Object, E24_Physical_Human-Made_Thing, E41_Appellation, E55_Type, E57_Material, E58_Measurement_Unit, E73_Information_Object
 Range: E54_Dimension
 
 ## P45_consists_of
@@ -318,16 +336,24 @@ Range: E53_Place
 
 ## P67_refers_to
 Domain: E73_Information_Object
-Range: E7_Activity, E8_Acquisition, E12_Production, E19_Physical_Object, E24_Physical_Human-Made_Thing, E39_Actor, E41_Appellation, E52_Time-Span, E53_Place, E54_Dimension, E55_Type, E57_Material, E65_Creation, E73_Information_Object
+Range: E7_Activity, E8_Acquisition, E12_Production, E19_Physical_Object, E24_Physical_Human-Made_Thing, E39_Actor, E41_Appellation, E52_Time-Span, E53_Place, E54_Dimension, E55_Type, E57_Material, E58_Measurement_Unit, E65_Creation, E73_Information_Object
 
 ## P89_falls_within
 Domain: E53_Place
 Range: E53_Place
+
+## P91_has_unit
+Domain: E54_Dimension
+Range: E58_Measurement_Unit
 
 ## P108_has_produced
 Domain: E12_Production
 Range: E24_Physical_Human-Made_Thing
 
 ## P3_has_note
-Domain: E7_Activity, E8_Acquisition, E12_Production, E19_Physical_Object, E24_Physical_Human-Made_Thing, E39_Actor, E41_Appellation, E52_Time-Span, E53_Place, E54_Dimension, E55_Type, E57_Material, E65_Creation, E73_Information_Object
-Range: literal (string)
+Domain: E7_Activity, E8_Acquisition, E12_Production, E19_Physical_Object, E24_Physical_Human-Made_Thing, E39_Actor, E41_Appellation, E52_Time-Span, E53_Place, E54_Dimension, E55_Type, E57_Material, E58_Measurement_Unit, E65_Creation, E73_Information_Object
+Range: literal (String)
+
+## P90_has_value
+Domain: E54_Dimension
+Range: literal (Number)

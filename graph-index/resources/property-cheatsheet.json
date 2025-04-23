@@ -13,6 +13,7 @@
       "E54_Dimension",
       "E55_Type",
       "E57_Material",
+      "E58_Measurement_Unit",
       "E65_Creation",
       "E73_Information_Object"
     ],
@@ -34,12 +35,14 @@
       "E54_Dimension",
       "E55_Type",
       "E57_Material",
+      "E58_Measurement_Unit",
       "E65_Creation",
       "E73_Information_Object"
     ],
     "range": [
       "E55_Type",
-      "E57_Material"
+      "E57_Material",
+      "E58_Measurement_Unit"
     ]
   },
   "P4_has_time-span": {
@@ -89,6 +92,7 @@
       "E41_Appellation",
       "E55_Type",
       "E57_Material",
+      "E58_Measurement_Unit",
       "E73_Information_Object"
     ]
   },
@@ -116,6 +120,7 @@
       "E41_Appellation",
       "E55_Type",
       "E57_Material",
+      "E58_Measurement_Unit",
       "E73_Information_Object"
     ]
   },
@@ -142,6 +147,7 @@
       "E41_Appellation",
       "E55_Type",
       "E57_Material",
+      "E58_Measurement_Unit",
       "E73_Information_Object"
     ],
     "range": [
@@ -218,6 +224,7 @@
       "E54_Dimension",
       "E55_Type",
       "E57_Material",
+      "E58_Measurement_Unit",
       "E65_Creation",
       "E73_Information_Object"
     ]
@@ -228,6 +235,14 @@
     ],
     "range": [
       "E53_Place"
+    ]
+  },
+  "P91_has_unit": {
+    "domain": [
+      "E54_Dimension"
+    ],
+    "range": [
+      "E58_Measurement_Unit"
     ]
   },
   "P108_has_produced": {
@@ -252,8 +267,17 @@
       "E54_Dimension",
       "E55_Type",
       "E57_Material",
+      "E58_Measurement_Unit",
       "E65_Creation",
       "E73_Information_Object"
+    ],
+    "range": [
+      "Literal"
+    ]
+  },
+  "P90_has_value": {
+    "domain": [
+      "E54_Dimension"
     ],
     "range": [
       "Literal"
