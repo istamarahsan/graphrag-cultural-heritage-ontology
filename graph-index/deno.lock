@@ -6,12 +6,14 @@
     "jsr:@std/assert@0.223": "0.223.0",
     "jsr:@std/bytes@0.223": "0.223.0",
     "jsr:@std/cli@^1.0.15": "1.0.15",
+    "jsr:@std/csv@^1.0.6": "1.0.6",
     "jsr:@std/fs@^1.0.15": "1.0.15",
     "jsr:@std/io@0.223": "0.223.0",
     "jsr:@std/json@0.223.0": "0.223.0",
     "jsr:@std/path@^1.0.8": "1.0.8",
     "jsr:@std/streams@0.223": "0.223.0",
     "jsr:@std/streams@0.223.0": "0.223.0",
+    "jsr:@std/streams@^1.0.9": "1.0.9",
     "npm:@types/lodash@^4.17.15": "4.17.16",
     "npm:@types/luxon@^3.4.2": "3.6.0",
     "npm:@types/n3@^1.24.2": "1.24.2",
@@ -43,6 +45,12 @@
     "@std/cli@1.0.15": {
       "integrity": "e79ba3272ec710ca44d8342a7688e6288b0b88802703f3264184b52893d5e93f"
     },
+    "@std/csv@1.0.6": {
+      "integrity": "52ef0e62799a0028d278fa04762f17f9bd263fad9a8e7f98c14fbd371d62d9fd",
+      "dependencies": [
+        "jsr:@std/streams@^1.0.9"
+      ]
+    },
     "@std/fs@1.0.15": {
       "integrity": "c083fb479889d6440d768e498195c3fc499d426fbf9a6592f98f53884d1d3f41",
       "dependencies": [
@@ -72,6 +80,9 @@
         "jsr:@std/bytes",
         "jsr:@std/io"
       ]
+    },
+    "@std/streams@1.0.9": {
+      "integrity": "a9d26b1988cdd7aa7b1f4b51e1c36c1557f3f252880fa6cc5b9f37078b1a5035"
     }
   },
   "npm": {
@@ -182,6 +193,7 @@
       "jsr:@libs/xml@^6.0.4",
       "jsr:@openai/openai@^4.86.1",
       "jsr:@std/cli@^1.0.15",
+      "jsr:@std/csv@^1.0.6",
       "jsr:@std/fs@^1.0.15",
       "jsr:@std/json@0.223.0",
       "jsr:@std/path@^1.0.8",

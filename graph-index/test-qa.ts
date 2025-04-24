@@ -1,5 +1,5 @@
 import OpenAI from "@openai/openai";
-import z from "zod";
+import z, { string } from "zod";
 import promiseLimit from "promise-limit";
 import N3 from "n3";
 import { Eta } from "eta";
@@ -73,7 +73,8 @@ async function main() {
     baseURL: config.endpoint,
   });
 
-  const qaData = await Deno.readTextFile(args.q)
+  const qa_file_dir = args.q!;
+  const qaData = qa_file_dir.endsWith(".json") ? await Deno.readTextFile(args.q)
     .then(JSON.parse)
     .then(
       z.array(
@@ -83,7 +84,29 @@ async function main() {
           answerIdx: z.number(),
         })
       ).parse
-    );
+    ) : await Deno.readTextFile(args.q)
+    .then(s => {
+      return s.split("\n");
+    })
+    .then(strings => {
+      return strings.map(s => {
+        try {
+          return JSON.parse(s);
+        } catch {
+          return undefined;
+        }
+      });
+    })
+    .then((chunks: {data: {question: string, choices: string[], answerIdx: number}[]}[]) => {
+      const qas = [];
+      for (const chunk of chunks) {
+        if (!chunk) continue;
+        for (const q of chunk.data) {
+          qas.push(q)
+        }
+      }
+      return qas;
+    });
 
   const concurrencyLimiter = promiseLimit<void>(config.concurrency);
   const answers: { raw: string; correct: boolean }[][] = [
