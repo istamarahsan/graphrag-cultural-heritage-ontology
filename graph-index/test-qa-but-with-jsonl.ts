@@ -171,33 +171,45 @@ async function main() {
 
     const triplets = the.reduce((prev, curr, index) => {
       for (const trip of curr.triplets ?? []) {
-        prev.push(trip);
+        prev.push(trip as any);
       }
       return prev;
-    }, [] as { domain: { class: string; name: string }; property: string; range: { class: string; name: string } }[]);
+    }, [] as (
+      { 
+        domain: { class: string; name: string } | undefined,
+        property: string | undefined,
+        range: { class: string; name: string } | undefined,
+
+        subject: string | undefined,
+        object: string | undefined,
+        predicate: string | undefined,
+      }
+    )[]);
 
     const data_by_name: {
       [name: string]: { properties: { [s: string]: boolean } };
     } = {};
     triplets.forEach((t) => {
       // https://tenor.com/view/giga-gigacat-cat-mewing-mogging-gif-12429734670640119345
-      if (t && t?.domain?.name && t?.property && t?.range?.name) {
-      } else {
-        return;
+      if (t && t.domain?.name && t?.property && t?.range?.name) {
+        data_by_name[t.domain.name] = data_by_name[t.domain.name] ?? {
+          properties: {},
+        };
+        data_by_name[t.range.name] = data_by_name[t.range.name] ?? {
+          properties: {},
+        };
+  
+        data_by_name[t.domain.name].properties[`${t.property}_${t.range.name}`] =
+          true;
+        data_by_name[t.domain.name].properties[`type: ${t.domain.class}`] = true;
+  
+        data_by_name[t.range.name].properties[`type: ${t.range.class}`] = true;
+      } else if (t && t.object && t.subject && t.predicate) {
+        data_by_name[t.subject] = data_by_name[t.subject] ?? {
+          properties: {},
+        };
+        data_by_name[t.subject].properties[`${t.predicate}: ${t.object}`] = true;
       }
-
-      data_by_name[t.domain.name] = data_by_name[t.domain.name] ?? {
-        properties: {},
-      };
-      data_by_name[t.range.name] = data_by_name[t.range.name] ?? {
-        properties: {},
-      };
-
-      data_by_name[t.domain.name].properties[`${t.property}_${t.range.name}`] =
-        true;
-      data_by_name[t.domain.name].properties[`type: ${t.domain.class}`] = true;
-
-      data_by_name[t.range.name].properties[`type: ${t.range.class}`] = true;
     });
 
     const contextStr = Object.entries(data_by_name)
