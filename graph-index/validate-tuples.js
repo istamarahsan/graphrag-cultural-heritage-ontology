@@ -58,17 +58,19 @@ async function main() {
           verdict:
             triplet.property in propertyCheatsheet &&
             propertyCheatsheet[triplet.property].domain.includes(
-              triplet.domain
+              triplet.domain.class
             ) &&
-            propertyCheatsheet[triplet.property].range.includes(triplet.range),
+            propertyCheatsheet[triplet.property].range.includes(
+              triplet.range.class
+            ),
           validProperty: triplet.property in propertyCheatsheet,
           validDomain:
             propertyCheatsheet[triplet.property]?.domain?.includes(
-              triplet.domain
+              triplet.domain.class
             ) ?? false,
           validRange:
             propertyCheatsheet[triplet.property]?.range?.includes(
-              triplet.range
+              triplet.range.class
             ) ?? false,
         },
       })),
