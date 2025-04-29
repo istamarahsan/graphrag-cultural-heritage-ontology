@@ -1,14 +1,11 @@
 import OpenAI from "@openai/openai";
-import z, { string } from "zod";
+import z from "zod";
 import promiseLimit from "promise-limit";
-import N3 from "n3";
 import { Eta } from "eta";
 
 import { parseArgs } from "@std/cli/parse-args";
 import { exists } from "@std/fs/exists";
 
-import { getLocalNameFromUri } from "./lib/graph.ts";
-import { RDF_BASE_URI } from "./lib/rdf.ts";
 import _ from "lodash";
 import path from "node:path";
 
@@ -17,6 +14,7 @@ const configSchema = z.object({
   apiKey: z.string().optional(),
   model: z.string(),
   concurrency: z.number().optional().default(1),
+  temperature: z.number(),
 });
 
 type Config = z.infer<typeof configSchema>;
@@ -74,39 +72,51 @@ async function main() {
   });
 
   const qa_file_dir = args.q!;
-  const qaData = qa_file_dir.endsWith(".json") ? await Deno.readTextFile(args.q)
-    .then(JSON.parse)
-    .then(
-      z.array(
-        z.object({
-          question: z.string(),
-          choices: z.array(z.string()),
-          answerIdx: z.number(),
+  const qaData = qa_file_dir.endsWith(".json")
+    ? await Deno.readTextFile(args.q)
+        .then(JSON.parse)
+        .then(
+          z.array(
+            z.object({
+              question: z.string(),
+              choices: z.array(z.string()),
+              answerIdx: z.number(),
+            })
+          ).parse
+        )
+    : await Deno.readTextFile(args.q)
+        .then((s) => {
+          return s.split("\n");
         })
-      ).parse
-    ) : await Deno.readTextFile(args.q)
-    .then(s => {
-      return s.split("\n");
-    })
-    .then(strings => {
-      return strings.map(s => {
-        try {
-          return JSON.parse(s);
-        } catch {
-          return undefined;
-        }
-      });
-    })
-    .then((chunks: {data: {question: string, choices: string[], answerIdx: number}[]}[]) => {
-      const qas = [];
-      for (const chunk of chunks) {
-        if (!chunk) continue;
-        for (const q of chunk.data) {
-          qas.push(q)
-        }
-      }
-      return qas;
-    });
+        .then((strings) => {
+          return strings.map((s) => {
+            try {
+              return JSON.parse(s);
+            } catch {
+              return undefined;
+            }
+          });
+        })
+        .then(
+          (
+            chunks: {
+              data: {
+                question: string;
+                choices: string[];
+                answerIdx: number;
+              }[];
+            }[]
+          ) => {
+            const qas = [];
+            for (const chunk of chunks) {
+              if (!chunk) continue;
+              for (const q of chunk.data) {
+                qas.push(q);
+              }
+            }
+            return qas;
+          }
+        );
 
   const concurrencyLimiter = promiseLimit<void>(config.concurrency);
   const answers: { raw: string; correct: boolean }[][] = [
@@ -131,7 +141,7 @@ async function main() {
                     content: prompt,
                   },
                 ],
-                temperature: 1.0,
+                temperature: config.temperature,
               });
               const rawResponseContent = response.choices[0].message.content!;
               return {
@@ -147,48 +157,55 @@ async function main() {
     );
   } else {
     const the: {
-      chunkId: string,
+      chunkId: string;
       triplets: {
-        domain: {class: string, name: string},
-        property: string,
-        range: {class: string, name: string}
-      }[],
-      attempts: any[]
+        domain: { class: string; name: string };
+        property: string;
+        range: { class: string; name: string };
+      }[];
+      attempts: any[];
     }[] = await Deno.readTextFile(args.t!)
       .then((str) => str.split("\n"))
-      .then(list => list.filter(n => n != ""))
-      .then((list) => list.map(t => JSON.parse(t)));
+      .then((list) => list.filter((n) => n != ""))
+      .then((list) => list.map((t) => JSON.parse(t)));
 
     const triplets = the.reduce((prev, curr, index) => {
-        for (const trip of curr.triplets) {
-          prev.push(trip);
-        }
-        return prev;
-      }, [] as {domain: {class: string, name: string}, property: string, range: {class: string, name: string}}[]);
-    
-    const data_by_name: {[name: string]: {properties: {[s: string]: boolean}}} = {};
-    triplets.forEach(t => {
+      for (const trip of curr.triplets) {
+        prev.push(trip);
+      }
+      return prev;
+    }, [] as { domain: { class: string; name: string }; property: string; range: { class: string; name: string } }[]);
+
+    const data_by_name: {
+      [name: string]: { properties: { [s: string]: boolean } };
+    } = {};
+    triplets.forEach((t) => {
       // https://tenor.com/view/giga-gigacat-cat-mewing-mogging-gif-12429734670640119345
-      if (t && t?.domain?.name && t?.property && t?.range?.name) {}
-      else {
+      if (t && t?.domain?.name && t?.property && t?.range?.name) {
+      } else {
         return;
       }
 
-      data_by_name[t.domain.name] = data_by_name[t.domain.name] ?? {properties: {}};
-      data_by_name[t.range.name] = data_by_name[t.range.name] ?? {properties: {}};
+      data_by_name[t.domain.name] = data_by_name[t.domain.name] ?? {
+        properties: {},
+      };
+      data_by_name[t.range.name] = data_by_name[t.range.name] ?? {
+        properties: {},
+      };
 
-      data_by_name[t.domain.name].properties[`${t.property}_${t.range.name}`] = true;
+      data_by_name[t.domain.name].properties[`${t.property}_${t.range.name}`] =
+        true;
       data_by_name[t.domain.name].properties[`type: ${t.domain.class}`] = true;
 
       data_by_name[t.range.name].properties[`type: ${t.range.class}`] = true;
     });
 
-    const contextStr = 
-      Object.entries(data_by_name)
+    const contextStr = Object.entries(data_by_name)
       .map(([name, d]) => {
-        const properties = Object.keys(d.properties).map(str => ` - ${str}`);
+        const properties = Object.keys(d.properties).map((str) => ` - ${str}`);
         return `${name}:\n${properties.join("\n")}\n`;
-      }).reduce((str, context) => {
+      })
+      .reduce((str, context) => {
         return `${str}${context}`;
       }, "");
 
@@ -236,7 +253,7 @@ async function main() {
                     content: prompt,
                   },
                 ],
-                temperature: 1.0,
+                temperature: config.temperature,
               });
               const rawResponseContent = response.choices[0].message.content!;
               return {
