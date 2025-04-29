@@ -22,21 +22,30 @@ async function main() {
     console.error("Specify valid property cheatsheet file with -c");
     return -1;
   }
-  const chunkTriplets = await Deno.readTextFile(args.f).then((txt) =>
-    z
-      .array(
-        z.object({
-          chunkId: z.string(),
-          triplets: z.array(ontologyTripletSchema),
-        })
-      )
-      .parse(
-        txt
-          .split("\n")
-          .filter(Boolean)
-          .flatMap((line) => JSON.parse(line))
-      )
-  );
+
+  const stuff = await Deno.readTextFile(args.f).then((txt) => {
+    return txt
+      .split("\n")
+      .filter(Boolean)
+      .flatMap((line) => JSON.parse(line));
+  });
+  const clean_stuff = stuff.map(ch => {
+    return {
+      ...ch,
+      triplets: ch.triplets ? ch.triplets.filter(tr => !!tr) : []
+    }
+  });
+  
+  const chunkTriplets = z
+    .array(
+      z.object({
+        chunkId: z.string(),
+        triplets: z.array(ontologyTripletSchema),
+      })
+    )
+    .parse(
+      clean_stuff
+    );
   const propertyCheatsheet = await Deno.readTextFile(args.c).then((txt) =>
     propertyCheatsheetSchema.parse(JSON.parse(txt))
   );

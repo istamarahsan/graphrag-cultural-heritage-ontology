@@ -26,7 +26,7 @@ set -o pipefail
 # Path to the Deno QA testing script (relative to script execution dir)
 readonly QA_SCRIPT="./test-qa-but-with-jsonl.ts"
 # Path to the QA data file (relative to script execution dir)
-readonly QA_FILE="./data/qa.jsonl"
+readonly QA_FILE="./data/qa.json"
 # Base directory containing the run folders (e.g., model_config_X)
 readonly BASE_DIR="./out/run"
 
@@ -65,8 +65,8 @@ log_info "Using QA data: '$QA_FILE'"
 log_info "---"
 
 # Blank run
-# log_info "Running blank evaluation"
-# deno -A "$QA_SCRIPT" -q "$QA_FILE"
+log_info "Running blank evaluation"
+deno -A "$QA_SCRIPT" -q "$QA_FILE"
 
 # Find all .ttl files within */simple/ or */ontology/ subdirectories
 # Use -print0 and read -d $'\0' for robust handling of filenames

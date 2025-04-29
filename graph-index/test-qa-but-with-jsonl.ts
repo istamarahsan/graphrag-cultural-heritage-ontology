@@ -170,7 +170,7 @@ async function main() {
       .then((list) => list.map((t) => JSON.parse(t)));
 
     const triplets = the.reduce((prev, curr, index) => {
-      for (const trip of curr.triplets) {
+      for (const trip of curr.triplets ?? []) {
         prev.push(trip);
       }
       return prev;
