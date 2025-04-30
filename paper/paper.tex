@@ -1,4 +1,3 @@
-
 %% bare_conf.tex
 %% V1.4b
 %% 2015/08/26
@@ -157,182 +156,89 @@
 
 
 \section{Introduction}
-% no \IEEEPARstart
-This demo file is intended to serve as a ``starter file''
-for IEEE conference papers produced under \LaTeX\ using
-IEEEtran.cls version 1.8b and later.
-% You must have at least 2 lines in the paragraph with the drop letter
-% (should never be an issue)
-I wish you the best of success.
 
-\hfill mds
+The increasing volume of information within cultural heritage institutions, such as museum archives, presents significant challenges for effective knowledge management and access. Knowledge graphs (KGs) offer a powerful solution by representing entities and their relationships in a structured and machine-readable format, enabling advanced functionalities like semantic search, data integration, and reasoning. In the cultural heritage domain, ontologies such as the CIDOC Conceptual Reference Model (CRM) [cite CIDOC CRM paper] provide a standardized framework for describing cultural objects, events, and their interrelationships, facilitating interoperability and data sharing across institutions.
 
-\hfill August 26, 2015
+Traditionally, the construction of ontology-conformant KGs is a labor-intensive process requiring expert knowledge in both the domain and the ontology. However, the recent advancements in Large Language Models (LLMs) have demonstrated their remarkable capabilities in understanding and generating human language. Notably, LLMs exhibit strong in-context learning abilities, allowing them to generalize over a wide range of language tasks, including complex information extraction, without the need for expensive fine-tuning. This opens up new possibilities for automated knowledge extraction and KG construction, and in this case specifically, processing unstructured textual data from museum archives and mapping the extracted information to the concepts and relationships defined in ontologies like the CIDOC-CRM.
 
-\subsection{Subsection Heading Here}
-Subsection text here. Cite \cite{xu2024chattf}
+This paper investigates the feasibility and effectiveness of using state-of-the-art LLMs to construct ontology-conformant knowledge graphs from museum archives, specifically focusing on the CIDOC-CRM. We present a case study using the online archives of the Museum Nasional in Jakarta, Indonesia. We construct a textual dataset from web pages dedicated to specific collections or exhibits, then employ an in-context learning approach to extract knowledge graph triplets according to a CIDOC-CRM-derived ontology. A key aspect of our approach is the integration of this ontology directly within a single-stage prompting process, with our hypothesis being knowledge graphs that are semantically richer and more accurate.
 
+To evaluate the constructed knowledge graphs, we employ both intrinsic and extrinsic evaluation methods. The intrinsic evaluation measures the conformance of the generated graphs to the CIDOC-CRM ontology. The extrinsic evaluation is conducted through a Knowledge Base Question Answering (KBQA) task, where we use the knowledge graph as context for an LLM to answer questions related to the museum collections. This study aims to contribute to the growing body of research on leveraging LLMs and ontologies for knowledge graph generation, specifically in the cultural heritage domain, with the ultimate motivation of improving museum data management and access.
 
-\subsubsection{Subsubsection Heading Here}
-Subsubsection text here.
+\section{Related Work}
 
+\subsection{Cultural Heritage Ontologies and Semantic Web}
 
-% An example of a floating figure using the graphicx package.
-% Note that \label must occur AFTER (or within) \caption.
-% For figures, \caption should occur after the \includegraphics.
-% Note that IEEEtran v1.7 and later has special internal code that
-% is designed to preserve the operation of \label within \caption
-% even when the captionsoff option is in effect. However, because
-% of issues like this, it may be the safest practice to put all your
-% \label just after \caption rather than within \caption{}.
-%
-% Reminder: the "draftcls" or "draftclsnofoot", not "draft", class
-% option should be used if it is desired that the figures are to be
-% displayed while in draft mode.
-%
-%\begin{figure}[!t]
-%\centering
-%\includegraphics[width=2.5in]{myfigure}
-% where an .eps filename suffix will be assumed under latex, 
-% and a .pdf suffix will be assumed for pdflatex; or what has been declared
-% via \DeclareGraphicsExtensions.
-%\caption{Simulation results for the network.}
-%\label{fig_sim}
-%\end{figure}
+In computer science, ontologies serve as formal, explicit specifications of a shared conceptualization for a domain of interest. They define the relevant classes (concepts), properties (attributes), and relationships between entities, along with axioms constraining their interpretation. Ontologies provide the semantic schema or backbone for Knowledge Graphs (KGs), which represent entities and their connections as nodes and edges. The common vocabulary and structure of ontologies ensures consistency, enables the integration of heterogeneous data, and facilitates semantic querying and logical reasoning over the interconnected information within a KG.
 
-% Note that the IEEE typically puts floats only at the top, even when this
-% results in a large percentage of a column being occupied by floats.
+The cultural heritage (CH) domain, characterized by its diverse institutions (museums, archives, libraries), varied collections, and heterogeneous documentation practices, faces significant challenges in data integration and interoperability. Ontologies play a critical role in addressing these issues by providing a common semantic framework. They act as a mediating layer, enabling disparate CH information sources—originally described using various metadata standards or local schemas—to be mapped, linked, and queried based on shared meaning, thereby facilitating integrated access and interdisciplinary research.
 
+The CIDOC Conceptual Reference Model (CIDOC-CRM, ISO 21127) is the preeminent standard ontology designed specifically for the integration of cultural heritage information. Developed over decades and grounded in the analysis of documentation practices across museums, libraries, and archives, CIDOC-CRM provides a formal, extensible semantic framework for describing the complex concepts and relationships inherent in CH data. Its event-centric modeling paradigm, which structures information around events linking actors, objects, places, and times, is particularly adept at capturing the rich contextual history crucial for understanding cultural objects and collections. Consequently, CIDOC-CRM serves as a vital tool for structuring knowledge extracted from diverse sources, including museum archives, and building interoperable cultural heritage knowledge graphs.
 
-% An example of a double column floating figure using two subfigures.
-% (The subfig.sty package must be loaded for this to work.)
-% The subfigure \label commands are set within each subfloat command,
-% and the \label for the overall figure must come after \caption.
-% \hfil is used as a separator to get equal spacing.
-% Watch out that the combined width of all the subfigures on a 
-% line do not exceed the text width or a line break will occur.
-%
-%\begin{figure*}[!t]
-%\centering
-%\subfloat[Case I]{\includegraphics[width=2.5in]{box}%
-%\label{fig_first_case}}
-%\hfil
-%\subfloat[Case II]{\includegraphics[width=2.5in]{box}%
-%\label{fig_second_case}}
-%\caption{Simulation results for the network.}
-%\label{fig_sim}
-%\end{figure*}
-%
-% Note that often IEEE papers with subfigures do not employ subfigure
-% captions (using the optional argument to \subfloat[]), but instead will
-% reference/describe all of them (a), (b), etc., within the main caption.
-% Be aware that for subfig.sty to generate the (a), (b), etc., subfigure
-% labels, the optional argument to \subfloat must be present. If a
-% subcaption is not desired, just leave its contents blank,
-% e.g., \subfloat[].
+\subsection{Ontology-Guided Knowledge Graph Generation}
 
+Ontology-guided or ontology-driven knowledge graph generation focuses on leveraging formal ontologies to guide the extraction of structured knowledge from unstructured or semi-structured text. By providing a predefined schema of concepts and relationships, ontologies ensure that the generated knowledge graphs are semantically consistent, well-structured, and aligned with a specific domain [Construction of Knowledge Graphs: Current State and Challenges]. This approach is particularly relevant in domains like cultural heritage, where established ontologies like the CIDOC Conceptual Reference Model (CRM) offer a standardized framework for representing cultural objects, events, and their relationships.
 
-% An example of a floating table. Note that, for IEEE style tables, the
-% \caption command should come BEFORE the table and, given that table
-% captions serve much like titles, are usually capitalized except for words
-% such as a, an, and, as, at, but, by, for, in, nor, of, on, or, the, to
-% and up, which are usually not capitalized unless they are the first or
-% last word of the caption. Table text will default to \footnotesize as
-% the IEEE normally uses this smaller font for tables.
-% The \label must come after \caption as always.
-%
-% \begin{table}[!t]
-% % increase table row spacing, adjust to taste
-% \renewcommand{\arraystretch}{1.3}
-% if using array.sty, it might be a good idea to tweak the value of
-% \extrarowheight as needed to properly center the text within the cells
-% \caption{An Example of a Table}
-% \label{table_example}
-% \centering
-% % Some packages, such as MDW tools, offer better commands for making tables
-% % than the plain LaTeX2e tabular which is used here.
-% \begin{tabular}{|c||c|}
-% \hline
-% One & Two\\
-% \hline
-% Three & Four\\
-% \hline
-% \end{tabular}
-% \end{table}
+The Text2KGBench benchmark [Text2KGBench: A Benchmark for Ontology-Driven Knowledge Graph Generation from Text] provides a comprehensive evaluation framework for ontology-driven knowledge graph generation. It uses an established ground truth to assess the quality of extracted knowledge graphs based on accuracy, ontology conformance and hallucination. Research utilizing this benchmark, such as the development of the specialized language model T5 [Domain Ontology-Driven Knowledge Graph Generation from Text], underscores the ongoing efforts to improve the accuracy and reliability of ontology-driven KG generation using advanced language models. These studies often experiment with different prompting strategies and model architectures to optimize the extraction process.
 
+Several recent studies have explored the use of Large Language Models (LLMs) for knowledge graph generation. \cite{xu2024chattf} demonstrates an end-to-end intelligent question answering system for Chinese traditional folklore. Their approach utilizes a two-stage prompting method guided by an ontology derived from CIDOC-CRM to extract knowledge graph triplets from scraped web content about Chinese traditional folklore. [Transforming Indonesian Geography Education Books Into Knowledge Graphs Using ChatGPT LLMs] further illustrates the effectiveness of LLMs in extracting knowledge graphs, though this case used an ontology-free method. These examples highlight the potential of LLMs to construct ontology-conformant knowledge graphs in their respective domains.
 
-% Note that the IEEE does not put floats in the very first column
-% - or typically anywhere on the first page for that matter. Also,
-% in-text middle ("here") positioning is typically not used, but it
-% is allowed and encouraged for Computer Society conferences (but
-% not Computer Society journals). Most IEEE journals/conferences use
-% top floats exclusively. 
-% Note that, LaTeX2e, unlike IEEE journals/conferences, places
-% footnotes above bottom floats. This can be corrected via the
-% \fnbelowfloat command of the stfloats package.
+Furthermore [Assessing LLMs suitability for knowledge graph completion] investigates the suitability of LLMs for knowledge graph completion tasks, demonstrating that well-crafted prompts, particularly those employing in-context learning and chain-of-thought techniques, can yield significant improvements. This highlights the importance of effective prompting methodologies in guiding LLMs to generate accurate and consistent knowledge graphs aligned with a given ontology.
 
+The potential of LLMs to understand and classify terms according to established ontologies like CIDOC CRM has also been shown by [Leveraging Large Language Models for Classification of Cultural Heritage Domain Terms: A Case Study on CIDOC CRM].
 
+Our research focuses on the extraction of knowledge graphs from museum archives using an ontology derived from the CIDOC-CRM. Unlike the two-stage prompting approach employed by [ChatTf], we explore the effectiveness of a single-stage prompting method. Moreover, our study incorporates a comprehensive evaluation strategy that includes both intrinsic (ontology conformance) and extrinsic (KBQA task) metrics.
 
+\section{Methods}
 
-\section{Conclusion}
-The conclusion goes here.
+The methodology is structured around the following key steps: ontology and dataset construction, knowledge graph generation (ontology-driven and ontology-free), and knowledge graph evaluation (intrinsic and extrinsic).
 
+\subsection{Ontology Construction}
 
+This study employs the CIDOC Conceptual Reference Model (CRM) [cite CIDOC-CRM standard] to structure the knowledge graphs extracted from cultural heritage texts. We derived a smaller ontology for use within our LLM prompting framework, specialized to our specific data source: Museum Nasional web pages describing collection items. While the primary reason was to save token costs, as the ontology must be supplied in each extraction prompt, this aligns with typical implementations where the full CRM is specialized for particular applications [cite].
 
+Our derived ontology profile was constructed by identifying the CIDOC-CRM classes and properties most relevant to describing museum objects, their history, and cultural context based on the expected content of the source material. The selection included core entities for physical objects, actors, places, and time-spans, key events related to object lifecycle and provenance (like production, acquisition, modification), and essential descriptive concepts (such as materials, types, titles, and dimensions).
 
-% conference papers do not normally have an appendix
+\subsection{Dataset Construction}
 
+The museum's official public website contains a wealth of information about its collection, with many exhibits and artifacts having dedicated articles. These articles were used to construct a dataset of textual information from the museum's collection, with each entry representing a complete article dedicated to a particular item.
 
-% use section* for acknowledgment
-\section*{Acknowledgment}
+A custom Question-Answering (QA) dataset was also created to test knowledge about the information contained within the museum archives and to evaluate whether a knowledge graph contains the expected information from the source text. The QA dataset includes multiple-choice questions that assess both individual item-specific facts as well as comparative facts across multiple items.
 
+\subsection{Knowledge Graph Generation}
 
-The authors would like to thank...
+We implemented two distinct approaches for generating knowledge graphs from the constructed dataset: an ontology-driven approach and a ontology-free approach. Both approaches utilized a single-stage prompting method.
 
+\subsubsection{Ontology-Guided}
 
+This approach leverages an ontology to guide the LLM in extracting structured information. The process consists of the following steps:
 
+\begin{enumerate}
+    \item Ontology Verbalization: The ontology is verbalized into a natural language description.
+    \item System Prompt Construction: A system prompt is constructed from the following elements
+          \begin{itemize}
+              \item A clear task description instructing the LLM to extract entities and relationships from the input text and represent them as a knowledge graph adhering to the provided ontology.
+              \item Example input-output pairs demonstrating the desired output format.
+              \item The verbalized ontology, appended at the end of the system prompt.
+          \end{itemize}
+    \item Chat History Initialization: The chat history is initialized with an example input and output to serve as an in-context learning mechanism.
+    \item Triplet Extraction: The system prompt, chat history and text chunk are sent to the LLM. The response is parsed as a list of triplets and serialized as a JSONL file where each line contains the triplets extracted from a chunk.
+\end{enumerate}
 
+\subsubsection{Ontology-Free}
 
-% trigger a \newpage just before the given reference
-% number - used to balance the columns on the last page
-% adjust value as needed - may need to be readjusted if
-% the document is modified later
-%\IEEEtriggeratref{8}
-% The "triggered" command can be changed if desired:
-%\IEEEtriggercmd{\enlargethispage{-5in}}
+The ontology-free approach aims to extract general knowledge graphs without specific guidance from the CIDOC-CRM ontology. It is nearly identical to the ontology-driven approach with the following key differences:
 
-% references section
+\begin{itemize}
+    \item The task description instructed the LLM to identify entities and relationships relevant to museum collections and exhibits in the input text.
+    \item The example input-output pairs demonstrated the extraction of general relationships without mapping them to a specific ontology.
+    \item No verbalized ontology was included in the system prompt.
+\end{itemize}
 
-% can use a bibliography generated by BibTeX as a .bbl file
-% BibTeX documentation can be easily obtained at:
-% http://mirror.ctan.org/biblio/bibtex/contrib/doc/
-% The IEEEtran BibTeX style support page is at:
-% http://www.michaelshell.org/tex/ieeetran/bibtex/
-%\bibliographystyle{IEEEtran}
-% argument is your BibTeX string definitions and bibliography database(s)
-%\bibliography{IEEEabrv,../bib/paper}
-%
-% <OR> manually copy in the resultant .bbl file
-% set second argument of \begin to the number of references
-% (used to reserve space for the reference number labels box)
-%\begin{thebibliography}{1}
-
-%\bibitem{IEEEhowto:kopka}
-%H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-%  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
-
-%\end{thebibliography}
-
-%Use the following steps for compiling bibtex file:
-%1. PDFLaTeX
-%2. BibTeX
-%3. PDFLaTeX
-%4. PDFLaTeX
+This ontology-free approach serves as a comparison point within the extrinsic evaluation, specifically to measure the impact of incorporating the ontology on KBQA performance, and indirectly, the accuracy of the knowledge graph.
 
 \bibliographystyle{IEEEtran}
 \bibliography{IEEEabrv,References}
 
 % that's all folks
 \end{document}
-
-
