@@ -196,7 +196,7 @@ This ontology was constructed by identifying the CIDOC-CRM classes and propertie
 
 \subsection{Dataset Construction}
 
-The museum's official public website contains a wealth of information about its collection, with many exhibits and artifacts having dedicated articles. These articles were used to construct a dataset of textual information from the museum's collection, with each entry representing a complete article dedicated to a particular item.
+The museum's official public website contains a wealth of information about its collection, with many exhibits and artifacts having dedicated articles. These articles were used to construct a dataset of textual information from the museum's collection. We collected 40 such articles such that each entry of the dataset represented a complete article dedicated to a particular item.
 
 A custom Question-Answering (QA) dataset was also created to test knowledge about the information contained within the museum archives and to evaluate whether a knowledge graph contains the expected information from the source text. The QA dataset includes 200 questions: 185 questions about individual item-specific facts, and 15 questions about comparative facts across multiple items.
 
@@ -217,7 +217,7 @@ This approach leverages an ontology to guide the LLM in extracting structured in
               \item The verbalized ontology, appended at the end of the system prompt.
           \end{itemize}
     \item Chat History Initialization: The chat history is initialized with an example input and output to serve as an in-context learning mechanism.
-    \item Triplet Extraction: The system prompt, chat history and text chunk are sent to the LLM. The response is parsed as a list of triplets.
+    \item Triplet Extraction: The system prompt, chat history and text chunk are sent to the LLM. The response is parsed as a JSON list of triplets.
 \end{enumerate}
 
 \subsubsection{Ontology-Free}
@@ -288,19 +288,19 @@ KBQA evaluation was performed on Deepseek V3 via DeepSeek Platform.
     \label{tab:oc_percent}
     \begin{tabular}{|l|c|c|c|}
         \hline
-        Graph       & Total Triplets & Valid Triplets & Score          \\
+        Graph       & Total Triplets & Valid Triplets & Valid Triplets (\%) \\
         \hline
-        Qwen 2.5 3B & 364            & 177            & 48.63          \\
+        Qwen 2.5 3B & 364            & 177            & 48.63               \\
         \hline
-        Llama 3 3B  & 417            & 218            & 52.28          \\
+        Llama 3 3B  & 417            & 218            & 52.28               \\
         \hline
-        Qwen 2.5 7B & 443            & 225            & 50.79          \\
+        Qwen 2.5 7B & 443            & 225            & 50.79               \\
         \hline
-        Llama 3 8B  & 519            & 332            & 63.97          \\
+        Llama 3 8B  & 519            & 332            & 63.97               \\
         \hline
-        DeepSeek V3 & 630            & 596            & 94.6           \\
+        DeepSeek V3 & 630            & 596            & 94.6                \\
         \hline
-        DeepSeek R1 & 630            & 622            & \textbf{98.73} \\
+        DeepSeek R1 & 630            & 622            & \textbf{98.73}      \\
         \hline
     \end{tabular}
 \end{table}
