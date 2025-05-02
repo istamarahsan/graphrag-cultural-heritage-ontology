@@ -136,7 +136,9 @@
 % As a general rule, do not put math, special symbols or citations
 % in the abstract
 \begin{abstract}
-    The abstract goes here.
+    The increasing volume of information in cultural heritage institutions necessitates effective knowledge management solutions. Knowledge graphs (KGs), particularly those aligned with ontologies like the CIDOC Conceptual Reference Model (CIDOC-CRM), offer a powerful framework for structuring and accessing this data. However, traditional KG construction is labor-intensive. Recent advancements in Large Language Models (LLMs) present an opportunity for automated knowledge extraction. This paper investigates the feasibility and effectiveness of using LLMs for constructing CIDOC-CRM knowledge graphs from museum archives, employing a single-stage in-context learning approach guided by a derived ontology. We present a case study using the online archives of the Museum Nasional in Jakarta, Indonesia. The constructed knowledge graphs are evaluated using both intrinsic (ontology conformance) and extrinsic (Knowledge Base Question Answering - KBQA) metrics.
+
+    Evaluation results demonstrate that larger LLMs achieve substantially higher ontology conformance (exceeding 90\%), which is essential for ensuring semantic consistency. KBQA evaluation revealed a notable baseline performance by LLMs without explicit graph context, suggesting inherent knowledge. While graphs by larger models generally yielded higher KBQA scores, the performance difference between ontology-guided and ontology-free generated graphs was found to be marginal. This research underscores the potential of LLMs for generating ontology-conformant KGs within the cultural heritage domain and highlights the necessity for more sophisticated evaluation benchmarks to comprehensively assess CIDOC-CRM KG generation methods.
 \end{abstract}
 
 % no keywords
@@ -395,6 +397,14 @@ The general trend on KBQA results is that larger models tend to yield better KBQ
 Comparing the ontology-free and guided approaches, while ontology-free graphs achieve marginally scores, the overall difference remains small. This close performance between ontology-free and ontology-guided graphs has important implications. It suggests that while enforcing ontological structure does not impede the extraction of answerable information, it also doesn't provide a substantial boost in question-answering accuracy in this specific evaluation setting. This could be due to several factors, including the nature of the questions asked, the effectiveness of the ontology integration in the prompting process, or the inherent ability of the LLMs to extract relevant information even without explicit ontological guidance.
 
 \section{Conclusion}
+
+This paper explored the use of Large Language Models for automatically constructing knowledge graphs from museum archives, focusing on the CIDOC-CRM ontology. Our case study, conducted on the Museum Nasional in Jakarta's online archives, demonstrated the feasibility of a single-stage prompting approach for extracting structured information as knowledge graph triplets.
+
+Our findings indicate a disparity in LLM capabilities: while smaller models can extract factual information, adhering to the complex constraints of the CIDOC-CRM ontology is only achievable by larger models. This highlights the enhanced capacity of larger LLMs for accurate ontological interpretation and application. Ultimately, this research underscores the significant potential of LLMs to generate meaningful, ontology-conformant knowledge graphs, offering a promising route for cultural heritage institutions to improve data management and access.
+
+The practical value of the generated knowledge graphs was evaluated through a Knowledge Base Question Answering task. Interestingly, LLMs exhibited surprisingly strong baseline performance without the generated graphs, suggesting pre-existing knowledge of the museum's collections. While larger models showed improved KBQA accuracy, the impact of ontology guidance on this task was limited. This suggests that while crucial for semantic validity, ontology integration didn't significantly hinder factual information extraction in this evaluation. This also emphasizes the growing need for more sophisticated benchmarks that can better assess the benefits of ontology integration in KG generation from text.
+
+In conclusion, our study contributes to the growing field exploring the synergy of LLMs, ontologies, and knowledge graphs within the cultural heritage domain. The high ontology conformance achieved by larger LLMs demonstrates the potential for creating structurally sound CIDOC-CRM knowledge graphs automatically. The KBQA results indicate their utility in augmenting information retrieval. Future research should focus on refining ontology integration techniques, exploring benefits in complex reasoning, and evaluating scalability across diverse archives. The overarching aim is to leverage these technologies to significantly enhance cultural heritage data management, accessibility, and research.
 
 \bibliographystyle{IEEEtran}
 \bibliography{IEEEabrv,References}
