@@ -346,23 +346,23 @@ However, a significant performance gap exists between these smaller models and t
     \centering
     \caption{KBQA score (overall)}
     \label{tab:qa_percent}
-    \begin{tabular}{|l|c|c|}
+    \begin{tabular}{|l|c|c|r|}
         \hline
-        Graph       & Ontology-Free               & Ontology-Guided \\
+        Graph       & Ontology-Free               & Ontology-Guided & Impact \\
         \hline
-        Blank       & \multicolumn{2}{|c|}{60.50}                   \\
+        Blank       & \multicolumn{2}{|c|}{60.50} &                          \\
         \hline
-        Qwen 2.5 3B & 73.50                       & 68.50           \\
+        Qwen 2.5 3B & 73.50                       & 68.50           & -5.00  \\
         \hline
-        Llama 3 3B  & 79.50                       & 78.00           \\
+        Llama 3 3B  & 79.50                       & 78.00           & -1.50  \\
         \hline
-        Qwen 2.5 7B & 95.50                       & 87.50           \\
+        Qwen 2.5 7B & 95.50                       & 87.50           & -8.00  \\
         \hline
-        Llama 3 8B  & 92.00                       & 90.50           \\
+        Llama 3 8B  & 92.00                       & 90.50           & -1.50  \\
         \hline
-        DeepSeek V3 & \textbf{98.00}              & \textbf{97.50}  \\
+        DeepSeek V3 & \textbf{98.00}              & \textbf{97.50}  & -0.50  \\
         \hline
-        DeepSeek R1 & 97.50                       & 95.00           \\
+        DeepSeek R1 & 97.50                       & 95.00           & -2.50  \\
         \hline
     \end{tabular}
 \end{table}
@@ -371,23 +371,23 @@ However, a significant performance gap exists between these smaller models and t
     \centering
     \caption{KBQA score (single item)}
     \label{tab:qa_percent_single}
-    \begin{tabular}{|l|c|c|}
+    \begin{tabular}{|l|c|c|r|}
         \hline
-        Graph       & Ontology-Free               & Ontology-Guided \\
+        Graph       & Ontology-Free               & Ontology-Guided & Impact \\
         \hline
-        Blank       & \multicolumn{2}{|c|}{62.16}                   \\
+        Blank       & \multicolumn{2}{|c|}{62.16} &                          \\
         \hline
-        Qwen 2.5 3B & 72.97                       & 67.57           \\
+        Qwen 2.5 3B & 72.97                       & 67.57           & -5.40  \\
         \hline
-        Llama 3 3B  & 80.54                       & 78.92           \\
+        Llama 3 3B  & 80.54                       & 78.92           & -1.62  \\
         \hline
-        Qwen 2.5 7B & 95.68                       & 89.19           \\
+        Qwen 2.5 7B & 95.68                       & 89.19           & -6.49  \\
         \hline
-        Llama 3 8B  & 94.05                       & 91.89           \\
+        Llama 3 8B  & 94.05                       & 91.89           & -2.16  \\
         \hline
-        DeepSeek V3 & \textbf{100}                & \textbf{98.38}  \\
+        DeepSeek V3 & \textbf{100.00}             & \textbf{98.38}  & -1.62  \\
         \hline
-        DeepSeek R1 & 98.92                       & 96.22           \\
+        DeepSeek R1 & 98.92                       & 96.22           & -2.70  \\
         \hline
     \end{tabular}
 \end{table}
@@ -396,23 +396,23 @@ However, a significant performance gap exists between these smaller models and t
     \centering
     \caption{KBQA score (multi item)}
     \label{tab:qa_percent_multi}
-    \begin{tabular}{|l|c|c|}
+    \begin{tabular}{|l|c|c|r|}
         \hline
-        Graph       & Ontology-Free            & Ontology-Guided \\
+        Graph       & Ontology-Free            & Ontology-Guided & Impact \\
         \hline
-        Blank       & \multicolumn{2}{|c|}{40}                   \\
+        Blank       & \multicolumn{2}{|c|}{40} &                          \\
         \hline
-        Qwen 2.5 3B & 80                       & 80              \\
+        Qwen 2.5 3B & 80.00                    & 80.00           & 0.00   \\
         \hline
-        Llama 3 3B  & 66.67                    & 66.67           \\
+        Llama 3 3B  & 66.67                    & 66.67           & 0.00   \\
         \hline
-        Qwen 2.5 7B & \textbf{93.33}           & 66.67           \\
+        Qwen 2.5 7B & \textbf{93.33}           & 66.67           & -26.66 \\
         \hline
-        Llama 3 8B  & 66.67                    & 73.33           \\
+        Llama 3 8B  & 66.67                    & 73.33           & 6.66   \\
         \hline
-        DeepSeek V3 & 73.33                    & \textbf{86.67}  \\
+        DeepSeek V3 & 73.33                    & \textbf{86.67}  & 13.34  \\
         \hline
-        DeepSeek R1 & 80                       & 80              \\
+        DeepSeek R1 & 80.00                    & 80.00           & 0.00   \\
         \hline
     \end{tabular}
 \end{table}
