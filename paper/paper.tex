@@ -191,6 +191,13 @@ The methodology consists of the following key steps: ontology and dataset constr
 
 \subsection{Ontology Construction}
 
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=3in]{assets/ontology}
+    \caption{CIDOC-CRM Ontology}
+    \label{fig_ontology}
+\end{figure}
+
 This study employs the CIDOC Conceptual Reference Model (CRM) to structure the knowledge graphs extracted from cultural heritage texts. Due to the sheer size and complexity of the CIDOC-CRM, we derived a smaller ontology for use within our LLM prompting framework.
 
 This ontology was constructed by identifying the CIDOC-CRM classes and properties most relevant to describing museum objects, their history, and cultural context based on the expected content of the source material. The selection included core entities for physical objects, actors, places, and time-spans, key events related to object lifecycle and provenance (like production, acquisition, modification), and essential descriptive concepts (such as materials, types, titles, and dimensions).
