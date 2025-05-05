@@ -62,6 +62,7 @@
 
 %make sure in A4 paper
 \usepackage[left=1.57cm,right=1.57cm,top=0.95cm,bottom=2.54cm]{geometry}
+\usepackage{graphicx}
 
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
@@ -136,13 +137,12 @@
 % As a general rule, do not put math, special symbols or citations
 % in the abstract
 \begin{abstract}
-    The abstract goes here.
+    Museum archives contain vast amounts of cultural heritage information, but accessing, integrating and analyzing this data effectively remains challenging. Knowledge graphs (KGs), particularly those structured according to ontologies such as the CIDOC Conceptual Reference Model (CIDOC-CRM), offer a powerful solution through semantic representation, facilitating complex queries across diverse datasets. However, traditional KG construction is labor-intensive. Recent advancements in Large Language Models (LLMs) present an opportunity for automated knowledge extraction. This paper investigates the feasibility and effectiveness of using LLMs for constructing CIDOC-CRM knowledge graphs from museum archives, employing a single-stage in-context learning approach guided by a derived ontology. We present a case study using the online archives of the Museum Nasional in Jakarta, Indonesia. The constructed knowledge graphs are evaluated using both intrinsic (ontology conformance) and extrinsic (Knowledge Base Question Answering - KBQA) metrics.
+
+    Evaluation results show that larger models (e.g., DeepSeek R1) are capable of high ontology conformance (up to 98.73\%) while smaller models struggle to reach 50\% conformance. While all generated KGs improved KBQA performance over a no-context baseline, the ontology-guided approach showed limited and mixed impact on KBQA accuracy compared to the ontology-free graphs in our setup. This research underscores the potential of LLMs for generating ontology-conformant KGs within the cultural heritage domain and highlights the need for more sophisticated evaluation benchmarks to assess CIDOC-CRM KG generation methods.
 \end{abstract}
 
 % no keywords
-
-
-
 
 % For peer review papers, you can put extra information on the cover
 % page as needed:
@@ -157,6 +157,7 @@
 
 
 \section{Introduction}
+\label{sec:introduction}
 
 The increasing volume of information within cultural heritage institutions, such as museum archives, presents significant challenges for effective knowledge management and access \cite{alexiev2018museum}. Knowledge graphs (KGs) offer a powerful solution by representing entities and their relationships in a structured and machine-readable format, enabling advanced functionalities like semantic search, data integration, and reasoning \cite{hofer2024constructionofknowledge}. These structured representations are crucial for unlocking the potential of cultural heritage data and facilitating its wider use. Initiatives such as Linked Open Data (LOD) exemplify the application of knowledge graph principles to enhance data integration and interoperability across cultural heritage institutions \cite{pedro2013connectingthesmithsonian,dutia2021heritageconnector}. These efforts often leverage ontologies such as the CIDOC Conceptual Reference Model \cite{doerr2005thecidoc} (CRM) to provide a shared framework for describing cultural objects, events, and their interrelationships, facilitating interoperability and data sharing across institutions.
 
@@ -167,6 +168,7 @@ This paper investigates the feasibility and effectiveness of using LLMs to const
 To evaluate the constructed knowledge graphs, we employ both an intrinsic and extrinsic evaluation method. The intrinsic evaluation measures the conformance of the generated graphs to the CIDOC-CRM ontology. The extrinsic evaluation is conducted through a Knowledge Base Question Answering (KBQA) task, where we use the knowledge graph as context for an LLM to answer questions related to the museum collections. This study aims to contribute to the growing body of research on leveraging LLMs and ontologies for knowledge graph generation, specifically in the cultural heritage domain, with the motivation of improving the interoperability and accessibility of cultural heritage information across institutions.
 
 \section{Related Work}
+\label{sec:related_work}
 
 \subsection{Cultural Heritage Ontologies and Semantic Web}
 
@@ -178,15 +180,23 @@ The CIDOC Conceptual Reference Model \cite{doerr2005thecidoc} (CIDOC-CRM, ISO 21
 
 Ontology-guided knowledge graph generation focuses on leveraging formal ontologies to guide the extraction of structured knowledge from unstructured or semi-structured text. By providing a predefined schema of concepts and relationships, ontologies ensure that the generated knowledge graphs are semantically consistent, well-structured, and aligned with a specific domain \cite{hofer2024constructionofknowledge}.
 
-Several recent studies have explored the use of Large Language Models (LLMs) for knowledge graph generation. Xu et al \cite{xu2024chattf} utilize a two-stage prompting method guided by an ontology derived from CIDOC-CRM to extract knowledge graph triplets from textual data about Chinese traditional folklore. Beyond the cultural heritage domain, Van Cauter and Yakovets \cite{cauter2024ontology} demonstrate KG generation from maintenance short texts, while Carriero et al \cite{carriero2025humanevaluationofprocedural} construct KGs from procedural texts such as recipes or manuals. These studies often experiment with different prompting strategies to optimize the extraction process. In particular, Iga et al \cite{iga2024assessllm} demonstrate the impact of well-crafted prompts, specifically those employing in-context learning and chain-of-thought techniques, in yielding significant improvements. This highlights the importance of effective prompting methodologies to guide LLMs to generate accurate and consistent knowledge graphs aligned with a given ontology.
+Several recent studies have explored the use of Large Language Models (LLMs) for knowledge graph generation. Xu et al. \cite{xu2024chattf} utilize a two-stage prompting method guided by an ontology derived from CIDOC-CRM to extract knowledge graph triplets from textual data about Chinese traditional folklore. Beyond the cultural heritage domain, Van Cauter and Yakovets \cite{cauter2024ontology} demonstrate KG generation from maintenance short texts, while Carriero et al. \cite{carriero2025humanevaluationofprocedural} construct KGs from procedural texts such as recipes or manuals. These studies often experiment with different prompting strategies to optimize the extraction process. In particular, Iga et al. \cite{iga2024assessllm} demonstrate the impact of well-crafted prompts, specifically those employing in-context learning and chain-of-thought techniques, in yielding significant improvements. This highlights the importance of effective prompting methodologies to guide LLMs to generate accurate and consistent knowledge graphs aligned with a given ontology.
 
-Our research focuses on the extraction of knowledge graphs from museum archives using an ontology derived from the CIDOC-CRM. Unlike the two-stage prompting approach employed by \cite{xu2024chattf}, we explore the effectiveness of a single-stage prompting method. Moreover, our study incorporates a comprehensive evaluation strategy that includes both intrinsic (ontology conformance) and extrinsic (KBQA task) metrics.
+Our research focuses on the extraction of knowledge graphs from museum archives using an ontology derived from the CIDOC-CRM. Unlike the two-stage prompting approach employed by Xu et al. \cite{xu2024chattf}, we explore the effectiveness of a single-stage prompting method. Moreover, our study incorporates a comprehensive evaluation strategy that includes both intrinsic (ontology conformance) and extrinsic (KBQA task) metrics.
 
 \section{Methods}
+\label{sec:methods}
 
 The methodology consists of the following key steps: ontology and dataset construction, knowledge graph generation (ontology-driven and ontology-free), and knowledge graph evaluation (intrinsic and extrinsic).
 
 \subsection{Ontology Construction}
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=3in]{assets/ontology}
+    \caption{Ontology derived from CIDOC-CRM}
+    \label{fig_ontology}
+\end{figure}
 
 This study employs the CIDOC Conceptual Reference Model (CRM) to structure the knowledge graphs extracted from cultural heritage texts. Due to the sheer size and complexity of the CIDOC-CRM, we derived a smaller ontology for use within our LLM prompting framework.
 
@@ -194,7 +204,7 @@ This ontology was constructed by identifying the CIDOC-CRM classes and propertie
 
 \subsection{Dataset Construction}
 
-The museum's official public website contains a wealth of information about its collection, with many exhibits and artifacts having dedicated articles. These articles were used to construct a dataset of textual information from the museum's collection, with each entry representing a complete article dedicated to a particular item.
+The museum's official public website contains a wealth of information about its collection, with many exhibits and artifacts having dedicated articles. These articles were used to construct a dataset of textual information from the museum's collection. We collected 40 such articles such that each entry of the dataset represented a complete article dedicated to a particular item.
 
 A custom Question-Answering (QA) dataset was also created to test knowledge about the information contained within the museum archives and to evaluate whether a knowledge graph contains the expected information from the source text. The QA dataset includes 200 questions: 185 questions about individual item-specific facts, and 15 questions about comparative facts across multiple items.
 
@@ -215,7 +225,7 @@ This approach leverages an ontology to guide the LLM in extracting structured in
               \item The verbalized ontology, appended at the end of the system prompt.
           \end{itemize}
     \item Chat History Initialization: The chat history is initialized with an example input and output to serve as an in-context learning mechanism.
-    \item Triplet Extraction: The system prompt, chat history and text chunk are sent to the LLM. The response is parsed as a list of triplets.
+    \item Triplet Extraction: The system prompt, chat history and text chunk are sent to the LLM. The response is parsed as a JSON list of triplets.
 \end{enumerate}
 
 \subsubsection{Ontology-Free}
@@ -246,35 +256,46 @@ This task involved a curated set of 200 factual questions derived directly from 
 
 For each model tested, we produced two knowledge graphs: one constructed without explicit ontology guidance and another guided by our CIDOC-CRM-derived ontology. These two graphs, along with a no-context "blank" baseline, were evaluated on the KBQA task. The blank baseline involved querying the LLM directly with the questions, without providing any knowledge graph as context, serving as a control to gauge the model's inherent knowledge about the museum's collection.
 
-The KBQA task was executed by constructing a system prompt. For the ontology-guided and ontology-free knowledge graphs, the prompt included a verbalized representation of the respective graph as the primary context, instructing the LLM to answer each multiple-choice question (with options "A", "B", "C", or "D") using only the information provided in the context. Meanwhile, the no-context baseline prompt simply presented the question to the LLM without any additional context. The score for each question
+The KBQA task was executed by constructing a system prompt. For the ontology-guided and ontology-free knowledge graphs, the prompt included a verbalized representation of the respective graph as the primary context, instructing the LLM to answer each multiple-choice question (with options "A", "B", "C", or "D") using only the information provided in the context. Meanwhile, the no-context baseline prompt simply presented the question to the LLM without any additional context.
 
 The overall performance for each evaluated knowledge graph and the no-context baseline was then calculated as the percentage of questions answered correctly, resulting in a "single-item", "multi-item", and an overall accuracy score (out of 100). The final score for each question is determined by a "best-of-three" approach, requiring the LLM to answer correctly in at least two of three attempts.
 
 This methodology allowed us to quantitatively assess the extent to which the generated knowledge graphs, particularly the ontology-guided one, enhanced the LLM's ability to accurately retrieve and reason over information from the museum archives.
 
 \section{Experiment}
-
-We perform ontology-free and ontology-guided graph extraction on open-weight LLMs of various sizes, producing two graphs for each model. Specifically, we conducted experiments using Llama 3 \cite{grattafiori2024llama3herdmodels} (3B and 8B) and Qwen 2.5 \cite{qwen2025qwen25technicalreport} (3B and 7B) deployed on local hardware, and DeepSeek \cite{deepseekai2024deepseekv3technicalreport,deepseekai2025deepseekr1incentivizingreasoningcapability} models (V3 and R1) accessed via API endpoints. Each graph is then evaluated for ontology conformance and KBQA performance.
+\label{sec:experiment}
 
 \begin{table}[h]
     \centering
-    \caption{Models for Graph Generation}
+    \caption{Models used for Knowledge Graph Generation} % Updated caption slightly
     \label{tab:model_deployment}
     \begin{tabular}{ll}
         \hline
-        Model        & Deployment         \\
+        Model        & Deployment            \\
         \hline
-        Qwen 2.5 3B  & Ollama on RTX 3060 \\
-        Llama 3.2 3B & Ollama on RTX 3060 \\
-        Qwen 2.5 7B  & LM Studio          \\
-        Llama 3.1 8B & LM Studio          \\
-        DeepSeek V3  & DeepSeek Platform  \\
-        DeepSeek R1  & DeepSeek Platform  \\
+        Qwen 2.5 3B  & Ollama on RTX 3060    \\
+        Llama 3.2 3B & Ollama on RTX 3060    \\
+        Qwen 2.5 7B  & LM Studio on RTX 5090 \\
+        Llama 3.1 8B & LM Studio on RTX 5090 \\
+        DeepSeek V3  & DeepSeek Platform     \\
+        DeepSeek R1  & DeepSeek Platform     \\
         \hline
     \end{tabular}
 \end{table}
 
-KBQA evaluation was performed on Deepseek V3 via DeepSeek Platform.
+
+We conducted experiments involving two main stages: \textbf{knowledge graph generation} and \textbf{knowledge graph evaluation}.
+
+For the knowledge graph generation stage, we produced two sets of graphs from the collected textual dataset: one using an ontology-free approach and one using an ontology-guided approach. This generation was performed using open-weight LLMs of various sizes, specifically Llama 3 \cite{grattafiori2024llama3herdmodels} (3B and 8B) and Qwen 2.5 \cite{qwen2025qwen25technicalreport} (3B and 7B) deployed on local hardware, and DeepSeek \cite{deepseekai2024deepseekv3technicalreport,deepseekai2025deepseekr1incentivizingreasoningcapability} models (V3 and R1) accessed via API endpoints (Table \ref{tab:model_deployment}). In total, we generated twelve knowledge graphs: an ontology-free and an ontology-guided graph for each of the six listed models.
+
+These constructed knowledge graphs were then subjected to evaluation. The intrinsic evaluation (Ontology Conformance), as described in Section \ref{sec:methods}, was performed on the ontology-guided graphs generated by each model. For the extrinsic evaluation, the Knowledge Base Question Answering (KBQA) task was conducted. In this task, the DeepSeek V3 model, accessed via the DeepSeek Platform, was employed as the question-answering model. For each question in the curated dataset, the DeepSeek V3 model was prompted to provide an answer based on one of the following contexts:
+\begin{itemize}
+    \item A verbalized representation of the ontology-free knowledge graph generated by one of the six distinct models
+    \item A verbalized representation of the ontology-guided knowledge graph generated by one of the six distinct models
+    \item A blank context, where the DeepSeek V3 model received only the question without any generated graph information
+\end{itemize}
+
+This setup allowed us to evaluate the question-answering performance when leveraging graphs generated by different models and approaches, comparing them against each other as well as a no-context "blank" scenario.
 
 \section{Results}
 
@@ -286,28 +307,42 @@ KBQA evaluation was performed on Deepseek V3 via DeepSeek Platform.
     \label{tab:oc_percent}
     \begin{tabular}{|l|c|c|c|}
         \hline
-        Graph       & Total Triplets & Valid Triplets & Score          \\
+        Graph       & Total Triplets & Valid Triplets & Valid Triplets (\%) \\
         \hline
-        Qwen 2.5 3B & 364            & 177            & 48.63          \\
+        Qwen 2.5 3B & 364            & 177            & 48.63               \\
         \hline
-        Llama 3 3B  & 417            & 218            & 52.28          \\
+        Llama 3 3B  & 417            & 218            & 52.28               \\
         \hline
-        Qwen 2.5 7B & 443            & 225            & 50.79          \\
+        Qwen 2.5 7B & 443            & 225            & 50.79               \\
         \hline
-        Llama 3 8B  & 519            & 332            & 63.97          \\
+        Llama 3 8B  & 519            & 332            & 63.97               \\
         \hline
-        DeepSeek V3 & 630            & 596            & 94.6           \\
+        DeepSeek V3 & 630            & 596            & 94.6                \\
         \hline
-        DeepSeek R1 & 630            & 622            & \textbf{98.73} \\
+        DeepSeek R1 & 630            & 622            & \textbf{98.73}      \\
         \hline
     \end{tabular}
 \end{table}
 
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=3in]{assets/graph-qwen3b-adze}
+    \caption{Ontology-guided graph from text "Adze" - Qwen2.5 3B}
+    \label{fig_graph_qwen3b_adze}
+\end{figure}
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=3in]{assets/graph-r1-adze}
+    \caption{Ontology-guided graph from text "Adze" - DeepSeek R1}
+    \label{fig_graph_r1_adze}
+\end{figure}
+
 Table \ref{tab:oc_percent} presents the ontology conformance scores for the knowledge graphs generated by the LLMs. Achieving high ontology conformance is a fundamental requirement for any viable method aiming to construct CIDOC-CRM knowledge graphs, as a knowledge graph that does not adhere to the ontology's specifications lacks the semantic consistency necessary for downstream use cases.
 
-The results clearly illustrate a positive correlation between the parameter size of the language model and the resulting ontology conformance. Smaller models, such as Qwen 2.5 3B (48.63\%) and Llama 3 3B (52.28\%), demonstrated considerably low conformance rates. Increasing the parameter count led to improvements, as seen with Qwen 2.5 7B (50.79\%) and Llama 3 8B (63.97\%).
+The results clearly illustrate a positive correlation between the parameter size of the language model and the resulting ontology conformance. Smaller models, such as Qwen 2.5 3B (48.63\%) and Llama 3 3B (52.28\%) performed with considerably low conformance rates, while increasing the parameter count led to improvements as seen with Qwen 2.5 7B (50.79\%) and Llama 3 8B (63.97\%). Figures \ref{fig_graph_qwen3b_adze} and \ref{fig_graph_r1_adze} visually demonstrate this difference, showing example triplets extracted from the same source text about "Adze"\footnote{https://www.museumnasional.or.id/604/}.
 
-However, a significant performance gap exists between these smaller models and the larger DeepSeek models. DeepSeek V3 achieved a high score of 94.6\%, and DeepSeek R1 reached an impressive \textbf{98.73\%} ontology conformance. This suggests that accurately interpreting and applying ontology constraints remains a considerably more challenging task for smaller language models.
+However, a significant performance gap exists between these smaller models and the larger DeepSeek models. DeepSeek V3 achieved a high score of 94.6\%, and DeepSeek R1 reached an impressive \textbf{98.73\%} ontology conformance. This suggests that accurately interpreting and applying ontology constraints remains a considerably more challenging task for smaller language models compared to their larger counterparts.
 
 \subsection{KBQA Evaluation}
 
@@ -315,23 +350,23 @@ However, a significant performance gap exists between these smaller models and t
     \centering
     \caption{KBQA score (overall)}
     \label{tab:qa_percent}
-    \begin{tabular}{|l|c|c|}
+    \begin{tabular}{|l|c|c|r|}
         \hline
-        Graph       & Ontology-Free               & Ontology-Guided \\
+        Graph       & Ontology-Free               & Ontology-Guided & Impact \\
         \hline
-        Blank       & \multicolumn{2}{|c|}{60.50}                   \\
+        Blank       & \multicolumn{2}{|c|}{60.50} &                          \\
         \hline
-        Qwen 2.5 3B & 73.50                       & 68.50           \\
+        Qwen 2.5 3B & 73.50                       & 68.50           & -5.00  \\
         \hline
-        Llama 3 3B  & 79.50                       & 78.00           \\
+        Llama 3 3B  & 79.50                       & 78.00           & -1.50  \\
         \hline
-        Qwen 2.5 7B & 95.50                       & 87.50           \\
+        Qwen 2.5 7B & 95.50                       & 87.50           & -8.00  \\
         \hline
-        Llama 3 8B  & 92.00                       & 90.50           \\
+        Llama 3 8B  & 92.00                       & 90.50           & -1.50  \\
         \hline
-        Deepseek V3 & \textbf{98.00}              & \textbf{97.50}  \\
+        DeepSeek V3 & \textbf{98.00}              & \textbf{97.50}  & -0.50  \\
         \hline
-        Deepseek R1 & 97.50                       & 95.00           \\
+        DeepSeek R1 & 97.50                       & 95.00           & -2.50  \\
         \hline
     \end{tabular}
 \end{table}
@@ -340,23 +375,23 @@ However, a significant performance gap exists between these smaller models and t
     \centering
     \caption{KBQA score (single item)}
     \label{tab:qa_percent_single}
-    \begin{tabular}{|l|c|c|}
+    \begin{tabular}{|l|c|c|r|}
         \hline
-        Graph       & Ontology-Free               & Ontology-Guided \\
+        Graph       & Ontology-Free               & Ontology-Guided & Impact \\
         \hline
-        Blank       & \multicolumn{2}{|c|}{62.16}                   \\
+        Blank       & \multicolumn{2}{|c|}{62.16} &                          \\
         \hline
-        Qwen 2.5 3B & 72.97                       & 67.57           \\
+        Qwen 2.5 3B & 72.97                       & 67.57           & -5.40  \\
         \hline
-        Llama 3 3B  & 80.54                       & 78.92           \\
+        Llama 3 3B  & 80.54                       & 78.92           & -1.62  \\
         \hline
-        Qwen 2.5 7B & 95.68                       & 89.19           \\
+        Qwen 2.5 7B & 95.68                       & 89.19           & -6.49  \\
         \hline
-        Llama 3 8B  & 94.05                       & 91.89           \\
+        Llama 3 8B  & 94.05                       & 91.89           & -2.16  \\
         \hline
-        Deepseek V3 & \textbf{100}                & \textbf{98.38}  \\
+        DeepSeek V3 & \textbf{100.00}             & \textbf{98.38}  & -1.62  \\
         \hline
-        Deepseek R1 & 98.92                       & 96.22           \\
+        DeepSeek R1 & 98.92                       & 96.22           & -2.70  \\
         \hline
     \end{tabular}
 \end{table}
@@ -365,36 +400,46 @@ However, a significant performance gap exists between these smaller models and t
     \centering
     \caption{KBQA score (multi item)}
     \label{tab:qa_percent_multi}
-    \begin{tabular}{|l|c|c|}
+    \begin{tabular}{|l|c|c|r|}
         \hline
-        Graph       & Ontology-Free            & Ontology-Guided \\
+        Graph       & Ontology-Free            & Ontology-Guided & Impact \\
         \hline
-        Blank       & \multicolumn{2}{|c|}{40}                   \\
+        Blank       & \multicolumn{2}{|c|}{40} &                          \\
         \hline
-        Qwen 2.5 3B & 80                       & 80              \\
+        Qwen 2.5 3B & 80.00                    & 80.00           & 0.00   \\
         \hline
-        Llama 3 3B  & 66.67                    & 66.67           \\
+        Llama 3 3B  & 66.67                    & 66.67           & 0.00   \\
         \hline
-        Qwen 2.5 7B & \textbf{93.33}           & 66.67           \\
+        Qwen 2.5 7B & \textbf{93.33}           & 66.67           & -26.66 \\
         \hline
-        Llama 3 8B  & 66.67                    & 73.33           \\
+        Llama 3 8B  & 66.67                    & 73.33           & 6.66   \\
         \hline
-        Deepseek V3 & 73.33                    & \textbf{86.67}  \\
+        DeepSeek V3 & 73.33                    & \textbf{86.67}  & 13.34  \\
         \hline
-        Deepseek R1 & 80                       & 80              \\
+        DeepSeek R1 & 80.00                    & 80.00           & 0.00   \\
         \hline
     \end{tabular}
 \end{table}
 
-The results of the Knowledge Base Question Answering (KBQA) task, designed to evaluate the practical utility of the generated knowledge graphs, are presented in Tables \ref{tab:qa_percent}, \ref{tab:qa_percent_single}, and \ref{tab:qa_percent_multi}. These tables report the overall accuracy, the accuracy on single-item questions, and the accuracy on multi-item questions, respectively, for both ontology-free and ontology-guided knowledge graphs generated by each tested LLM, in addition to the no-context "blank" test.
+The results of the Knowledge Base Question Answering (KBQA) task, designed to evaluate the practical utility of the generated knowledge graphs, are presented in Tables \ref{tab:qa_percent}, \ref{tab:qa_percent_single}, and \ref{tab:qa_percent_multi}. These tables report the overall accuracy (n=200), the accuracy on single-item questions (n=185), and the accuracy on multi-item questions (n=15), respectively, for both ontology-free and ontology-guided knowledge graphs generated by each tested LLM, in addition to the no-context "blank" test. Providing any graph as context significantly improved QA performance over the blank baseline, confirming the value of extracted knowledge. The blank baseline's reasonable performance, especially on single-item questions, suggests the evaluator model (DeepSeek V3) possesses some inherent knowledge related to the domain.
 
-A notable observation is the relatively high performance of the "Blank" baseline across all question types, particularly on the single-item questions (62.16\% accuracy). This suggests that the LLMs, even without access to the generated knowledge graphs, possess a significant amount of information relevant to the Museum Nasional collection, potentially acquired during their pretraining. It is also possible that a subset of the questions could be answered through general reasoning capabilities without specific knowledge of the museum's data. The lower performance of the "Blank" baseline on multi-item questions (40\% accuracy) indicates that these more complex queries necessitate the integration of information, which the models struggle with in the absence of context.
+Consistent with the ontology conformance results, larger models generally produced graphs that lead to better KBQA scores, although the performance gap between models was less pronounced here than in the conformance task. This indicates that even models struggling with strict ontology adherence can still extract useful factual information.
 
-The general trend on KBQA results is that larger models tend to yield better KBQA results. This aligns with the findings from the ontology conformance evaluation, suggesting that increased model capacity contributes to improved information extraction and reasoning capabilities. However, compared to ontology conformance, the differences are not so extreme. This suggests that while smaller models struggle to reason around ontology constraints, they still have reasonable capability to extract information.
+Comparing the generation approaches, ontology-free graphs surprisingly led to slightly better or equal overall and single-item KBQA performance across all models. This suggests that for retrieving specific facts, the added structure of the ontology-guided graphs did not translate into improved accuracy in this setup, and may have even slightly hindered it in some cases.
 
-Comparing the ontology-free and guided approaches, while ontology-free graphs achieve marginally scores, the overall difference remains small. This close performance between ontology-free and ontology-guided graphs has important implications. It suggests that while enforcing ontological structure does not impede the extraction of answerable information, it also doesn't provide a substantial boost in question-answering accuracy in this specific evaluation setting. This could be due to several factors, including the nature of the questions asked, the effectiveness of the ontology integration in the prompting process, or the inherent ability of the LLMs to extract relevant information even without explicit ontological guidance.
+The results for multi-item questions in particular were more varied. Some models benefited from ontology guidance, while others performed worse or showed no difference. However, conclusions drawn from this subset should be cautious due to the small number of multi-item questions (n=15). A larger, more diverse set of complex questions would be needed to reliably assess the impact of ontology guidance on reasoning across the graph.
+
+Overall, the KBQA results show that LLM-generated graphs enhance question answering, and larger models tend to perform better. However, no benefit from ontology guidance during generation for KBQA performance was consistently observed, and requires further investigation with a larger and more refined set of questions.
 
 \section{Conclusion}
+
+This paper explored the use of Large Language Models for automatically constructing knowledge graphs from museum archives, focusing on the CIDOC-CRM ontology. Our case study, conducted on the Museum Nasional in Jakarta's online archives, demonstrated the feasibility of a single-stage prompting approach for extracting structured information as knowledge graph triplets.
+
+Our findings indicate a disparity in LLM capabilities: while smaller models can extract factual information, adhering to the complex constraints of the CIDOC-CRM ontology is only achievable by larger models. This highlights the enhanced capacity of larger LLMs for accurate ontological interpretation and application. Ultimately, this research underscores the significant potential of LLMs to generate meaningful, ontology-conformant knowledge graphs, offering a promising route for cultural heritage institutions to improve data management and access.
+
+The practical value of the generated knowledge graphs was evaluated through a Knowledge Base Question Answering task. Interestingly, LLMs exhibited surprisingly strong baseline performance without the generated graphs, suggesting pre-existing knowledge of the museum's collections. While larger models showed improved KBQA accuracy, the impact of ontology guidance on this task was limited. This suggests that while crucial for semantic validity, ontology integration didn't significantly hinder factual information extraction in this evaluation. This also emphasizes the growing need for more sophisticated benchmarks that can better assess the quality of CIDOC-CRM knowledge graphs.
+
+Our study contributes to the growing field exploring the synergy between LLMs, ontologies, and knowledge graphs within the cultural heritage domain. Our results demonstrate the potential for creating structurally sound and accurate CIDOC-CRM knowledge graphs automatically. However, we still notice much room for improvement in how we evaluate CIDOC-CRM knowledge graph generation methods, particularly in areas beyond the metrics measured in this study, such as entity duplication - the same item appearing twice in the same graph under different names. Future research could also explore other ontology integration techniques, refine datasets, and evaluate the scalability of these approaches across diverse archives. The overarching aim is to leverage these technologies to enhance cultural heritage data management, accessibility, and research.
 
 \bibliographystyle{IEEEtran}
 \bibliography{IEEEabrv,References}
